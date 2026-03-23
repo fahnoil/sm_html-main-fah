@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind AI - Master Layout</title>
+    
+    <!-- Google Fonts: Sarabun (ฟอนต์มาตรฐาน) -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    
+</head>
+<body>
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- ==================== 1. SIDEBAR ==================== -->
+    <aside class="sidebar" id="sidebar">
+        <!-- Logo -->
+        <div class="sidebar-header">
+            <a href="#" class="app-logo">
+                <i class="fa-solid fa-shield-heart"></i>
+                <span class="app-text">SafeMind AI</span>
+            </a>
+        </div>
+
+        <!-- Menu List -->
+        <div class="sidebar-menu">
+            
+            <!-- Standalone Item: Dashboard -->
+            <a href="#" class="menu-item active">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <!-- Group 1: Patient Services -->
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left">
+                        <i class="fa-solid fa-users-viewfinder menu-icon"></i>
+                        <span>บริการผู้ป่วย</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="#" class="sub-menu-item">
+                        <span>ทะเบียนผู้ป่วย (Registry)</span>
+                    </a>
+                    <a href="#" class="sub-menu-item">
+                        <span>แจ้งเตือน & งาน</span>
+                        <span class="menu-badge">3</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Group 2: Clinical -->
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left">
+                        <i class="fa-solid fa-stethoscope menu-icon"></i>
+                        <span>งานคลินิก</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="#" class="sub-menu-item">
+                        <span>คัดกรอง & CRF</span>
+                    </a>
+                    <a href="#" class="sub-menu-item">
+                        <span>เยี่ยมบ้าน (Home Visit)</span>
+                    </a>
+                    <a href="#" class="sub-menu-item">
+                        <span>Telehealth</span>
+                    </a>
+                    <a href="#" class="sub-menu-item">
+                        <span>AI Risk Analysis</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Group 3: Data & GIS -->
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left">
+                        <i class="fa-solid fa-map-location-dot menu-icon"></i>
+                        <span>ข้อมูลภูมิสารสนเทศ</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="#" class="sub-menu-item">
+                        <span>Spot Map & GIS</span>
+                    </a>
+                    <a href="#" class="sub-menu-item">
+                        <span>PDW Search</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Group 4: Reports (New Separated Group) -->
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left">
+                        <i class="fa-solid fa-chart-pie menu-icon"></i>
+                        <span>รายงาน (Reports)</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="#" class="sub-menu-item">
+                        <span>รายงานภาพรวม (Overview)</span>
+                    </a>
+                    <a href="#" class="sub-menu-item">
+                        <span>สถิติผู้ป่วย (Patient Stats)</span>
+                    </a>
+                    <a href="#" class="sub-menu-item">
+                        <span>รายงานการเยี่ยม (Visits)</span>
+                    </a>
+                    <a href="#" class="sub-menu-item">
+                        <span>ประสิทธิภาพ AI (Analytics)</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Group 5: System (New Separated Group) -->
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left">
+                        <i class="fa-solid fa-gears menu-icon"></i>
+                        <span>ตั้งค่าระบบ (System)</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="#" class="sub-menu-item">
+                        <span>Knowledge Hub</span>
+                    </a>
+                    <a href="#" class="sub-menu-item">
+                        <span>ผู้ดูแลระบบ (Admin)</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-footer">
+            v1.0.0 (Release)
+        </div>
+    </aside>
+
+    <!-- ==================== 2. MAIN WRAPPER ==================== -->
+    <div class="main-wrapper">
+        
+        <!-- ==================== 3. HEADER ==================== -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="toggle-sidebar-btn" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="system-title">
+                    <h2>SafeMind AI <span class="env-badge">PROD</span></h2>
+                    <span>Smart Mental Health Ecosystem for SMI-V Care</span>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <!-- Notifications -->
+                <button class="nav-icon-btn">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="badge-dot"></span>
+                </button>
+
+                <!-- User Profile & Dropdown -->
+                <div class="user-dropdown-container">
+                    <div class="user-profile" onclick="toggleUserMenu()">
+                        <div class="user-info">
+                            <span class="user-name">นพ.สมชาย ใจดี</span>
+                            <span class="user-role">จิตแพทย์ (Psychiatrist)</span>
+                        </div>
+                        <div class="user-avatar">
+                            <i class="fa-regular fa-user"></i>
+                        </div>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: rgba(255, 255, 255, 0.8);"></i>
+                    </div>
+
+                    <!-- Dropdown Menu -->
+                    <div class="dropdown-menu" id="userMenu">
+                        <a href="#" class="dropdown-item">
+                            <i class="fa-regular fa-user"></i> ดูโปรไฟล์ (My Profile)
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fa-solid fa-gear"></i> ตั้งค่าบัญชี (Settings)
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="SafeMind_Login.html" class="dropdown-item danger">
+                            <i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ (Logout)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ==================== 4. CONTENT AREA (Dynamic Content Goes Here) ==================== -->
+        <div class="content-area">
+            
+            <!-- Breadcrumb Example -->
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i> หน้าหลัก / Dashboard
+            </div>
+
+            <!-- Content Placeholder (เนื้อหาหน้าจอต่างๆ จะถูกโหลดมาใส่ตรงนี้) -->
+            <div style="border: 2px dashed #ccc; border-radius: 8px; padding: 50px; text-align: center; color: #888; height: 80%;">
+                <h3>พื้นที่สำหรับแสดงผลเนื้อหา (Main Content Area)</h3>
+                <p>หน้า Dashboard, Registry, Reports ฯลฯ จะแสดงผลในส่วนนี้</p>
+                <button style="margin-top:20px; padding:10px 20px; background:var(--primary-color); color:fff; border:none; border-radius:5px; cursor:pointer;">ตัวอย่างปุ่ม Action</button>
+            </div>
+
+        </div>
+
+        <!-- ==================== 5. FLOATING AI ASSISTANTS ==================== -->
+        <div class="floating-assistants">
+            <!-- CareBear -->
+            <div class="assistant-item" onclick="openChat('carebear')">
+                <div class="assistant-tooltip">CareBear (น้องห่วงใย)</div>
+                <div class="assistant-avatar carebear">
+                    <i class="fa-solid fa-paw"></i>
+                    <div class="status-dot"></div>
+                </div>
+            </div>
+            
+            <!-- SafeBot -->
+            <div class="assistant-item" onclick="openChat('safebot')">
+                <div class="assistant-tooltip">SafeBot (ผู้ช่วย AI)</div>
+                <div class="assistant-avatar safebot">
+                    <i class="fa-solid fa-robot"></i>
+                    <div class="status-dot"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ==================== 6. CHAT WIDGET ==================== -->
+        <div class="chat-widget" id="chatWidget">
+            <div class="chat-header" id="chatHeader">
+                <div class="chat-bot-info">
+                    <div class="chat-avatar-small" id="chatAvatar">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="chat-title">
+                        <h4 id="chatName">SafeBot</h4>
+                        <span id="chatStatus">Online</span>
+                    </div>
+                </div>
+                <button class="close-chat-btn" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <!-- Messages go here -->
+            </div>
+            <div class="chat-footer">
+                <input type="text" id="chatInput" placeholder="พิมพ์ข้อความ..." onkeypress="handleEnter(event)">
+                <button id="chatSendBtn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+        <!-- ==================== 7. FOOTER ==================== -->
+        <footer class="main-footer">
+            <div>
+                <strong>Copyright &copy; 2025 SafeMind AI.</strong> โรงพยาบาลปากช่องนานา
+            </div>
+            <div>
+                Version 1.0.0 | PDPA Compliant
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript for Sidebar Toggle and Chat -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const body = document.body;
+
+            // ตรวจสอบขนาดหน้าจอ
+            if (window.innerWidth <= 992) {
+                // Mobile Mode: Toggle class 'open'
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('active');
+            } else {
+                // Desktop Mode: Toggle Mini Sidebar (Optional feature)
+                body.classList.toggle('collapsed-menu');
+            }
+        }
+
+        // Close sidebar when clicking overlay (Mobile)
+        document.getElementById('sidebarOverlay').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.remove('open');
+            this.classList.remove('active');
+        });
+
+        // --- User Menu Dropdown Logic ---
+        function toggleUserMenu() {
+            const menu = document.getElementById('userMenu');
+            menu.classList.toggle('show');
+        }
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function(e) {
+            const profile = document.querySelector('.user-profile');
+            const menu = document.getElementById('userMenu');
+            // If click target is not profile and not menu, hide menu
+            if (!profile.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove('show');
+            }
+        });
+
+        // --- Sidebar Collapsible Logic ---
+        function toggleGroup(header) {
+            // Find parent group
+            const group = header.parentElement;
+            group.classList.toggle('open');
+        }
+
+        // --- Chat Widget Logic ---
+        let currentBot = 'safebot'; // default
+
+        function toggleChat() {
+            const chatWidget = document.getElementById('chatWidget');
+            if (chatWidget.style.display === 'flex') {
+                chatWidget.style.display = 'none';
+            } else {
+                openChat(currentBot); // open last active bot or default
+            }
+        }
+
+        function openChat(botType) {
+            currentBot = botType;
+            const chatWidget = document.getElementById('chatWidget');
+            const chatHeader = document.getElementById('chatHeader');
+            const chatName = document.getElementById('chatName');
+            const chatAvatar = document.getElementById('chatAvatar');
+            const chatBody = document.getElementById('chatBody');
+            const sendBtn = document.getElementById('chatSendBtn');
+
+            // Reset Styles
+            chatHeader.classList.remove('carebear-theme');
+            sendBtn.classList.remove('carebear-theme');
+
+            if (botType === 'carebear') {
+                chatHeader.classList.add('carebear-theme');
+                sendBtn.classList.add('carebear-theme');
+                chatName.innerText = 'CareBear (น้องห่วงใย)';
+                chatAvatar.innerHTML = '<i class="fa-solid fa-paw"></i>';
+                
+                // If opening for first time or clear content (optional: persist chat)
+                if(chatBody.innerHTML.trim() === '') {
+                    addMessage('bot', 'สวัสดีค่ะ หนูแคร์แบร์ ยินดีรับฟังทุกเรื่องราวค่ะ 💖');
+                }
+            } else {
+                // SafeBot
+                chatName.innerText = 'SafeBot (ผู้ช่วย AI)';
+                chatAvatar.innerHTML = '<i class="fa-solid fa-robot"></i>';
+                
+                if(chatBody.innerHTML.trim() === '') {
+                    addMessage('bot', 'สวัสดีครับ SafeBot พร้อมให้บริการข้อมูลและประเมินความเสี่ยงครับ');
+                }
+            }
+            
+            chatWidget.style.display = 'flex';
+        }
+
+        function handleEnter(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (text === '') return;
+
+            // Add User Message
+            addMessage('user', text);
+            input.value = '';
+
+            // Simulate Bot Response
+            setTimeout(() => {
+                let reply = '';
+                if(currentBot === 'carebear') {
+                    reply = 'เข้าใจเลยค่ะ เป็นกำลังใจให้นะคะ 💕 (Empathy Mockup)';
+                } else {
+                    reply = 'รับทราบครับ กำลังประมวลผลข้อมูล... (AI Mockup)';
+                }
+                addMessage('bot', reply);
+            }, 1000);
+        }
+
+        function addMessage(sender, text) {
+            const chatBody = document.getElementById('chatBody');
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('message', sender);
+            
+            if(sender === 'user' && currentBot === 'carebear') {
+                msgDiv.classList.add('carebear-theme');
+            }
+
+            msgDiv.innerHTML = `
+                ${text}
+                <span class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+            `;
+            chatBody.appendChild(msgDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    </script>
+
+</body>
+</html>
+
+

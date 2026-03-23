@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind AI - คลังความรู้ (Knowledge Hub)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Noto Sans Thai -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- SweetAlert2 (for interactions) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+            background-color: #f8fafc;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f766e 0%, #0e7490 100%);
+        }
+        .category-btn.active {
+            background-color: #0e7490;
+            color: white;
+            border-color: #0e7490;
+        }
+        .play-btn-overlay {
+            background: rgba(0,0,0,0.3);
+            transition: background 0.3s;
+        }
+        .group:hover .play-btn-overlay {
+            background: rgba(0,0,0,0.5);
+        }
+        .mascot-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-teal-600 rounded-lg flex items-center justify-center text-white font-bold shadow-md">SM</div>
+                    <div>
+                        <h1 class="font-bold text-teal-800 leading-none text-lg">SafeMind AI</h1>
+                        <span class="text-xs text-slate-500">Knowledge Hub</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex gap-6">
+                    <a href="#" class="text-slate-600 hover:text-teal-600 font-medium">หน้าแรก</a>
+                    <a href="#" class="text-teal-600 font-bold border-b-2 border-teal-600">คลังความรู้</a>
+                    <a href="#" class="text-slate-600 hover:text-teal-600 font-medium">ตารางคลินิก</a>
+                    <a href="#" class="text-slate-600 hover:text-teal-600 font-medium">ติดต่อเรา</a>
+                </nav>
+
+                <!-- Emergency Button -->
+                <a href="tel:1669" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2 shadow-sm transition-colors">
+                    <i data-lucide="phone-call" class="w-4 h-4"></i>
+                    <span>ฉุกเฉิน 1669</span>
+                    &nbsp;
+                   
+                </a>
+                <a href="login.html" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2 shadow-sm transition-colors">
+                    <i data-lucide="user" class="w-4 h-4"></i>
+                    <span>เข้าสู่ระบบ</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="gradient-bg py-12 px-4 sm:px-6 lg:px-8 text-center relative overflow-hidden">
+        <!-- Decor balls -->
+        <div class="absolute top-0 left-0 w-32 h-32 bg-white opacity-10 rounded-full -translate-x-10 -translate-y-10"></div>
+        <div class="absolute bottom-0 right-0 w-48 h-48 bg-white opacity-10 rounded-full translate-x-10 translate-y-10"></div>
+
+        <div class="relative z-10 max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">คลังความรู้สุขภาพจิตและ SMI-V</h2>
+            <p class="text-teal-100 text-lg mb-8">เรียนรู้ เข้าใจ และดูแลผู้ป่วยจิตเวชในชุมชนไปด้วยกันกับ SafeMind AI</p>
+            
+            <!-- Search Bar -->
+            <div class="relative max-w-xl mx-auto">
+                <input type="text" id="searchInput" placeholder="ค้นหาบทความ, วิดีโอ, หรือคู่มือ..." class="w-full pl-12 pr-4 py-3 rounded-full shadow-lg border-none focus:ring-2 focus:ring-teal-300 outline-none text-slate-700">
+                <i data-lucide="search" class="absolute left-4 top-3.5 text-slate-400 w-5 h-5"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10">
+            <button class="category-btn active px-5 py-2 rounded-full border border-slate-200 text-slate-600 font-medium bg-white hover:bg-slate-50 transition-colors" onclick="filterContent('all', this)">
+                ทั้งหมด
+            </button>
+            <button class="category-btn px-5 py-2 rounded-full border border-slate-200 text-slate-600 font-medium bg-white hover:bg-slate-50 transition-colors" onclick="filterContent('video', this)">
+                <i data-lucide="play-circle" class="w-4 h-4 inline mr-1"></i> วิดีโอแนะนำ (5 เรื่อง)
+            </button>
+            <button class="category-btn px-5 py-2 rounded-full border border-slate-200 text-slate-600 font-medium bg-white hover:bg-slate-50 transition-colors" onclick="filterContent('family', this)">
+                <i data-lucide="heart-handshake" class="w-4 h-4 inline mr-1"></i> สำหรับญาติ/ผู้ดูแล
+            </button>
+            <button class="category-btn px-5 py-2 rounded-full border border-slate-200 text-slate-600 font-medium bg-white hover:bg-slate-50 transition-colors" onclick="filterContent('manual', this)">
+                <i data-lucide="book-open" class="w-4 h-4 inline mr-1"></i> คู่มือ/เอกสาร
+            </button>
+        </div>
+
+        <!-- Content Grid -->
+        <div id="contentGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- 1. Video: SMI-V คืออะไร -->
+            <div class="content-item bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden card-hover group cursor-pointer" data-category="video" onclick="openVideo('SMI-V คืออะไร?', 'วิดีโออธิบายความหมายของกลุ่มผู้ป่วย SMI-V และลักษณะสำคัญที่ต้องรู้')">
+                <div class="relative h-48 bg-slate-800 flex items-center justify-center">
+                    <img src="https://placehold.co/600x400/1e293b/ffffff?text=Video+Thumbnail" alt="Video" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                    <div class="play-btn-overlay absolute inset-0 flex items-center justify-center">
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-teal-600 shadow-lg">
+                            <i data-lucide="play" class="w-5 h-5 ml-1"></i>
+                        </div>
+                    </div>
+                    <span class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">05:20</span>
+                </div>
+                <div class="p-5">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-xs font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">Video 1/5</span>
+                        <span class="text-xs text-slate-400">12 ม.ค. 2568</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2 group-hover:text-teal-600 transition-colors">1. SMI-V คืออะไร?</h3>
+                    <p class="text-sm text-slate-600 line-clamp-2">ทำความเข้าใจผู้ป่วยจิตเวชที่มีความเสี่ยงก่อความรุนแรง (SMI-V) และความสำคัญของการรักษา</p>
+                </div>
+            </div>
+
+            <!-- 2. Video: 5 สัญญาณเตือน -->
+            <div class="content-item bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden card-hover group cursor-pointer" data-category="video" onclick="openVideo('5 สัญญาณเตือนอันตราย', 'เรียนรู้วิธีสังเกต 5 สัญญาณเตือนก่อนเกิดเหตุรุนแรง: ไม่นอน, หงุดหงิด, พูดคนเดียว, หวาดระแวง, เดินไปมา')">
+                <div class="relative h-48 bg-slate-800 flex items-center justify-center">
+                    <img src="https://placehold.co/600x400/991b1b/ffffff?text=5+Red+Flags" alt="Video" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                    <div class="play-btn-overlay absolute inset-0 flex items-center justify-center">
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-red-600 shadow-lg">
+                            <i data-lucide="play" class="w-5 h-5 ml-1"></i>
+                        </div>
+                    </div>
+                    <span class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">03:45</span>
+                </div>
+                <div class="p-5">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full">สำคัญมาก</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2 group-hover:text-teal-600 transition-colors">2. 5 สัญญาณเตือนที่ไม่ควรมองข้าม</h3>
+                    <p class="text-sm text-slate-600 line-clamp-2">สังเกตอาการเสี่ยง: ไม่หลับไม่นอน, หงุดหงิดฉุนเฉียว, พูดคนเดียว, หวาดระแวง, อยู่ไม่นิ่ง</p>
+                </div>
+            </div>
+
+            <!-- 3. Article: การดูแลที่บ้าน -->
+            <div class="content-item bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden card-hover flex flex-col" data-category="family">
+                <div class="h-48 bg-orange-100 flex items-center justify-center">
+                    <i data-lucide="home" class="w-16 h-16 text-orange-400"></i>
+                </div>
+                <div class="p-5 flex-grow">
+                     <div class="flex items-center gap-2 mb-2">
+                        <span class="text-xs font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full">บทความ</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">การดูแลผู้ป่วยจิตเวชที่บ้าน</h3>
+                    <p class="text-sm text-slate-600 mb-4">เทคนิคการสื่อสารเชิงบวก การจัดสิ่งแวดล้อมให้ปลอดภัย และการจัดการความเครียดของญาติ</p>
+                    <a href="#" class="text-teal-600 text-sm font-semibold hover:underline flex items-center mt-auto">อ่านเพิ่มเติม <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></a>
+                </div>
+            </div>
+
+            <!-- 4. Video: ความสำคัญของยา -->
+            <div class="content-item bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden card-hover group cursor-pointer" data-category="video" onclick="openVideo('ทำไมต้องกินยาต่อเนื่อง?', 'อธิบายกลไกของยาและการป้องกันอาการกำเริบ')">
+                <div class="relative h-48 bg-slate-800 flex items-center justify-center">
+                    <img src="https://placehold.co/600x400/1e40af/ffffff?text=Medication" alt="Video" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                    <div class="play-btn-overlay absolute inset-0 flex items-center justify-center">
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-teal-600 shadow-lg">
+                            <i data-lucide="play" class="w-5 h-5 ml-1"></i>
+                        </div>
+                    </div>
+                    <span class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">06:10</span>
+                </div>
+                <div class="p-5">
+                    <div class="flex items-center gap-2 mb-2">
+                         <span class="text-xs font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">Video 3/5</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2 group-hover:text-teal-600 transition-colors">3. ความสำคัญของการกินยา</h3>
+                    <p class="text-sm text-slate-600 line-clamp-2">ทำไมต้องกินยาต่อเนื่อง? ผลเสียของการหยุดยาเอง และวิธีจัดการเมื่อผู้ป่วยไม่ยอมกินยา</p>
+                </div>
+            </div>
+
+            <!-- 5. Manual: คู่มือญาติ -->
+            <div class="content-item bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden card-hover flex flex-col" data-category="manual">
+                <div class="h-48 bg-slate-100 flex items-center justify-center relative">
+                    <div class="w-24 h-32 bg-white shadow-md border border-slate-200 flex flex-col items-center justify-center text-center p-2">
+                        <span class="text-[8px] text-slate-400 uppercase">PDF Manual</span>
+                        <i data-lucide="file-text" class="w-8 h-8 text-teal-600 mb-2"></i>
+                        <span class="text-[10px] font-bold text-slate-700 leading-tight">คู่มือญาติ<br>SMI-V</span>
+                    </div>
+                    <span class="absolute bottom-2 right-2 bg-slate-200 text-slate-600 text-xs px-2 py-1 rounded">2.4 MB</span>
+                </div>
+                <div class="p-5 flex-grow">
+                     <div class="flex items-center gap-2 mb-2">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">เอกสารดาวน์โหลด</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">คู่มือสำหรับญาติและผู้ดูแล</h3>
+                    <p class="text-sm text-slate-600 mb-4">รวมเบอร์โทรฉุกเฉิน ขั้นตอนการส่งต่อ และความรู้พื้นฐานในการดูแลผู้ป่วย (ฉบับประชาชน)</p>
+                    <button class="w-full mt-auto bg-slate-800 text-white text-sm py-2 rounded-lg hover:bg-slate-900 transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i> ดาวน์โหลด PDF
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 6. Video: บทบาทชุมชน -->
+            <div class="content-item bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden card-hover group cursor-pointer" data-category="video" onclick="openVideo('ชุมชนช่วยอะไรได้บ้าง?', 'บทบาทของ อสม. เพื่อนบ้าน และผู้นำชุมชนในการช่วยสอดส่องดูแล')">
+                <div class="relative h-48 bg-slate-800 flex items-center justify-center">
+                    <img src="https://placehold.co/600x400/065f46/ffffff?text=Community" alt="Video" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                    <div class="play-btn-overlay absolute inset-0 flex items-center justify-center">
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-teal-600 shadow-lg">
+                            <i data-lucide="play" class="w-5 h-5 ml-1"></i>
+                        </div>
+                    </div>
+                    <span class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">04:30</span>
+                </div>
+                <div class="p-5">
+                    <div class="flex items-center gap-2 mb-2">
+                         <span class="text-xs font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">Video 5/5</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2 group-hover:text-teal-600 transition-colors">5. บทบาทครอบครัวและชุมชน</h3>
+                    <p class="text-sm text-slate-600 line-clamp-2">ชุมชนเข้มแข็ง ช่วยลดความรุนแรงได้อย่างไร? การสร้างความเข้าใจและลดการตีตราในชุมชน</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- No Results Message (Hidden by default) -->
+        <div id="noResults" class="hidden text-center py-20">
+            <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="search-x" class="w-8 h-8 text-slate-400"></i>
+            </div>
+            <h3 class="text-lg font-medium text-slate-600">ไม่พบข้อมูลที่ค้นหา</h3>
+            <p class="text-slate-400">ลองใช้คำค้นอื่น หรือเลือกหมวดหมู่ "ทั้งหมด"</p>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 py-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                    <div class="w-8 h-8 bg-teal-600 rounded-md flex items-center justify-center">SM</div>
+                    SafeMind AI
+                </h3>
+                <p class="text-sm text-slate-400 mb-4">
+                    โครงการพัฒนาระบบ SafeMind AI โรงพยาบาลปากช่องนานา <br>
+                    เพื่อการดูแลผู้ป่วยจิตเวชกลุ่มเสี่ยงสูงในชุมชน
+                </p>
+                <div class="flex gap-3">
+                    <a href="#" class="text-slate-400 hover:text-white"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white"><i data-lucide="globe" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">เมนูลัด</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-teal-400">หน้าแรก</a></li>
+                    <li><a href="#" class="hover:text-teal-400">คลังความรู้</a></li>
+                    <li><a href="#" class="hover:text-teal-400">ประเมินความเสี่ยง (สำหรับเจ้าหน้าที่)</a></li>
+                    <li><a href="#" class="hover:text-teal-400">นโยบายความเป็นส่วนตัว (PDPA)</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">ติดต่อฉุกเฉิน</h4>
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white">
+                            <i data-lucide="phone" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400">เจ็บป่วยฉุกเฉิน/อุบัติเหตุ</p>
+                            <p class="text-xl font-bold text-white">โทร 1669</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-teal-700 rounded-full flex items-center justify-center text-white">
+                            <i data-lucide="building-2" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400">รพ.ปากช่องนานา (จิตเวช)</p>
+                            <p class="text-sm font-bold text-white">044-311-xxx</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-xs text-slate-500 mt-10 border-t border-slate-800 pt-6">
+            &copy; 2025 SafeMind AI Project. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- SafeBot Chat Button (Sticky) -->
+    <div class="fixed bottom-6 right-6 z-50 group">
+        <div class="absolute bottom-full right-0 mb-3 w-64 bg-white p-3 rounded-xl shadow-xl border border-slate-100 hidden group-hover:block transition-all transform origin-bottom-right">
+            <p class="text-sm text-slate-600">
+                <strong>🤖 SafeBot:</strong> <br>
+                มีข้อสงสัยเกี่ยวกับ SMI-V หรือการดูแลผู้ป่วย? ถามผมได้เลยครับ!
+            </p>
+        </div>
+        <button class="bg-teal-600 hover:bg-teal-700 text-white p-4 rounded-full shadow-2xl flex items-center gap-2 transition-transform transform hover:scale-105 mascot-float" onclick="openChat()">
+            <i data-lucide="bot" class="w-6 h-6"></i>
+            <span class="font-bold hidden md:inline">ปรึกษา AI SafeBot</span>
+        </button>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        // Filter Logic
+        function filterContent(category, btnElement) {
+            // Active class toggle
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            const items = document.querySelectorAll('.content-item');
+            let visibleCount = 0;
+
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block'; // Or flex depending on layout, block works for grid child
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Handle No Results
+            const noRes = document.getElementById('noResults');
+            if(visibleCount === 0) noRes.classList.remove('hidden');
+            else noRes.classList.add('hidden');
+        }
+
+        // Search Logic (Simple text match)
+        document.getElementById('searchInput').addEventListener('keyup', function(e) {
+            const term = e.target.value.toLowerCase();
+            const items = document.querySelectorAll('.content-item');
+            let visibleCount = 0;
+
+            items.forEach(item => {
+                const title = item.querySelector('h3').innerText.toLowerCase();
+                const desc = item.querySelector('p').innerText.toLowerCase();
+                
+                // Reset category buttons visual state when searching
+                document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                
+                if (title.includes(term) || desc.includes(term)) {
+                    item.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+             const noRes = document.getElementById('noResults');
+            if(visibleCount === 0) noRes.classList.remove('hidden');
+            else noRes.classList.add('hidden');
+        });
+
+        // Interactions
+        function openVideo(title, desc) {
+            Swal.fire({
+                title: title,
+                html: `
+                    <div class="aspect-w-16 aspect-h-9 mb-4">
+                        <div class="w-full h-64 bg-slate-900 rounded-lg flex items-center justify-center text-white">
+                            (Video Player Placeholder)<br>
+                            ${title}
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600">${desc}</p>
+                `,
+                showCloseButton: true,
+                showConfirmButton: false,
+                width: 600
+            });
+        }
+
+        function openChat() {
+            Swal.fire({
+                icon: 'info',
+                title: 'SafeBot AI Chat',
+                text: 'ระบบ Chatbot จะเปิดขึ้นในหน้าต่างใหม่ (หรือเปิด Modal แชท)',
+                confirmButtonText: 'เริ่มสนทนา',
+                confirmButtonColor: '#0d9488'
+            });
+        }
+    </script>
+</body>
+</html>

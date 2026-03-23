@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind AI - บันทึกการเยี่ยมบ้าน</title>
+
+    <!-- Google Fonts: Sarabun -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/visit.css">
+</head>
+
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="app-logo">
+                <i class="fa-solid fa-shield-heart"></i>
+                <span class="app-text">SafeMind AI</span>
+            </a>
+        </div>
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item ">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <!-- Patient Group Open -->
+            <div class="nav-group  ">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-users-viewfinder menu-icon"></i><span>บริการผู้ป่วย</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Patient-Registry.html" class="sub-menu-item active">
+                        <span>ทะเบียนผู้ป่วย (Registry)</span>
+                    </a>
+                    <a href="AlertCenter.html" class="sub-menu-item">
+                        <span>แจ้งเตือน & งาน</span>
+                        <span class="menu-badge">3</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-group open">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-stethoscope menu-icon"></i><span>งานคลินิก</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Screening_CRF.html" class="sub-menu-item">
+                        <span>คัดกรอง & CRF</span>
+                    </a>
+                    <a href="Visit.html" class="sub-menu-item active">
+                        <span>เยี่ยมบ้าน (Home Visit)</span>
+                    </a>
+                    <a href="Telehealt.html" class="sub-menu-item">
+                        <span>Telehealth</span>
+                    </a>
+                    <a href="airisk.html" class="sub-menu-item">
+                        <span>AI Risk Analysis</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-map-location-dot menu-icon"></i><span>ข้อมูลภูมิสารสนเทศ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="SpotMap.html" class="sub-menu-item">
+                        <span>Spot Map & GIS</span>
+                    </a>
+                    <!-- <a href="#" class="sub-menu-item"><span>PDW Search</span></a> -->
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-chart-pie menu-icon"></i><span>รายงาน
+                            (Reports)</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="PDW_Search.html" class="sub-menu-item">
+                        <span>PDW Search</span>
+                    </a>
+                    <a href="rpt_01.html" class="sub-menu-item">
+                        <span>สถานการณ์และสถิติผู้ป่วย</span>
+                    </a>
+                    <a href="rpt_02.html" class="sub-menu-item">
+                        <span>ผลการดำเนินงาน </span>
+                    </a>
+                    <a href="rpt_03.html" class="sub-menu-item">
+                        <span>ข้อมูลเชิงคลินิกและปัจจัยเสี่ยง</span>
+                    </a>
+                    <a href="rpt_04.html" class="sub-menu-item">
+                        <span>ประสิทธิภาพระบบ</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-gears menu-icon"></i><span>ตั้งค่าระบบ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <!-- <a href="#" class="sub-menu-item"><span>Knowledge Hub</span></a> -->
+                    <a href="admin.html" class="sub-menu-item">
+                        <span>ผู้ดูแลระบบ (Admin)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-footer">v1.0.0 (Release)</div>
+    </aside>
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        <header class="top-header">
+            <div class="header-left">
+                <button class="toggle-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+                <div class="system-title">
+                    <h2>SafeMind AI <span class="env-badge">PROD</span></h2>
+                    <span>Smart Mental Health Ecosystem for SMI-V Care</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="nav-icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot"></span></button>
+                <div class="user-dropdown-container">
+                    <div class="user-profile" onclick="toggleUserMenu()">
+                        <div class="user-info"><span class="user-name">นพ.สมชาย ใจดี</span><span
+                                class="user-role">จิตแพทย์</span></div>
+                        <div class="user-avatar">S</div>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: rgba(255, 255, 255, 0.8);"></i>
+                    </div>
+                    <div class="dropdown-menu" id="userMenu">
+                        <a href="#" class="dropdown-item"><i class="fa-regular fa-user"></i> ดูโปรไฟล์</a>
+                        <a href="#" class="dropdown-item"><i class="fa-solid fa-gear"></i> ตั้งค่าบัญชี</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item danger"><i class="fa-solid fa-right-from-bracket"></i>
+                            ออกจากระบบ</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA: HOME VISIT -->
+        <div class="content-area">
+            <div class="breadcrumb">
+                <a href="SafeMind_Dashboard.html"><i class="fa-solid fa-house"></i> หน้าหลัก</a> /
+                <a href="SafeMind_PatientRegistry.html">ทะเบียนผู้ป่วย</a> /
+                <span>บันทึกเยี่ยมบ้าน</span>
+            </div>
+
+            <div class="visit-container">
+                <!-- Patient Info -->
+                <div class="patient-header">
+                    <div class="patient-avatar-lg">ส</div>
+                    <div class="patient-details">
+                        <h2>นายสมศักดิ์ รักสงบ (45 ปี) <span class="risk-badge" style="background: #dc3545;">High
+                                Risk</span></h2>
+                        <p><i class="fa-solid fa-location-dot"></i> 123 ม.4 ต.หนองสาหร่าย อ.ปากช่อง จ.นครราชสีมา</p>
+                    </div>
+                </div>
+
+                <!-- 1. Location Check-in -->
+                <div class="card">
+                    <div class="section-header"><i class="fa-solid fa-map-location-dot"></i> ระบุพิกัดการเยี่ยม (GPS
+                        Check-in)</div>
+                    <div class="map-placeholder">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/OpenStreetMap_Standard_Map.png"
+                            style="width:100%; height:100%; object-fit:cover; opacity:0.6;">
+                        <div style="position: absolute; color: var(--primary-color); font-size: 40px;"><i
+                                class="fa-solid fa-location-dot"></i></div>
+                        <div class="map-overlay">Accuracy: 5m</div>
+                    </div>
+                    <button class="btn-checkin" id="checkInBtn" onclick="toggleCheckIn()">
+                        <i class="fa-solid fa-location-crosshairs"></i> กดเพื่อ Check-in จุดเยี่ยม
+                    </button>
+                </div>
+
+                <form id="visitForm">
+                    <!-- 2. Visit Status -->
+                    <div class="card">
+                        <div class="section-header"><i class="fa-solid fa-user-check"></i> สถานะการพบผู้ป่วย</div>
+                        <div class="toggle-options">
+                            <div class="toggle-option active" onclick="selectStatus(this, 'found')">พบตัว</div>
+                            <div class="toggle-option" onclick="selectStatus(this, 'not_found')">ไม่พบ</div>
+                            <div class="toggle-option" onclick="selectStatus(this, 'moved')">ย้ายที่อยู่</div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Assessment (Hidden if not found) -->
+                    <div id="assessmentSection">
+                        <div class="card">
+                            <div class="section-header"><i class="fa-solid fa-clipboard-list"></i> การประเมินอาการ
+                                (Assessment)</div>
+
+                            <!-- Mental State -->
+                            <div class="input-group">
+                                <label class="input-label">สภาพจิตใจทั่วไป (Mental State)</label>
+                                <div class="toggle-options">
+                                    <div class="toggle-option active" onclick="selectOption(this)">สงบ/ปกติ</div>
+                                    <div class="toggle-option danger-opt" onclick="selectOption(this)">หงุดหงิด</div>
+                                    <div class="toggle-option danger-opt" onclick="selectOption(this)">ก้าวร้าว</div>
+                                    <div class="toggle-option danger-opt" onclick="selectOption(this)">ซึมเศร้า</div>
+                                </div>
+                            </div>
+
+                            <!-- Medication -->
+                            <div class="input-group">
+                                <label class="input-label">การรับประทานยา (Pill Count)</label>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="medCheck">
+                                    <label for="medCheck">กินยาสม่ำเสมอ (ยาเหลือตามจำนวนนัด)</label>
+                                </div>
+                                <div class="checkbox-item" style="border-color: #ffebee; background: #fffafa;">
+                                    <input type="checkbox" id="sideEffect">
+                                    <label for="sideEffect">มีอาการข้างเคียงจากยา (เช่น มือสั่น, เกร็ง)</label>
+                                </div>
+                            </div>
+
+                            <!-- Sleep -->
+                            <div class="input-group">
+                                <label class="input-label">การนอนหลับ</label>
+                                <select
+                                    style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-family: 'Sarabun';">
+                                    <option>หลับได้ดีปกติ (6-8 ชม.)</option>
+                                    <option>หลับยาก/ตื่นบ่อย</option>
+                                    <option>ไม่หลับเลย/นอนน้อยกว่า 4 ชม.</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 4. Evidence -->
+                        <div class="card">
+                            <div class="section-header"><i class="fa-solid fa-camera"></i> หลักฐานการเยี่ยม (Evidence)
+                            </div>
+                            <div class="upload-box">
+                                <i class="fa-solid fa-camera upload-icon"></i>
+                                <div>แตะเพื่อถ่ายรูป / อัปโหลด</div>
+                                <div style="font-size: 12px; margin-top: 5px;">(สภาพแวดล้อม / ซองยา)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Plan & Note -->
+                    <div class="card">
+                        <div class="section-header"><i class="fa-solid fa-pen-to-square"></i> สรุปและแผนการรักษา</div>
+                        <div class="input-group">
+                            <label class="input-label">บันทึกเพิ่มเติม (Nurse Note)</label>
+                            <textarea rows="3" placeholder="รายละเอียดเพิ่มเติม..."></textarea>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">วันนัดครั้งต่อไป</label>
+                            <input type="date">
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-cancel" onclick="window.history.back()">ยกเลิก</button>
+                        <button type="button" class="btn btn-submit" onclick="submitForm()">บันทึกข้อมูล</button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div style="height: 30px;"></div>
+        </div>
+
+        <footer class="main-footer">
+            <div><strong>Copyright &copy; 2025 SafeMind AI.</strong> โรงพยาบาลปากช่องนานา</div>
+            <div>Version 1.0.0 | PDPA Compliant</div>
+        </footer>
+    </div>
+
+    <script>
+        // Toggle Sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (window.innerWidth <= 992) {
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('active');
+            } else {
+                document.body.classList.toggle('collapsed-menu');
+            }
+        }
+        document.getElementById('sidebarOverlay').addEventListener('click',function () {
+            document.getElementById('sidebar').classList.remove('open');
+            this.classList.remove('active');
+        });
+
+        // Toggle User Menu
+        function toggleUserMenu() { document.getElementById('userMenu').classList.toggle('show'); }
+        window.addEventListener('click',function (e) {
+            if (!document.querySelector('.user-profile').contains(e.target) && !document.getElementById('userMenu').contains(e.target)) {
+                document.getElementById('userMenu').classList.remove('show');
+            }
+        });
+
+        function toggleGroup(header) { header.parentElement.classList.toggle('open'); }
+
+        // --- Home Visit Logic ---
+
+        function toggleCheckIn() {
+            const btn = document.getElementById('checkInBtn');
+            if (!btn.classList.contains('checked')) {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> กำลังระบุพิกัด...';
+                setTimeout(() => {
+                    btn.classList.add('checked');
+                    btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Check-in เรียบร้อย (10:45 น.)';
+                },1500);
+            }
+        }
+
+        function selectStatus(element,status) {
+            // Remove active from siblings
+            element.parentNode.querySelectorAll('.toggle-option').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+
+            // Show/Hide Assessment based on status
+            const assessmentDiv = document.getElementById('assessmentSection');
+            if (status === 'not_found' || status === 'moved') {
+                assessmentDiv.style.display = 'none';
+            } else {
+                assessmentDiv.style.display = 'block';
+            }
+        }
+
+        function selectOption(element) {
+            element.parentNode.querySelectorAll('.toggle-option').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function submitForm() {
+            const checkInBtn = document.getElementById('checkInBtn');
+            if (!checkInBtn.classList.contains('checked')) {
+                alert('กรุณา Check-in พิกัดสถานที่ก่อนบันทึกข้อมูล');
+                return;
+            }
+            alert('บันทึกข้อมูลการเยี่ยมบ้านเรียบร้อยแล้ว!');
+            window.location.href = 'SafeMind_Dashboard.html';
+        }
+    </script>
+</body>
+
+</html>

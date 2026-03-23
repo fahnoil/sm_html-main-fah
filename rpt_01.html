@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind AI - รายงานสถิติผู้ป่วย</title>
+
+    <!-- Google Fonts: Sarabun -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/rpt_01.css">
+</head>
+
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="app-logo">
+                <i class="fa-solid fa-shield-heart"></i>
+                <span class="app-text">SafeMind AI</span>
+            </a>
+        </div>
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item ">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <!-- Patient Group Open -->
+            <div class="nav-group  ">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-users-viewfinder menu-icon"></i><span>บริการผู้ป่วย</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Patient-Registry.html" class="sub-menu-item  ">
+                        <span>ทะเบียนผู้ป่วย (Registry)</span>
+                    </a>
+                    <a href="AlertCenter.html" class="sub-menu-item">
+                        <span>แจ้งเตือน & งาน</span>
+                        <span class="menu-badge">3</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-stethoscope menu-icon"></i><span>งานคลินิก</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Screening_CRF.html" class="sub-menu-item">
+                        <span>คัดกรอง & CRF</span>
+                    </a>
+                    <a href="Visit.html" class="sub-menu-item">
+                        <span>เยี่ยมบ้าน (Home Visit)</span>
+                    </a>
+                    <a href="Telehealt.html" class="sub-menu-item">
+                        <span>Telehealth</span>
+                    </a>
+                    <a href="airisk.html" class="sub-menu-item">
+                        <span>AI Risk Analysis</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-map-location-dot menu-icon"></i><span>ข้อมูลภูมิสารสนเทศ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="SpotMap.html" class="sub-menu-item">
+                        <span>Spot Map & GIS</span>
+                    </a>
+                    <!-- <a href="#" class="sub-menu-item"><span>PDW Search</span></a> -->
+                </div>
+            </div>
+            <div class="nav-group open">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-chart-pie menu-icon"></i><span>รายงาน
+                            (Reports)</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="PDW_Search.html" class="sub-menu-item  ">
+                        <span>PDW Search</span>
+                    </a>
+                    <a href="rpt_01.html" class="sub-menu-item active">
+                        <span>สถานการณ์และสถิติผู้ป่วย</span>
+                    </a>
+                    <a href="rpt_02.html" class="sub-menu-item">
+                        <span>ผลการดำเนินงาน </span>
+                    </a>
+                    <a href="rpt_03.html" class="sub-menu-item">
+                        <span>ข้อมูลเชิงคลินิกและปัจจัยเสี่ยง</span>
+                    </a>
+                    <a href="rpt_04.html" class="sub-menu-item">
+                        <span>ประสิทธิภาพระบบ</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-gears menu-icon"></i><span>ตั้งค่าระบบ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <!-- <a href="#" class="sub-menu-item"><span>Knowledge Hub</span></a> -->
+                    <a href="admin.html" class="sub-menu-item">
+                        <span>ผู้ดูแลระบบ (Admin)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-footer">v1.0.0 (Release)</div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        <header class="top-header">
+            <div class="header-left">
+                <button class="toggle-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+                <div class="system-title">
+                    <h2>SafeMind AI <span class="env-badge">PROD</span></h2>
+                    <span>Smart Mental Health Ecosystem for SMI-V Care</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="nav-icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot"></span></button>
+                <div class="user-dropdown-container">
+                    <div class="user-profile" onclick="toggleUserMenu()">
+                        <div class="user-info"><span class="user-name">นพ.สมชาย ใจดี</span><span
+                                class="user-role">จิตแพทย์</span></div>
+                        <div class="user-avatar">S</div>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: rgba(255, 255, 255, 0.8);"></i>
+                    </div>
+                    <div class="dropdown-menu" id="userMenu">
+                        <a href="#" class="dropdown-item"><i class="fa-regular fa-user"></i> ดูโปรไฟล์</a>
+                        <a href="#" class="dropdown-item"><i class="fa-solid fa-gear"></i> ตั้งค่าบัญชี</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item danger"><i class="fa-solid fa-right-from-bracket"></i>
+                            ออกจากระบบ</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA: REPORT -->
+        <div class="content-area">
+            <div class="breadcrumb"><i class="fa-solid fa-house"></i> หน้าหลัก / รายงาน / สถิติสถานการณ์ผู้ป่วย</div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label class="filter-label">ปีงบประมาณ</label>
+                    <select class="filter-select">
+                        <option>2569 (ปัจจุบัน)</option>
+                        <option>2568</option>
+                        <option>2567</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">ช่วงเวลา</label>
+                    <select class="filter-select">
+                        <option>รายเดือน (Monthly)</option>
+                        <option>รายไตรมาส (Quarterly)</option>
+                        <option>ครึ่งปี (Half-Year)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">เดือน</label>
+                    <select class="filter-select">
+                        <option>มกราคม</option>
+                        <option>กุมภาพันธ์</option>
+                        <option>มีนาคม</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">พื้นที่ (District/Tambon)</label>
+                    <select class="filter-select">
+                        <option>ทั้งหมด (All)</option>
+                        <option>ปากช่อง</option>
+                        <option>หนองสาหร่าย</option>
+                        <option>หมูสี</option>
+                    </select>
+                </div>
+                <div class="filter-group" style="flex:0;">
+                    <label class="filter-label">&nbsp;</label>
+                    <button class="btn-filter"><i class="fa-solid fa-filter"></i> กรองข้อมูล</button>
+                </div>
+                <div class="filter-group" style="flex:0;">
+                    <label class="filter-label">&nbsp;</label>
+                    <button class="btn-filter btn-reset"><i class="fa-solid fa-rotate-right"></i> รีเซ็ต</button>
+                </div>
+            </div>
+
+            <!-- KPIs -->
+            <div class="kpi-grid">
+                <div class="kpi-card blue">
+                    <div class="kpi-header">
+                        <span class="kpi-title">ผู้ป่วยสะสม (Total Cases)</span>
+                        <i class="fa-solid fa-users kpi-icon"></i>
+                    </div>
+                    <div class="kpi-value">1,240</div>
+                    <div class="kpi-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> +1.2% YoY</div>
+                </div>
+                <div class="kpi-card purple">
+                    <div class="kpi-header">
+                        <span class="kpi-title">ผู้ป่วยรายใหม่ (New Cases)</span>
+                        <i class="fa-solid fa-user-plus kpi-icon"></i>
+                    </div>
+                    <div class="kpi-value">35</div>
+                    <div class="kpi-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> +5 ราย จากเดือนก่อน</div>
+                </div>
+                <div class="kpi-card red">
+                    <div class="kpi-header">
+                        <span class="kpi-title">กลุ่มเสี่ยงสูง (High Risk)</span>
+                        <i class="fa-solid fa-triangle-exclamation kpi-icon"></i>
+                    </div>
+                    <div class="kpi-value">45</div>
+                    <div class="kpi-trend trend-down"><i class="fa-solid fa-arrow-trend-down"></i> -2% (แนวโน้มดีขึ้น)
+                    </div>
+                </div>
+                <div class="kpi-card green">
+                    <div class="kpi-header">
+                        <span class="kpi-title">กำลังรักษา (Active Cases)</span>
+                        <i class="fa-solid fa-heart-pulse kpi-icon"></i>
+                    </div>
+                    <div class="kpi-value">1,180</div>
+                    <div class="kpi-trend trend-up">95.1% of Total</div>
+                </div>
+            </div>
+
+            <!-- Row 1: Demographics & Risk -->
+            <div class="chart-grid-2">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">สัดส่วนระดับความเสี่ยง (Risk Distribution)</div>
+                        <i class="fa-solid fa-ellipsis chart-action"></i>
+                    </div>
+                    <div style="height: 250px;">
+                        <canvas id="riskPieChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">แนวโน้มผู้ป่วยรายเดือน (Monthly Trend)</div>
+                        <i class="fa-solid fa-ellipsis chart-action"></i>
+                    </div>
+                    <div style="height: 250px;">
+                        <canvas id="trendLineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Diagnosis & Age -->
+            <div class="chart-grid-2">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">จำนวนผู้ป่วยแยกตามกลุ่มโรค (Diagnosis Group)</div>
+                    </div>
+                    <div style="height: 300px;">
+                        <canvas id="diagBarChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">ปิรามิดประชากร (Age & Gender)</div>
+                    </div>
+                    <div style="height: 300px;">
+                        <canvas id="agePyramidChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table Section -->
+            <div class="table-card">
+                <div class="table-header">
+                    <div class="table-title">สรุปข้อมูลรายพื้นที่ (Summary by Area)</div>
+                    <button class="btn-export"><i class="fa-solid fa-file-excel"></i> Export to Excel</button>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>พื้นที่ (District/Tambon)</th>
+                                <th>ผู้ป่วยทั้งหมด</th>
+                                <th>ชาย</th>
+                                <th>หญิง</th>
+                                <th>High Risk</th>
+                                <th>Moderate</th>
+                                <th>Low</th>
+                                <th>รายใหม่ (เดือนนี้)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>หนองสาหร่าย</td>
+                                <td>320</td>
+                                <td>180</td>
+                                <td>140</td>
+                                <td style="color:var(--danger-color); font-weight:bold;">15</td>
+                                <td>40</td>
+                                <td>265</td>
+                                <td>+3</td>
+                            </tr>
+                            <tr>
+                                <td>ปากช่อง</td>
+                                <td>450</td>
+                                <td>250</td>
+                                <td>200</td>
+                                <td style="color:var(--danger-color); font-weight:bold;">20</td>
+                                <td>55</td>
+                                <td>375</td>
+                                <td>+5</td>
+                            </tr>
+                            <tr>
+                                <td>หมูสี</td>
+                                <td>180</td>
+                                <td>100</td>
+                                <td>80</td>
+                                <td style="color:var(--danger-color); font-weight:bold;">8</td>
+                                <td>25</td>
+                                <td>147</td>
+                                <td>+1</td>
+                            </tr>
+                            <tr>
+                                <td>ขนงพระ</td>
+                                <td>290</td>
+                                <td>150</td>
+                                <td>140</td>
+                                <td style="color:var(--danger-color); font-weight:bold;">2</td>
+                                <td>0</td>
+                                <td>288</td>
+                                <td>0</td>
+                            </tr>
+                            <tr style="background-color: #f0f7ff; font-weight: bold;">
+                                <td>รวมทั้งหมด (Total)</td>
+                                <td>1,240</td>
+                                <td>680</td>
+                                <td>560</td>
+                                <td>45</td>
+                                <td>120</td>
+                                <td>1,075</td>
+                                <td>+9</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="main-footer">
+            <div><strong>Copyright &copy; 2025 SafeMind AI.</strong> โรงพยาบาลปากช่องนานา</div>
+            <div>Version 1.0.0 | PDPA Compliant</div>
+        </footer>
+    </div>
+
+    <!-- AI Assistants & Chat -->
+    <div class="floating-assistants">
+        <div class="assistant-item" onclick="openChat('carebear')">
+            <div class="assistant-tooltip">CareBear (น้องห่วงใย)</div>
+            <div class="assistant-avatar carebear"><i class="fa-solid fa-paw"></i>
+                <div class="status-dot"></div>
+            </div>
+        </div>
+        <div class="assistant-item" onclick="openChat('safebot')">
+            <div class="assistant-tooltip">SafeBot (ผู้ช่วย AI)</div>
+            <div class="assistant-avatar safebot"><i class="fa-solid fa-robot"></i>
+                <div class="status-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-widget" id="chatWidget" style="display: none;">
+        <div class="chat-header" id="chatHeader">
+            <div class="chat-bot-info">
+                <div class="chat-avatar-small" id="chatAvatar"><i class="fa-solid fa-robot"></i></div>
+                <div class="chat-title">
+                    <h4 id="chatName">SafeBot</h4><span id="chatStatus">Online</span>
+                </div>
+            </div>
+            <button class="close-chat-btn" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-footer"><input type="text" id="chatInput"><button id="chatSendBtn" onclick="sendMessage()"><i
+                    class="fa-solid fa-paper-plane"></i></button></div>
+    </div>
+
+    <script>
+        // Toggle Sidebar & User Menu
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (window.innerWidth <= 992) { sidebar.classList.toggle('open'); overlay.classList.toggle('active'); }
+            else { document.body.classList.toggle('collapsed-menu'); }
+        }
+        document.getElementById('sidebarOverlay').addEventListener('click',function () { document.getElementById('sidebar').classList.remove('open'); this.classList.remove('active'); });
+        function toggleUserMenu() { document.getElementById('userMenu').classList.toggle('show'); }
+        window.addEventListener('click',function (e) { if (!document.querySelector('.user-profile').contains(e.target) && !document.getElementById('userMenu').contains(e.target)) { document.getElementById('userMenu').classList.remove('show'); } });
+        function toggleGroup(header) { header.parentElement.classList.toggle('open'); }
+
+        // Chat Widget Logic
+        let currentBot = 'safebot';
+        function toggleChat() {
+            const widget = document.getElementById('chatWidget');
+            widget.style.display = widget.style.display === 'flex' ? 'none' : 'flex';
+            if (widget.style.display === 'flex') openChat(currentBot);
+        }
+        function openChat(botType) {
+            currentBot = botType;
+            const header = document.getElementById('chatHeader');
+            const sendBtn = document.getElementById('chatSendBtn');
+            const name = document.getElementById('chatName');
+            const avatar = document.getElementById('chatAvatar');
+            const body = document.getElementById('chatBody');
+
+            header.className = botType === 'carebear' ? 'chat-header carebear-theme' : 'chat-header';
+            sendBtn.className = botType === 'carebear' ? 'carebear-theme' : '';
+            name.innerText = botType === 'carebear' ? 'CareBear (น้องห่วงใย)' : 'SafeBot (ผู้ช่วย AI)';
+            avatar.innerHTML = botType === 'carebear' ? '<i class="fa-solid fa-paw"></i>' : '<i class="fa-solid fa-robot"></i>';
+            document.getElementById('chatWidget').style.display = 'flex';
+            if (body.innerHTML.trim() === '') addMessage('bot',botType === 'carebear' ? 'สวัสดีค่ะ หนูแคร์แบร์ ยินดีรับฟังทุกเรื่องราวค่ะ 💖' : 'สวัสดีครับ SafeBot พร้อมให้บริการข้อมูลและประเมินความเสี่ยงครับ');
+        }
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            addMessage('user',text);
+            input.value = '';
+            setTimeout(() => addMessage('bot',currentBot === 'carebear' ? 'เข้าใจเลยค่ะ เป็นกำลังใจให้นะคะ 💕' : 'รับทราบครับ กำลังประมวลผล...'),1000);
+        }
+        function addMessage(sender,text) {
+            const body = document.getElementById('chatBody');
+            const div = document.createElement('div');
+            div.className = `message ${sender} ${sender === 'user' && currentBot === 'carebear' ? 'carebear-theme' : ''}`;
+            div.innerHTML = `${text}<span class="message-time">${new Date().toLocaleTimeString([],{ hour: '2-digit',minute: '2-digit' })}</span>`;
+            body.appendChild(div);
+            body.scrollTop = body.scrollHeight;
+        }
+
+        // --- Charts Initialization ---
+        document.addEventListener('DOMContentLoaded',function () {
+            // 1. Risk Distribution (Doughnut)
+            new Chart(document.getElementById('riskPieChart'),{
+                type: 'doughnut',
+                data: {
+                    labels: ['High Risk','Moderate','Low Risk'],
+                    datasets: [{
+                        data: [45,120,1075],
+                        backgroundColor: ['#dc3545','#ffc107','#28a745'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'right' } }
+                }
+            });
+
+            // 2. Trend Line
+            new Chart(document.getElementById('trendLineChart'),{
+                type: 'line',
+                data: {
+                    labels: ['ต.ค.','พ.ย.','ธ.ค.','ม.ค.','ก.พ.','มี.ค.'],
+                    datasets: [
+                        { label: 'ผู้ป่วยใหม่',data: [15,20,25,35,30,28],borderColor: '#0056b3',tension: 0.4,fill: false },
+                        { label: 'ผู้ป่วยสะสม',data: [1100,1120,1145,1180,1210,1240],borderColor: '#17a2b8',borderDash: [5,5],tension: 0.4,fill: false,yAxisID: 'y1' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { type: 'linear',position: 'left' },y1: { type: 'linear',position: 'right',grid: { drawOnChartArea: false } } }
+                }
+            });
+
+            // 3. Diagnosis Bar
+            new Chart(document.getElementById('diagBarChart'),{
+                type: 'bar',
+                data: {
+                    labels: ['Schizophrenia','Bipolar','Drug Induced','Depression','Others'],
+                    datasets: [{
+                        label: 'จำนวนผู้ป่วย',
+                        data: [600,300,200,100,40],
+                        backgroundColor: ['#0056b3','#17a2b8','#ffc107','#6c757d','#e9ecef']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // 4. Age Pyramid (Mocked as Horizontal Bar)
+            new Chart(document.getElementById('agePyramidChart'),{
+                type: 'bar',
+                data: {
+                    labels: ['60+','50-59','40-49','30-39','20-29','<20'],
+                    datasets: [
+                        { label: 'ชาย',data: [-50,-80,-120,-150,-100,-30],backgroundColor: '#0056b3' },
+                        { label: 'หญิง',data: [60,90,110,130,90,20],backgroundColor: '#dc3545' }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { x: { stacked: true },y: { stacked: true } },
+                    plugins: { tooltip: { callbacks: { label: (c) => ` ${c.dataset.label}: ${Math.abs(c.raw)}` } } } // Format tooltip to show positive numbers
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

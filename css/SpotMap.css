@@ -1,0 +1,290 @@
+/* --- CONTENT AREA: MAP SPECIFIC --- */
+.content-area {
+    flex: 1;
+    padding: 0;
+    background-color: var(--bg-body);
+    position: relative;
+    height: 100%;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Floating Controls */
+.map-controls {
+    position: absolute;
+    top: 90px;
+    left: 20px;
+    z-index: 800;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.control-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    width: 260px;
+    transition: 0.3s;
+}
+
+.filter-group {
+    margin-bottom: 15px;
+}
+
+.filter-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    background: #f1f3f5;
+    color: #555;
+    border: 1px solid transparent;
+    transition: 0.2s;
+}
+
+.chip:hover {
+    background: #e9ecef;
+}
+
+.chip.active {
+    background: var(--primary-light);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    font-weight: 600;
+}
+
+select.map-select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-family: 'Sarabun';
+}
+
+/* Legend */
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    margin-bottom: 6px;
+    color: #555;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.dot.red {
+    background: var(--danger-color);
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
+}
+
+.dot.yellow {
+    background: var(--warning-color);
+}
+
+.dot.green {
+    background: var(--success-color);
+}
+
+/* Slide-in Detail Panel */
+.detail-panel {
+    position: absolute;
+    top: 90px;
+    right: -400px;
+    bottom: 30px;
+    width: 350px;
+    background: #fff;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+    border-radius: 12px 0 0 12px;
+    z-index: 850;
+    transition: right 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.detail-panel.open {
+    right: 0;
+}
+
+.panel-header {
+    padding: 20px;
+    background: var(--primary-color);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-close {
+    cursor: pointer;
+    font-size: 18px;
+    opacity: 0.8;
+    background: none;
+    border: none;
+    color: #fff;
+}
+
+.panel-close:hover {
+    opacity: 1;
+}
+
+.panel-content {
+    padding: 25px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.patient-img-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    margin-top: -50px;
+    background: #ddd;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.p-name {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.p-risk {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.p-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.p-badge.high {
+    background: #ffebee;
+    color: var(--danger-color);
+}
+
+.info-row {
+    margin-bottom: 15px;
+    font-size: 14px;
+    border-bottom: 1px solid #f9f9f9;
+    padding-bottom: 10px;
+}
+
+.info-label {
+    color: #888;
+    font-size: 12px;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.btn-action {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background: var(--primary-color);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: 0.2s;
+}
+
+.btn-action:hover {
+    background: var(--primary-dark);
+}
+
+.btn-secondary-action {
+    background: #fff;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-secondary-action:hover {
+    background: #f0f7ff;
+}
+
+/* Custom Marker */
+.custom-marker {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+}
+
+.marker-high {
+    background: var(--danger-color);
+    animation: pulse 2s infinite;
+}
+
+.marker-medium {
+    background: var(--warning-color);
+    color: #333;
+}
+
+.marker-low {
+    background: var(--success-color);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
+}
+
+/* FOOTER & WIDGETS (Same as Master) */

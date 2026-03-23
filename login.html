@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind AI - เข้าสู่ระบบ</title>
+
+    <!-- Google Fonts: Sarabun -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="login-card">
+        <div class="brand-logo">
+            <i class="fa-solid fa-shield-heart"></i>
+            <h1>SafeMind AI</h1>
+            <p>ระบบบริหารจัดการผู้ป่วย SMI-V โรงพยาบาลปากช่องนานา</p>
+        </div>
+
+        <form onsubmit="event.preventDefault(); show2FA();">
+            <div class="form-group">
+                <label class="form-label">ชื่อผู้ใช้งาน (Username)</label>
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" class="form-input" placeholder="ระบุ Username หรือ Email" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">รหัสผ่าน (Password)</label>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" class="form-input" placeholder="ระบุรหัสผ่าน" required>
+                </div>
+            </div>
+
+            <div class="pdpa-consent">
+                <input type="checkbox" id="pdpa" required>
+                <label for="pdpa">ข้าพเจ้ายินยอมให้เก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคลเพื่อการใช้งานระบบ ตาม <a
+                        href="#">นโยบายความเป็นส่วนตัว (PDPA Policy)</a></label>
+            </div>
+
+            <button type="submit" class="btn-login " onclick="window.location.href='dashboard.html'">เข้าสู่ระบบ <i class="fa-solid fa-arrow-right"></i></button>
+            <br>
+            <br>
+            <button type="submit" class="btn-login" onclick="window.location.href='dashboard.html'"> เข้าระบบด้วย thaiID <i
+                    class="fa-solid fa-arrow-right"></i></button>
+
+            <div class="links">
+                <a href="#">ลืมรหัสผ่าน?</a> | <a href="#">ติดต่อผู้ดูแลระบบ</a>
+            </div>
+        </form>
+
+        <div style="margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 15px;">
+            <p style="font-size: 12px; color: #999;">SafeMind AI v1.0.2 © 2025<br>Support: IT Center Pakchong Nana
+                Hospital</p>
+        </div>
+    </div>
+
+    <!-- 2FA Modal -->
+    <div class="modal" id="modal2FA">
+        <div class="modal-content">
+            <i class="fa-solid fa-mobile-screen-button"
+                style="font-size: 40px; color: var(--primary-color); margin-bottom: 15px;"></i>
+            <h3>ยืนยันตัวตน 2 ขั้นตอน (2FA)</h3>
+            <p style="font-size: 13px; color: #666;">กรุณากรอกรหัส OTP 6 หลักที่ส่งไปยัง SMS เบอร์ XX-XXXX-8899</p>
+
+            <div class="otp-inputs">
+                <input type="text" class="otp-input" maxlength="1">
+                <input type="text" class="otp-input" maxlength="1">
+                <input type="text" class="otp-input" maxlength="1">
+                <input type="text" class="otp-input" maxlength="1">
+                <input type="text" class="otp-input" maxlength="1">
+                <input type="text" class="otp-input" maxlength="1">
+            </div>
+
+            <button class="btn-login" onclick="window.location.href='SafeMind_Dashboard.html'">ยืนยันรหัส OTP</button>
+            <div style="margin-top: 15px; font-size: 13px;">
+                <a href="#" style="color: #666;">ส่งรหัสอีกครั้ง (59s)</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function show2FA() {
+            document.getElementById('modal2FA').style.display = 'flex';
+            // Focus first input
+            document.querySelector('.otp-input').focus();
+        }
+
+        // Auto focus next input
+        const inputs = document.querySelectorAll('.otp-input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('keyup', (e) => {
+                if (e.target.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

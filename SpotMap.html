@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind AI - Spot Map & Geo-Analytics</title>
+
+    <!-- Google Fonts: Sarabun -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Leaflet CSS (Map Library) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/SpotMap.css">
+</head>
+
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="app-logo">
+                <i class="fa-solid fa-shield-heart"></i>
+                <span class="app-text">SafeMind AI</span>
+            </a>
+        </div>
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item ">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <!-- Patient Group Open -->
+            <div class="nav-group  ">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-users-viewfinder menu-icon"></i><span>บริการผู้ป่วย</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Patient-Registry.html" class="sub-menu-item active">
+                        <span>ทะเบียนผู้ป่วย (Registry)</span>
+                    </a>
+                    <a href="AlertCenter.html" class="sub-menu-item">
+                        <span>แจ้งเตือน & งาน</span>
+                        <span class="menu-badge">3</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-group  ">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-stethoscope menu-icon"></i><span>งานคลินิก</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Screening_CRF.html" class="sub-menu-item">
+                        <span>คัดกรอง & CRF</span>
+                    </a>
+                    <a href="Visit.html" class="sub-menu-item  ">
+                        <span>เยี่ยมบ้าน (Home Visit)</span>
+                    </a>
+                    <a href="Telehealt.html" class="sub-menu-item">
+                        <span>Telehealth</span>
+                    </a>
+                    <a href="airisk.html" class="sub-menu-item">
+                        <span>AI Risk Analysis</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group open">
+                <div class="nav-header  " onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-map-location-dot menu-icon"></i><span>ข้อมูลภูมิสารสนเทศ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="SpotMap.html" class="sub-menu-item active">
+                        <span>Spot Map & GIS</span>
+                    </a>
+                    <!-- <a href="#" class="sub-menu-item"><span>PDW Search</span></a> -->
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-chart-pie menu-icon"></i><span>รายงาน
+                            (Reports)</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="PDW_Search.html" class="sub-menu-item">
+                        <span>PDW Search</span>
+                    </a>
+                    <a href="rpt_01.html" class="sub-menu-item">
+                        <span>สถานการณ์และสถิติผู้ป่วย</span>
+                    </a>
+                    <a href="rpt_02.html" class="sub-menu-item">
+                        <span>ผลการดำเนินงาน </span>
+                    </a>
+                    <a href="rpt_03.html" class="sub-menu-item">
+                        <span>ข้อมูลเชิงคลินิกและปัจจัยเสี่ยง</span>
+                    </a>
+                    <a href="rpt_04.html" class="sub-menu-item">
+                        <span>ประสิทธิภาพระบบ</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-gears menu-icon"></i><span>ตั้งค่าระบบ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <!-- <a href="#" class="sub-menu-item"><span>Knowledge Hub</span></a> -->
+                    <a href="admin.html" class="sub-menu-item">
+                        <span>ผู้ดูแลระบบ (Admin)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-footer">v1.0.0 (Release)</div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        <header class="top-header">
+            <div class="header-left">
+                <button class="toggle-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+                <div class="system-title">
+                    <h2>SafeMind AI <span class="env-badge">PROD</span></h2>
+                    <span>Smart Mental Health Ecosystem for SMI-V Care</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="nav-icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot"></span></button>
+                <div class="user-dropdown-container">
+                    <div class="user-profile" onclick="toggleUserMenu()">
+                        <div class="user-info"><span class="user-name">นพ.สมชาย ใจดี</span><span
+                                class="user-role">จิตแพทย์</span></div>
+                        <div class="user-avatar">S</div>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: rgba(255, 255, 255, 0.8);"></i>
+                    </div>
+                    <div class="dropdown-menu" id="userMenu">
+                        <a href="#" class="dropdown-item"><i class="fa-regular fa-user"></i> ดูโปรไฟล์</a>
+                        <a href="#" class="dropdown-item"><i class="fa-solid fa-gear"></i> ตั้งค่าบัญชี</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item danger"><i class="fa-solid fa-right-from-bracket"></i>
+                            ออกจากระบบ</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA: MAP -->
+        <div class="content-area">
+
+            <!-- Controls -->
+            <div class="map-controls">
+                <div class="control-card">
+                    <div class="filter-group">
+                        <span class="filter-label">ระดับความเสี่ยง (Risk Level)</span>
+                        <div class="filter-options">
+                            <span class="chip active" onclick="toggleFilter(this, 'all')">ทั้งหมด</span>
+                            <span class="chip" onclick="toggleFilter(this, 'high')">🔴 High</span>
+                            <span class="chip" onclick="toggleFilter(this, 'medium')">🟡 Med</span>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">พื้นที่ (Area/District)</span>
+                        <select class="map-select">
+                            <option>อ.ปากช่อง (ทั้งหมด)</option>
+                            <option>ต.หนองสาหร่าย</option>
+                            <option>ต.หมูสี</option>
+                            <option>ต.จันทึก</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-card" style="width: 180px;">
+                    <span class="filter-label">ข้อมูลสรุป (Summary)</span>
+                    <div class="legend-item">
+                        <div class="dot red"></div> High Risk: <strong>45</strong>
+                    </div>
+                    <div class="legend-item">
+                        <div class="dot yellow"></div> Moderate: <strong>120</strong>
+                    </div>
+                    <div class="legend-item">
+                        <div class="dot green"></div> Low Risk: <strong>1,075</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div id="map"></div>
+
+            <!-- Detail Panel (Slide-in) -->
+            <div class="detail-panel" id="detailPanel">
+                <div class="panel-header">
+                    <span style="font-weight: 600;">ข้อมูลผู้ป่วย (Detail)</span>
+                    <button class="panel-close" onclick="closePanel()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="panel-content">
+                    <img src="https://ui-avatars.com/api/?name=Somsak+Ruk&background=random" class="patient-img-large"
+                        id="pImg">
+                    <h2 class="p-name" id="pName">นายสมศักดิ์ รักสงบ</h2>
+                    <div class="p-risk"><span class="p-badge high" id="pRisk">High Risk</span></div>
+
+                    <div class="info-row">
+                        <span class="info-label">ที่อยู่ (Address)</span>
+                        <span id="pAddress">123 ม.4 ต.หนองสาหร่าย อ.ปากช่อง</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">การวินิจฉัย (Diagnosis)</span>
+                        <span id="pDiag">F20.0 Schizophrenia</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">สถานะการรักษา</span>
+                        <span style="color: #e67e22;"><i class="fa-solid fa-triangle-exclamation"></i>
+                            ขาดยาต่อเนื่อง</span>
+                    </div>
+
+                    <button class="btn-action" onclick="location.href='SafeMind_PatientProfile.html'">
+                        <i class="fa-solid fa-file-medical"></i> ดูประวัติละเอียด
+                    </button>
+                    <button class="btn-action btn-secondary-action" onclick="alert('เปิด Google Maps...')">
+                        <i class="fa-solid fa-location-arrow"></i> นำทาง (Navigate)
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- AI Assistants & Chat -->
+    <div class="floating-assistants">
+        <div class="assistant-item" onclick="openChat('carebear')">
+            <div class="assistant-tooltip">CareBear (น้องห่วงใย)</div>
+            <div class="assistant-avatar carebear"><i class="fa-solid fa-paw"></i>
+                <div class="status-dot"></div>
+            </div>
+        </div>
+        <div class="assistant-item" onclick="openChat('safebot')">
+            <div class="assistant-tooltip">SafeBot (ผู้ช่วย AI)</div>
+            <div class="assistant-avatar safebot"><i class="fa-solid fa-robot"></i>
+                <div class="status-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-widget" id="chatWidget" style="display: none;">
+        <div class="chat-header" id="chatHeader">
+            <div class="chat-bot-info">
+                <div class="chat-avatar-small" id="chatAvatar"><i class="fa-solid fa-robot"></i></div>
+                <div class="chat-title">
+                    <h4 id="chatName">SafeBot</h4><span id="chatStatus">Online</span>
+                </div>
+            </div>
+            <button class="close-chat-btn" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-footer"><input type="text" id="chatInput"><button id="chatSendBtn" onclick="sendMessage()"><i
+                    class="fa-solid fa-paper-plane"></i></button></div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Sidebar & UI Logic
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (window.innerWidth <= 992) { sidebar.classList.toggle('open'); overlay.classList.toggle('active'); }
+            else { document.body.classList.toggle('collapsed-menu'); }
+        }
+        document.getElementById('sidebarOverlay').addEventListener('click',function () { document.getElementById('sidebar').classList.remove('open'); this.classList.remove('active'); });
+        function toggleUserMenu() { document.getElementById('userMenu').classList.toggle('show'); }
+        window.addEventListener('click',function (e) { if (!document.querySelector('.user-profile').contains(e.target) && !document.getElementById('userMenu').contains(e.target)) { document.getElementById('userMenu').classList.remove('show'); } });
+        function toggleGroup(header) { header.parentElement.classList.toggle('open'); }
+
+        // Chat Widget
+        let currentBot = 'safebot';
+        function toggleChat() {
+            const widget = document.getElementById('chatWidget');
+            widget.style.display = widget.style.display === 'flex' ? 'none' : 'flex';
+            if (widget.style.display === 'flex') openChat(currentBot);
+        }
+        function openChat(botType) {
+            currentBot = botType;
+            const header = document.getElementById('chatHeader');
+            const sendBtn = document.getElementById('chatSendBtn');
+            const name = document.getElementById('chatName');
+            const avatar = document.getElementById('chatAvatar');
+            const body = document.getElementById('chatBody');
+            header.className = botType === 'carebear' ? 'chat-header carebear-theme' : 'chat-header';
+            sendBtn.className = botType === 'carebear' ? 'carebear-theme' : '';
+            name.innerText = botType === 'carebear' ? 'CareBear (น้องห่วงใย)' : 'SafeBot (ผู้ช่วย AI)';
+            avatar.innerHTML = botType === 'carebear' ? '<i class="fa-solid fa-paw"></i>' : '<i class="fa-solid fa-robot"></i>';
+            document.getElementById('chatWidget').style.display = 'flex';
+            if (body.innerHTML.trim() === '') addMessage('bot',botType === 'carebear' ? 'สวัสดีค่ะ หนูแคร์แบร์ ยินดีรับฟังทุกเรื่องราวค่ะ 💖' : 'สวัสดีครับ SafeBot พร้อมให้บริการข้อมูลและประเมินความเสี่ยงครับ');
+        }
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            addMessage('user',text);
+            input.value = '';
+            setTimeout(() => addMessage('bot',currentBot === 'carebear' ? 'เข้าใจเลยค่ะ เป็นกำลังใจให้นะคะ 💕' : 'รับทราบครับ กำลังประมวลผล...'),1000);
+        }
+        function addMessage(sender,text) {
+            const body = document.getElementById('chatBody');
+            const div = document.createElement('div');
+            div.className = `message ${sender} ${sender === 'user' && currentBot === 'carebear' ? 'carebear-theme' : ''}`;
+            div.innerHTML = `${text}<span class="message-time">${new Date().toLocaleTimeString([],{ hour: '2-digit',minute: '2-digit' })}</span>`;
+            body.appendChild(div);
+            body.scrollTop = body.scrollHeight;
+        }
+
+        // --- MAP LOGIC ---
+        // Initialize Map centered on Pak Chong
+        const map = L.map('map').setView([14.708,101.409],12);
+
+        // Add Tile Layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Mock Data
+        const patients = [
+            { id: 1,name: "นายสมศักดิ์ รักสงบ",lat: 14.715,lng: 101.420,risk: "high",address: "ม.4 ต.หนองสาหร่าย",diag: "F20.0" },
+            { id: 2,name: "นางสมศรี มีสุข",lat: 14.690,lng: 101.390,risk: "medium",address: "ม.2 ต.ปากช่อง",diag: "F31.2" },
+            { id: 3,name: "นายวิชัย ใจกล้า",lat: 14.720,lng: 101.400,risk: "high",address: "ม.5 ต.ขนงพระ",diag: "F19.2" },
+            { id: 4,name: "น.ส.ใจดี สู้เสือ",lat: 14.700,lng: 101.450,risk: "low",address: "ม.1 ต.จันทึก",diag: "F20.5" },
+            { id: 5,name: "นายมานะ อดทน",lat: 14.680,lng: 101.410,risk: "low",address: "ม.3 ต.หนองน้ำแดง",diag: "F20.0" }
+        ];
+
+        const markers = [];
+
+        patients.forEach(p => {
+            let cssClass = 'custom-marker ';
+            if (p.risk === 'high') cssClass += 'marker-high';
+            else if (p.risk === 'medium') cssClass += 'marker-medium';
+            else cssClass += 'marker-low';
+
+            const icon = L.divIcon({
+                className: 'custom-div-icon',
+                html: `<div class="${cssClass}"><i class="fa-solid fa-user"></i></div>`,
+                iconSize: [30,30],
+                iconAnchor: [15,15]
+            });
+
+            const marker = L.marker([p.lat,p.lng],{ icon: icon }).addTo(map);
+            marker.on('click',() => {
+                openPanel(p);
+                map.flyTo([p.lat,p.lng],14,{ duration: 1 });
+            });
+            markers.push({ ...p,markerInstance: marker });
+        });
+
+        // Panel Logic
+        function openPanel(data) {
+            document.getElementById('pName').innerText = data.name;
+            document.getElementById('pAddress').innerText = data.address;
+            document.getElementById('pDiag').innerText = data.diag;
+            const badge = document.getElementById('pRisk');
+            badge.innerText = data.risk === 'high' ? 'High Risk' : (data.risk === 'medium' ? 'Moderate Risk' : 'Low Risk');
+            badge.className = 'p-badge ' + data.risk; // Update class for color
+            if (data.risk === 'high') { badge.style.background = '#ffebee'; badge.style.color = '#dc3545'; }
+            else if (data.risk === 'medium') { badge.style.background = '#fff8e1'; badge.style.color = '#e67e22'; }
+            else { badge.style.background = '#e8f5e9'; badge.style.color = '#28a745'; }
+
+            document.getElementById('detailPanel').classList.add('open');
+        }
+
+        function closePanel() {
+            document.getElementById('detailPanel').classList.remove('open');
+        }
+
+        // Filter Logic
+        function toggleFilter(el,type) {
+            document.querySelectorAll('.filter-options .chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+
+            markers.forEach(m => {
+                if (type === 'all' || m.risk === type) map.addLayer(m.markerInstance);
+                else map.removeLayer(m.markerInstance);
+            });
+        }
+
+        map.on('click',() => closePanel());
+    </script>
+</body>
+
+</html>

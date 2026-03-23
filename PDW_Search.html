@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind AI - PDW Search & Export</title>
+
+    <!-- Google Fonts: Sarabun -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/PDW_Search.css">
+</head>
+
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="app-logo">
+                <i class="fa-solid fa-shield-heart"></i>
+                <span class="app-text">SafeMind AI</span>
+            </a>
+        </div>
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item ">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <!-- Patient Group Open -->
+            <div class="nav-group  ">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-users-viewfinder menu-icon"></i><span>บริการผู้ป่วย</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Patient-Registry.html" class="sub-menu-item  ">
+                        <span>ทะเบียนผู้ป่วย (Registry)</span>
+                    </a>
+                    <a href="AlertCenter.html" class="sub-menu-item">
+                        <span>แจ้งเตือน & งาน</span>
+                        <span class="menu-badge">3</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-stethoscope menu-icon"></i><span>งานคลินิก</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Screening_CRF.html" class="sub-menu-item">
+                        <span>คัดกรอง & CRF</span>
+                    </a>
+                    <a href="Visit.html" class="sub-menu-item">
+                        <span>เยี่ยมบ้าน (Home Visit)</span>
+                    </a>
+                    <a href="Telehealt.html" class="sub-menu-item">
+                        <span>Telehealth</span>
+                    </a>
+                    <a href="airisk.html" class="sub-menu-item">
+                        <span>AI Risk Analysis</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-map-location-dot menu-icon"></i><span>ข้อมูลภูมิสารสนเทศ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="SpotMap.html" class="sub-menu-item">
+                        <span>Spot Map & GIS</span>
+                    </a>
+                    <!-- <a href="#" class="sub-menu-item"><span>PDW Search</span></a> -->
+                </div>
+            </div>
+            <div class="nav-group open">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-chart-pie menu-icon"></i><span>รายงาน
+                            (Reports)</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="PDW_Search.html" class="sub-menu-item active">
+                        <span>PDW Search</span>
+                    </a>
+                    <a href="rpt_01.html" class="sub-menu-item">
+                        <span>สถานการณ์และสถิติผู้ป่วย</span>
+                    </a>
+                    <a href="rpt_02.html" class="sub-menu-item">
+                        <span>ผลการดำเนินงาน </span>
+                    </a>
+                    <a href="rpt_03.html" class="sub-menu-item">
+                        <span>ข้อมูลเชิงคลินิกและปัจจัยเสี่ยง</span>
+                    </a>
+                    <a href="rpt_04.html" class="sub-menu-item">
+                        <span>ประสิทธิภาพระบบ</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-gears menu-icon"></i><span>ตั้งค่าระบบ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <!-- <a href="#" class="sub-menu-item"><span>Knowledge Hub</span></a> -->
+                    <a href="admin.html" class="sub-menu-item">
+                        <span>ผู้ดูแลระบบ (Admin)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-footer">v1.0.0 (Release)</div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        <header class="top-header">
+            <div class="header-left">
+                <button class="toggle-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+                <div class="system-title">
+                    <h2>SafeMind AI <span class="env-badge">PROD</span></h2>
+                    <span>Smart Mental Health Ecosystem for SMI-V Care</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="nav-icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot"></span></button>
+                <div class="user-dropdown-container">
+                    <div class="user-profile" onclick="toggleUserMenu()">
+                        <div class="user-info"><span class="user-name">นพ.สมชาย ใจดี</span><span
+                                class="user-role">จิตแพทย์</span></div>
+                        <div class="user-avatar">S</div>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: rgba(255, 255, 255, 0.8);"></i>
+                    </div>
+                    <div class="dropdown-menu" id="userMenu">
+                        <a href="#" class="dropdown-item"><i class="fa-regular fa-user"></i> ดูโปรไฟล์</a>
+                        <a href="#" class="dropdown-item"><i class="fa-solid fa-gear"></i> ตั้งค่าบัญชี</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item danger"><i class="fa-solid fa-right-from-bracket"></i>
+                            ออกจากระบบ</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA: PDW SEARCH -->
+        <div class="content-area">
+            <div class="dw-layout">
+
+                <!-- MAIN SEARCH AREA -->
+                <div class="dw-main">
+                    <div class="breadcrumb"><i class="fa-solid fa-house"></i> หน้าหลัก / สืบค้นข้อมูลขั้นสูง (PDW
+                        Search)</div>
+
+                    <!-- Query Builder -->
+                    <div class="query-card">
+                        <div class="section-header">
+                            <div class="section-title"><i class="fa-solid fa-filter"></i> สร้างเงื่อนไขการค้นหา (Query
+                                Builder)</div>
+                            <button class="btn btn-outline" style="font-size: 12px; padding: 5px 10px;"
+                                onclick="alert('Saved!')"><i class="fa-regular fa-floppy-disk"></i>
+                                บันทึกเงื่อนไข</button>
+                        </div>
+
+                        <div id="query-rows-container">
+                            <div class="query-row">
+                                <select class="field-select">
+                                    <option value="risk_level">ระดับความเสี่ยง (Risk Level)</option>
+                                    <option value="district">ตำบลที่อยู่ (District)</option>
+                                    <option value="ai_prediction">AI Prediction Score</option>
+                                    <option value="violence_history">ประวัติความรุนแรง</option>
+                                </select>
+                                <select class="operator-select">
+                                    <option value="=">เท่ากับ (=)</option>
+                                    <option value="!=">ไม่เท่ากับ (!=)</option>
+                                    <option value=">">มากกว่า (>)</option>
+                                </select>
+                                <input type="text" class="value-input" placeholder="ระบุค่า (เช่น High, 80)">
+                                <button class="btn-icon"><i class="fa-solid fa-trash-can"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="search-actions">
+                            <div>
+                                <button class="btn-add" onclick="addQueryRow()"><i class="fa-solid fa-plus"></i>
+                                    เพิ่มเงื่อนไข (AND)</button>
+                                <div class="column-toggle" onclick="toggleColumnSelector()" style="margin-top: 15px;">
+                                    <i class="fa-solid fa-table-columns"></i> เลือกคอลัมน์แสดงผล <i
+                                        class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
+                                </div>
+                                <div class="column-grid" id="columnSelector">
+                                    <label class="checkbox-item"><input type="checkbox" checked> HN</label>
+                                    <label class="checkbox-item"><input type="checkbox" checked> ชื่อ-นามสกุล</label>
+                                    <label class="checkbox-item"><input type="checkbox" checked> เลขบัตรประชาชน</label>
+                                    <label class="checkbox-item"><input type="checkbox" checked> ความเสี่ยง</label>
+                                    <label class="checkbox-item"><input type="checkbox" checked> AI Score</label>
+                                    <label class="checkbox-item"><input type="checkbox"> ยาที่ได้รับ</label>
+                                    <label class="checkbox-item"><input type="checkbox"> ผู้ดูแล</label>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="searchData()">
+                                <i class="fa-solid fa-magnifying-glass"></i> ค้นหาข้อมูล
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="results-section">
+                        <div class="table-toolbar">
+                            <span class="result-count">พบข้อมูลจำนวน: <strong>45</strong> รายการ</span>
+
+                            <div style="display: flex; gap: 15px; align-items: center;">
+                                <!-- PDPA Toggle -->
+                                <div class="pdpa-toggle-container">
+                                    <span class="pdpa-label"><i class="fa-solid fa-user-shield"></i> PDPA Masking</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pdpaToggle" checked onchange="toggleMasking()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+
+                                <button class="btn btn-success"
+                                    style="background-color: var(--success-color); color: #fff;"
+                                    onclick="openExportModal()">
+                                    <i class="fa-solid fa-file-export"></i> Export
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>HN</th>
+                                        <th>ชื่อ-นามสกุล</th>
+                                        <th>เลขบัตรประชาชน</th>
+                                        <th>ตำบล</th>
+                                        <th>โรคหลัก</th>
+                                        <th>ความเสี่ยง</th>
+                                        <th>AI Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>6500123</td>
+                                        <td class="col-name masked">นายสมศักดิ์ XXX</td>
+                                        <td class="col-id masked">1-3001-XXXXX-XX-X</td>
+                                        <td>หนองสาหร่าย</td>
+                                        <td>F20.0</td>
+                                        <td><span class="risk-badge risk-high">High</span></td>
+                                        <td>92%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6500789</td>
+                                        <td class="col-name masked">นายวิชัย XXX</td>
+                                        <td class="col-id masked">1-3099-XXXXX-XX-X</td>
+                                        <td>หมูสี</td>
+                                        <td>F19.2</td>
+                                        <td><span class="risk-badge risk-high">High</span></td>
+                                        <td>85%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6500456</td>
+                                        <td class="col-name masked">นางสมศรี XXX</td>
+                                        <td class="col-id masked">3-3015-XXXXX-XX-X</td>
+                                        <td>ปากช่อง</td>
+                                        <td>F31.2</td>
+                                        <td><span class="risk-badge risk-med">Medium</span></td>
+                                        <td>65%</td>
+                                    </tr>
+                                    <!-- More rows... -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: SAVED QUERIES -->
+                <div class="dw-sidebar">
+                    <div class="sidebar-title"><i class="fa-solid fa-clock-rotate-left"></i> ประวัติ &
+                        เงื่อนไขที่บันทึกไว้</div>
+
+                    <div class="saved-query-item" onclick="loadQuery()">
+                        <div class="query-name">🔴 High Risk ประจำเดือน</div>
+                        <div class="query-desc">Risk=High + Active=True</div>
+                    </div>
+                    <div class="saved-query-item" onclick="loadQuery()">
+                        <div class="query-name">💊 ผู้ป่วยขาดยา (Poor Adherence)</div>
+                        <div class="query-desc">Adherence=Poor + LastVisit > 30 Days</div>
+                    </div>
+                    <div class="saved-query-item" onclick="loadQuery()">
+                        <div class="query-name">📍 Schizo ในปากช่อง</div>
+                        <div class="query-desc">Diag=F20.x + District=Pakchong</div>
+                    </div>
+                    <div class="saved-query-item" onclick="loadQuery()">
+                        <div class="query-name">🤖 AI High Prediction</div>
+                        <div class="query-desc">AI_Score > 80%</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="main-footer">
+            <div><strong>Copyright &copy; 2025 SafeMind AI.</strong> โรงพยาบาลปากช่องนานา</div>
+            <div>Version 1.0.0 | PDPA Compliant</div>
+        </footer>
+    </div>
+
+    <!-- EXPORT MODAL -->
+    <div class="modal-overlay" id="exportModal">
+        <div class="modal-container">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h3 style="margin:0;">ตั้งค่าการส่งออกไฟล์ (Export)</h3>
+                <button onclick="closeExportModal()"
+                    style="background:none; border:none; font-size:20px; cursor:pointer;">&times;</button>
+            </div>
+
+            <label style="display:block; margin-bottom:10px; font-weight:500;">เลือกรูปแบบไฟล์:</label>
+            <div class="export-option active" onclick="selectExport(this)">
+                <i class="fa-solid fa-file-excel export-icon" style="color:#217346;"></i>
+                <div>
+                    <div style="font-weight:600;">Microsoft Excel (.xlsx)</div>
+                    <div style="font-size:12px; color:#666;">เหมาะสำหรับการนำไปวิเคราะห์ต่อ</div>
+                </div>
+            </div>
+            <div class="export-option" onclick="selectExport(this)">
+                <i class="fa-solid fa-file-csv export-icon" style="color:#000;"></i>
+                <div>
+                    <div style="font-weight:600;">CSV File (.csv)</div>
+                    <div style="font-size:12px; color:#666;">ไฟล์ข้อความขนาดเล็ก</div>
+                </div>
+            </div>
+            <div class="export-option" onclick="selectExport(this)">
+                <i class="fa-solid fa-file-pdf export-icon" style="color:#b30b00;"></i>
+                <div>
+                    <div style="font-weight:600;">PDF Document (.pdf)</div>
+                    <div style="font-size:12px; color:#666;">สำหรับพิมพ์รายงาน (แก้ไขไม่ได้)</div>
+                </div>
+            </div>
+
+            <div class="pdpa-toggle-container" style="margin-top:20px; background:#fff;">
+                <label style="display:flex; gap:10px; cursor:pointer; align-items:flex-start;">
+                    <input type="checkbox" id="modalPdpaCheck" checked onchange="toggleWarning()">
+                    <div>
+                        <strong>เปิดใช้งาน PDPA Masking (แนะนำ)</strong>
+                        <div style="font-size:12px; color:#666; margin-top:2px;">
+                            ปิดบังเลขบัตรประชาชนและชื่อบางส่วนในไฟล์ที่ส่งออก</div>
+                    </div>
+                </label>
+            </div>
+
+            <div id="pdpaWarning" class="pdpa-warning">
+                <i class="fa-solid fa-triangle-exclamation" style="color:#e65100;"></i> <strong>คำเตือน:</strong>
+                คุณกำลังจะส่งออกข้อมูลที่ระบุตัวตนได้ (Unmasked PII) ระบบจะบันทึก Log การกระทำนี้เพื่อการตรวจสอบ (Audit
+                Trail)
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:25px;">
+                <button class="btn btn-outline" onclick="closeExportModal()">ยกเลิก</button>
+                <button class="btn btn-primary" onclick="alert('กำลังดาวน์โหลดไฟล์...')">ดาวน์โหลด</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar & UI Logic
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (window.innerWidth <= 992) { sidebar.classList.toggle('open'); overlay.classList.toggle('active'); }
+            else { document.body.classList.toggle('collapsed-menu'); }
+        }
+        document.getElementById('sidebarOverlay').addEventListener('click',function () { document.getElementById('sidebar').classList.remove('open'); this.classList.remove('active'); });
+        function toggleUserMenu() { document.getElementById('userMenu').classList.toggle('show'); }
+        window.addEventListener('click',function (e) { if (!document.querySelector('.user-profile').contains(e.target) && !document.getElementById('userMenu').contains(e.target)) { document.getElementById('userMenu').classList.remove('show'); } });
+        function toggleGroup(header) { header.parentElement.classList.toggle('open'); }
+
+        // --- PDW Search Logic ---
+        function addQueryRow() {
+            const container = document.getElementById('query-rows-container');
+            const newRow = document.createElement('div');
+            newRow.className = 'query-row';
+            newRow.innerHTML = `
+                <select class="field-select">
+                    <option value="risk_level">ระดับความเสี่ยง (Risk Level)</option>
+                    <option value="district">ตำบลที่อยู่ (District)</option>
+                    <option value="ai_prediction">AI Prediction Score</option>
+                </select>
+                <select class="operator-select">
+                    <option value="=">เท่ากับ (=)</option>
+                    <option value="!=">ไม่เท่ากับ (!=)</option>
+                </select>
+                <input type="text" class="value-input" placeholder="ระบุค่า">
+                <button class="btn-icon" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash-can"></i></button>
+            `;
+            container.appendChild(newRow);
+        }
+
+        function toggleColumnSelector() {
+            const el = document.getElementById('columnSelector');
+            el.style.display = el.style.display === 'grid' ? 'none' : 'grid';
+        }
+
+        function searchData() {
+            const btn = document.querySelector('.search-actions .btn-primary');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> กำลังค้นหา...';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                alert('ค้นหาข้อมูลเรียบร้อย (Mockup)');
+            },800);
+        }
+
+        function loadQuery() {
+            alert('โหลดเงื่อนไขการค้นหาเรียบร้อย');
+        }
+
+        // PDPA Masking Logic
+        function toggleMasking() {
+            const isMasked = document.getElementById('pdpaToggle').checked;
+            const names = document.querySelectorAll('.col-name');
+            const ids = document.querySelectorAll('.col-id');
+
+            // Mock Data
+            const realNames = ['นายสมศักดิ์ รักสงบ','นายวิชัย ใจกล้า','นางสมศรี มีสุข'];
+            const realIds = ['1-3001-98765-12-3','1-3099-12345-67-8','3-3015-55555-44-2'];
+
+            if (isMasked) {
+                names.forEach(el => {
+                    const first = el.innerText.split(' ')[0]; // Keep only first part if already full, or logic to revert
+                    // Simple toggle logic for demo:
+                    if (!el.innerText.includes('XXX')) el.innerText = el.innerText.substring(0,10) + ' XXX';
+                    el.classList.add('masked');
+                });
+                ids.forEach(el => {
+                    el.innerText = el.innerText.substring(0,7) + 'XXXXX-XX-X';
+                    el.classList.add('masked');
+                });
+            } else {
+                // Restore real data (Mockup)
+                names.forEach((el,index) => {
+                    if (realNames[index]) el.innerText = realNames[index];
+                    el.classList.remove('masked');
+                });
+                ids.forEach((el,index) => {
+                    if (realIds[index]) el.innerText = realIds[index];
+                    el.classList.remove('masked');
+                });
+            }
+
+            // Sync with modal
+            document.getElementById('modalPdpaCheck').checked = isMasked;
+        }
+
+        // Export Modal Logic
+        function openExportModal() {
+            document.getElementById('exportModal').classList.add('show');
+            // Sync checkbox
+            const mainToggle = document.getElementById('pdpaToggle').checked;
+            document.getElementById('modalPdpaCheck').checked = mainToggle;
+            toggleWarning();
+        }
+
+        function closeExportModal() {
+            document.getElementById('exportModal').classList.remove('show');
+        }
+
+        function selectExport(el) {
+            document.querySelectorAll('.export-option').forEach(e => e.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function toggleWarning() {
+            const isChecked = document.getElementById('modalPdpaCheck').checked;
+            const warning = document.getElementById('pdpaWarning');
+            if (!isChecked) warning.classList.add('show');
+            else warning.classList.remove('show');
+        }
+    </script>
+</body>
+
+</html>

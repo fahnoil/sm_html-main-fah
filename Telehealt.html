@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind AI - Telehealth</title>
+
+    <!-- Google Fonts: Sarabun -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/Telehealt.css">
+</head>
+
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="app-logo">
+                <i class="fa-solid fa-shield-heart"></i>
+                <span class="app-text">SafeMind AI</span>
+            </a>
+        </div>
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item ">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <!-- Patient Group Open -->
+            <div class="nav-group  ">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-users-viewfinder menu-icon"></i><span>บริการผู้ป่วย</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Patient-Registry.html" class="sub-menu-item active">
+                        <span>ทะเบียนผู้ป่วย (Registry)</span>
+                    </a>
+                    <a href="AlertCenter.html" class="sub-menu-item">
+                        <span>แจ้งเตือน & งาน</span>
+                        <span class="menu-badge">3</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-group open">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-stethoscope menu-icon"></i><span>งานคลินิก</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Screening_CRF.html" class="sub-menu-item">
+                        <span>คัดกรอง & CRF</span>
+                    </a>
+                    <a href="Visit.html" class="sub-menu-item  ">
+                        <span>เยี่ยมบ้าน (Home Visit)</span>
+                    </a>
+                    <a href="Telehealt.html" class="sub-menu-item active">
+                        <span>Telehealth</span>
+                    </a>
+                    <a href="airisk.html" class="sub-menu-item">
+                        <span>AI Risk Analysis</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-map-location-dot menu-icon"></i><span>ข้อมูลภูมิสารสนเทศ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="SpotMap.html" class="sub-menu-item">
+                        <span>Spot Map & GIS</span>
+                    </a>
+                    <!-- <a href="#" class="sub-menu-item"><span>PDW Search</span></a> -->
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-chart-pie menu-icon"></i><span>รายงาน
+                            (Reports)</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="PDW_Search.html" class="sub-menu-item">
+                        <span>PDW Search</span>
+                    </a>
+                    <a href="rpt_01.html" class="sub-menu-item">
+                        <span>สถานการณ์และสถิติผู้ป่วย</span>
+                    </a>
+                    <a href="rpt_02.html" class="sub-menu-item">
+                        <span>ผลการดำเนินงาน </span>
+                    </a>
+                    <a href="rpt_03.html" class="sub-menu-item">
+                        <span>ข้อมูลเชิงคลินิกและปัจจัยเสี่ยง</span>
+                    </a>
+                    <a href="rpt_04.html" class="sub-menu-item">
+                        <span>ประสิทธิภาพระบบ</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-gears menu-icon"></i><span>ตั้งค่าระบบ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <!-- <a href="#" class="sub-menu-item"><span>Knowledge Hub</span></a> -->
+                    <a href="admin.html" class="sub-menu-item">
+                        <span>ผู้ดูแลระบบ (Admin)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-footer">v1.0.0 (Release)</div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        <header class="top-header">
+            <div class="header-left">
+                <button class="toggle-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+                <div class="system-title">
+                    <h2>SafeMind AI <span class="env-badge">PROD</span></h2>
+                    <span>Smart Mental Health Ecosystem for SMI-V Care</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="nav-icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot"></span></button>
+                <div class="user-dropdown-container">
+                    <div class="user-profile" onclick="toggleUserMenu()">
+                        <div class="user-info"><span class="user-name">นพ.สมชาย ใจดี</span><span
+                                class="user-role">จิตแพทย์</span></div>
+                        <div class="user-avatar">S</div>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: rgba(255, 255, 255, 0.8);"></i>
+                    </div>
+                    <div class="dropdown-menu" id="userMenu">
+                        <a href="#" class="dropdown-item"><i class="fa-regular fa-user"></i> ดูโปรไฟล์</a>
+                        <a href="#" class="dropdown-item"><i class="fa-solid fa-gear"></i> ตั้งค่าบัญชี</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item danger"><i class="fa-solid fa-right-from-bracket"></i>
+                            ออกจากระบบ</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA -->
+        <div class="content-area">
+
+            <div class="breadcrumb"><i class="fa-solid fa-house"></i> หน้าหลัก / Telehealth Center</div>
+
+            <!-- 1. WAITING ROOM -->
+            <div id="waitingRoomView" class="waiting-room-view">
+
+                <!-- Stats -->
+                <div class="queue-stats-grid">
+                    <div class="q-stat-card">
+                        <div>
+                            <div class="q-value">3</div>
+                            <div class="q-label">รอตรวจ (Waiting)</div>
+                        </div>
+                        <div class="q-icon" style="color: var(--warning-color);"><i class="fa-solid fa-user-clock"></i>
+                        </div>
+                    </div>
+                    <div class="q-stat-card">
+                        <div>
+                            <div class="q-value" style="color: var(--success-color);">1</div>
+                            <div class="q-label">กำลังตรวจ (In Progress)</div>
+                        </div>
+                        <div class="q-icon" style="color: var(--success-color);"><i class="fa-solid fa-video"></i></div>
+                    </div>
+                    <div class="q-stat-card">
+                        <div>
+                            <div class="q-value" style="color: var(--secondary-color);">5</div>
+                            <div class="q-label">เสร็จสิ้น (Completed)</div>
+                        </div>
+                        <div class="q-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 20px;">คิวตรวจวันนี้ (Today's Queue)</h3>
+
+                <!-- Queue List -->
+                <div class="queue-list-grid">
+
+                    <!-- Patient 1 -->
+                    <div class="patient-q-card status-ready">
+                        <div class="q-card-body">
+                            <div class="q-card-header">
+                                <div style="display: flex; gap: 15px;">
+                                    <div class="q-avatar">ส</div>
+                                    <div>
+                                        <h4 class="q-patient-name">นายสมศักดิ์ รักสงบ</h4>
+                                        <div class="q-patient-info">HN: 6500123 | นัด: 10:00 น.</div>
+                                    </div>
+                                </div>
+                                <span class="q-status-badge bg-success-light"><i class="fa-solid fa-circle"
+                                        style="font-size: 8px;"></i> Online</span>
+                            </div>
+                            <div class="risk-tags">
+                                <span class="risk-tag high">High Risk</span>
+                                <span class="risk-tag">F20.0 Schizophrenia</span>
+                            </div>
+                            <button class="btn-call active" onclick="startCall('นายสมศักดิ์ รักสงบ')">
+                                <i class="fa-solid fa-video"></i> เริ่ม Video Call
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Patient 2 -->
+                    <div class="patient-q-card status-waiting">
+                        <div class="q-card-body">
+                            <div class="q-card-header">
+                                <div style="display: flex; gap: 15px;">
+                                    <div class="q-avatar">ม</div>
+                                    <div>
+                                        <h4 class="q-patient-name">นางสมศรี มีสุข</h4>
+                                        <div class="q-patient-info">HN: 6500456 | นัด: 10:30 น.</div>
+                                    </div>
+                                </div>
+                                <span class="q-status-badge bg-warning-light"><i class="fa-regular fa-clock"></i>
+                                    Waiting</span>
+                            </div>
+                            <div class="risk-tags">
+                                <span class="risk-tag" style="background:#fff3e0; color:#e65100;">Moderate Risk</span>
+                            </div>
+                            <button class="btn-call" disabled>
+                                <i class="fa-solid fa-video-slash"></i> ยังไม่พร้อม
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Patient 3 -->
+                    <div class="patient-q-card status-offline">
+                        <div class="q-card-body">
+                            <div class="q-card-header">
+                                <div style="display: flex; gap: 15px;">
+                                    <div class="q-avatar">ว</div>
+                                    <div>
+                                        <h4 class="q-patient-name">นายวิชัย ใจกล้า</h4>
+                                        <div class="q-patient-info">HN: 6500789 | นัด: 11:00 น.</div>
+                                    </div>
+                                </div>
+                                <span class="q-status-badge bg-gray-light">Offline</span>
+                            </div>
+                            <div class="risk-tags">
+                                <span class="risk-tag high">High Risk</span>
+                            </div>
+                            <button class="btn-call" disabled>
+                                <i class="fa-solid fa-video-slash"></i> ยังไม่พร้อม
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="main-footer">
+            <div><strong>Copyright &copy; 2025 SafeMind AI.</strong> โรงพยาบาลปากช่องนานา</div>
+            <div>Version 1.0.0 | PDPA Compliant</div>
+        </footer>
+    </div>
+
+    <!-- 2. VIDEO CALL INTERFACE (Hidden by default) -->
+    <div id="videoCallView" class="video-call-view">
+        <div class="video-main-layout">
+
+            <!-- Main Video -->
+            <div class="main-video-area">
+                <div class="video-header-overlay">
+                    <h3 style="margin: 0; font-size: 18px;" id="callPatientName">นายสมศักดิ์ รักสงบ</h3>
+                    <div style="font-size: 12px; margin-top: 5px; opacity: 0.8;">
+                        <i class="fa-solid fa-circle" style="color: var(--danger-color);"></i> Rec • <span
+                            id="callTimer">00:00</span>
+                    </div>
+                </div>
+
+                <!-- Mock Video Feed (Image) -->
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80"
+                    class="video-feed">
+
+                <!-- Self View -->
+                <div class="pip-window">
+                    <img src="https://ui-avatars.com/api/?name=Dr+Somchai&background=0D8ABC&color=fff"
+                        style="width:100%; height:100%; object-fit:cover;">
+                </div>
+            </div>
+
+            <!-- Side Panel -->
+            <div class="side-panel" id="clinicalPanel">
+                <div class="panel-header">
+                    <span>Clinical Notes</span>
+                    <button style="background:none; border:none; cursor:pointer;" onclick="togglePanel()"><i
+                            class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="panel-content">
+                    <label style="display:block; margin-bottom: 5px; font-weight: 500;">บันทึกอาการ
+                        (Subjective):</label>
+                    <textarea class="note-area" placeholder="พิมพ์อาการที่สังเกตได้..."></textarea>
+
+                    <label style="display:block; margin-bottom: 5px; font-weight: 500;">คำสั่งแพทย์ (Plan):</label>
+                    <div style="display:flex; flex-direction:column; gap: 8px; margin-bottom: 15px;">
+                        <label><input type="checkbox"> ปรับเพิ่มยา</label>
+                        <label><input type="checkbox"> นัดติดตาม 2 สัปดาห์</label>
+                        <label><input type="checkbox"> ส่งทีมเยี่ยมบ้าน</label>
+                    </div>
+
+                    <button
+                        style="width:100%; padding:10px; background:var(--primary-color); color:#fff; border:none; border-radius:6px; cursor:pointer;">บันทึกเวชระเบียน</button>
+
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+                        <h4 style="margin: 0 0 10px 0; font-size: 14px;">ประวัติล่าสุด</h4>
+                        <div style="font-size: 12px; color: #666;">
+                            <p><strong>15 ธ.ค. 68:</strong> อาการสงบดี (OPD)</p>
+                            <p><strong>01 ธ.ค. 68:</strong> ขาดยา 2 วัน (Home Visit)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="video-controls">
+            <button class="control-btn" onclick="this.classList.toggle('active')"><i
+                    class="fa-solid fa-microphone"></i></button>
+            <button class="control-btn" onclick="this.classList.toggle('active')"><i
+                    class="fa-solid fa-video"></i></button>
+            <button class="control-btn danger" onclick="endCall()"><i class="fa-solid fa-phone-slash"></i></button>
+            <div style="width: 1px; height: 30px; background: #3c4043; margin: 0 10px;"></div>
+            <button class="control-btn active" onclick="togglePanel()"><i class="fa-solid fa-file-medical"></i></button>
+            <button class="control-btn"><i class="fa-solid fa-share-nodes"></i></button>
+        </div>
+    </div>
+
+    <!-- AI Assistants & Chat (Standard) -->
+    <div class="floating-assistants">
+        <div class="assistant-item" onclick="openChat('carebear')">
+            <div class="assistant-tooltip">CareBear (น้องห่วงใย)</div>
+            <div class="assistant-avatar carebear"><i class="fa-solid fa-paw"></i>
+                <div class="status-dot"></div>
+            </div>
+        </div>
+        <div class="assistant-item" onclick="openChat('safebot')">
+            <div class="assistant-tooltip">SafeBot (ผู้ช่วย AI)</div>
+            <div class="assistant-avatar safebot"><i class="fa-solid fa-robot"></i>
+                <div class="status-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chatWidget" style="display: none;">
+        <!-- Simplified for brevity, assume same structure as master -->
+        <div class="chat-header">
+            <div class="chat-title">
+                <h4>SafeBot</h4>
+            </div><button class="close-chat-btn" onclick="toggleChat()">x</button>
+        </div>
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-footer"><input type="text" id="chatInput"><button onclick="sendMessage()">Send</button></div>
+    </div>
+
+    <script>
+        // Toggle Sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (window.innerWidth <= 992) {
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('active');
+            } else {
+                document.body.classList.toggle('collapsed-menu');
+            }
+        }
+        document.getElementById('sidebarOverlay').addEventListener('click',function () {
+            document.getElementById('sidebar').classList.remove('open');
+            this.classList.remove('active');
+        });
+
+        // Toggle User Menu
+        function toggleUserMenu() { document.getElementById('userMenu').classList.toggle('show'); }
+        window.addEventListener('click',function (e) {
+            if (!document.querySelector('.user-profile').contains(e.target) && !document.getElementById('userMenu').contains(e.target)) {
+                document.getElementById('userMenu').classList.remove('show');
+            }
+        });
+
+        function toggleGroup(header) { header.parentElement.classList.toggle('open'); }
+
+        // --- Chat Widget Logic ---
+        let currentBot = 'safebot';
+        function toggleChat() {
+            const widget = document.getElementById('chatWidget');
+            widget.style.display = widget.style.display === 'flex' ? 'none' : 'flex';
+            if (widget.style.display === 'flex') openChat(currentBot);
+        }
+        function openChat(botType) {
+            currentBot = botType;
+            const widget = document.getElementById('chatWidget');
+            widget.style.display = 'flex';
+            // Logic to set header color/name...
+        }
+        function sendMessage() { /* ... */ }
+
+        // --- TELEHEALTH LOGIC ---
+        let timerInterval;
+        let seconds = 0;
+
+        function startCall(patientName) {
+            document.getElementById('callPatientName').innerText = patientName;
+            document.getElementById('waitingRoomView').style.display = 'none'; // Hide Dashboard content
+
+            // Note: In real app, we might toggle full screen or hide sidebar/header completely
+            // Here we just overlay the video view
+            const videoView = document.getElementById('videoCallView');
+            videoView.style.display = 'flex';
+
+            // Start Timer
+            seconds = 0;
+            document.getElementById('callTimer').innerText = "00:00";
+            timerInterval = setInterval(() => {
+                seconds++;
+                const mins = Math.floor(seconds / 60).toString().padStart(2,'0');
+                const secs = (seconds % 60).toString().padStart(2,'0');
+                document.getElementById('callTimer').innerText = `${mins}:${secs}`;
+            },1000);
+        }
+
+        function endCall() {
+            if (confirm('ต้องการวางสายและจบการสนทนาใช่หรือไม่?')) {
+                clearInterval(timerInterval);
+                document.getElementById('videoCallView').style.display = 'none';
+                document.getElementById('waitingRoomView').style.display = 'block';
+            }
+        }
+
+        function togglePanel() {
+            const panel = document.getElementById('clinicalPanel');
+            panel.classList.toggle('collapsed');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind AI - แบบประเมินคัดกรอง (Screening & CRF)</title>
+
+    <!-- Google Fonts: Sarabun -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/Screening_CRF.css">
+</head>
+
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="app-logo">
+                <i class="fa-solid fa-shield-heart"></i>
+                <span class="app-text">SafeMind AI</span>
+            </a>
+        </div>
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item ">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <!-- Patient Group Open -->
+            <div class="nav-group ">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-users-viewfinder menu-icon"></i><span>บริการผู้ป่วย</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Patient-Registry.html" class="sub-menu-item  ">
+                        <span>ทะเบียนผู้ป่วย (Registry)</span>
+                    </a>
+                    <a href="AlertCenter.html" class="sub-menu-item">
+                        <span>แจ้งเตือน & งาน</span>
+                        <span class="menu-badge">3</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-group open">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-stethoscope menu-icon"></i><span>งานคลินิก</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Screening_CRF.html" class="sub-menu-item active">
+                        <span>คัดกรอง & CRF</span>
+                    </a>
+                    <a href="Visit.html" class="sub-menu-item">
+                        <span>เยี่ยมบ้าน (Home Visit)</span>
+                    </a>
+                    <a href="Telehealt.html" class="sub-menu-item">
+                        <span>Telehealth</span>
+                    </a>
+                    <a href="airisk.html" class="sub-menu-item">
+                        <span>AI Risk Analysis</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-map-location-dot menu-icon"></i><span>ข้อมูลภูมิสารสนเทศ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="SpotMap.html" class="sub-menu-item">
+                        <span>Spot Map & GIS</span>
+                    </a>
+                    <!-- <a href="#" class="sub-menu-item"><span>PDW Search</span></a> -->
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-chart-pie menu-icon"></i><span>รายงาน
+                            (Reports)</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="PDW_Search.html" class="sub-menu-item">
+                        <span>PDW Search</span>
+                    </a>
+                    <a href="rpt_01.html" class="sub-menu-item">
+                        <span>สถานการณ์และสถิติผู้ป่วย</span>
+                    </a>
+                    <a href="rpt_02.html" class="sub-menu-item">
+                        <span>ผลการดำเนินงาน </span>
+                    </a>
+                    <a href="rpt_03.html" class="sub-menu-item">
+                        <span>ข้อมูลเชิงคลินิกและปัจจัยเสี่ยง</span>
+                    </a>
+                    <a href="rpt_04.html" class="sub-menu-item">
+                        <span>ประสิทธิภาพระบบ</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-gears menu-icon"></i><span>ตั้งค่าระบบ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <!-- <a href="#" class="sub-menu-item"><span>Knowledge Hub</span></a> -->
+                    <a href="admin.html" class="sub-menu-item">
+                        <span>ผู้ดูแลระบบ (Admin)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-footer">v1.0.0 (Release)</div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        <header class="top-header">
+            <div class="header-left">
+                <button class="toggle-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+                <div class="system-title">
+                    <h2>SafeMind AI <span class="env-badge">PROD</span></h2>
+                    <span>Smart Mental Health Ecosystem for SMI-V Care</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="nav-icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot"></span></button>
+                <div class="user-dropdown-container">
+                    <div class="user-profile" onclick="toggleUserMenu()">
+                        <div class="user-info"><span class="user-name">นพ.สมชาย ใจดี</span><span
+                                class="user-role">จิตแพทย์</span></div>
+                        <div class="user-avatar">S</div>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: rgba(255, 255, 255, 0.8);"></i>
+                    </div>
+                    <div class="dropdown-menu" id="userMenu">
+                        <a href="#" class="dropdown-item"><i class="fa-regular fa-user"></i> ดูโปรไฟล์</a>
+                        <a href="#" class="dropdown-item"><i class="fa-solid fa-gear"></i> ตั้งค่าบัญชี</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item danger"><i class="fa-solid fa-right-from-bracket"></i>
+                            ออกจากระบบ</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA: SCREENING -->
+        <div class="content-area">
+            <div class="breadcrumb">
+                <a href="SafeMind_Dashboard.html"><i class="fa-solid fa-house"></i> หน้าหลัก</a> /
+                <a href="SafeMind_PatientRegistry.html">ทะเบียนผู้ป่วย</a> /
+                <span>แบบประเมิน SMI-V</span>
+            </div>
+
+            <!-- Patient Banner -->
+            <div class="patient-banner">
+                <div class="patient-info">
+                    <div class="patient-avatar-lg">ส</div>
+                    <div>
+                        <div style="font-size: 18px; font-weight: 700;">นายสมศักดิ์ รักสงบ</div>
+                        <div style="font-size: 13px; opacity: 0.9;">HN: 6500123 | อายุ 45 ปี | F20.0 Schizophrenia</div>
+                    </div>
+                </div>
+                <div>
+                    <span
+                        style="background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 4px; font-size: 13px;">
+                        <i class="fa-regular fa-clock"></i> ประเมินล่าสุด: 15 ธ.ค. 68
+                    </span>
+                </div>
+            </div>
+
+            <!-- Wizard Progress -->
+            <div class="wizard-progress">
+                <div class="step active" id="step-indicator-1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">คัดกรอง (Triage)</div>
+                </div>
+                <div class="step" id="step-indicator-2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">ข้อมูล AI</div>
+                </div>
+                <div class="step" id="step-indicator-3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">สรุปผล (Result)</div>
+                </div>
+            </div>
+
+            <!-- Form Container -->
+            <div class="form-container">
+                <form id="assessmentForm" onsubmit="return false;">
+
+                    <!-- STEP 1: SMI-V Screening -->
+                    <div class="form-step active" id="step-1">
+                        <div class="card">
+                            <div class="section-title">ส่วนที่ 1: การประเมินความเสี่ยงความรุนแรง (SMI-V Criteria)</div>
+
+                            <div class="question-item">
+                                <label class="question-label">1. ประวัติการก่อความรุนแรง/ทำร้ายร่างกายผู้อื่น (ใน 1
+                                    ปีที่ผ่านมา)</label>
+                                <div class="radio-grid">
+                                    <label class="radio-card">
+                                        <input type="radio" name="violence_history" value="no" checked>
+                                        <div class="radio-content"><i class="fa-regular fa-face-smile"></i> ไม่มี</div>
+                                    </label>
+                                    <label class="radio-card danger">
+                                        <input type="radio" name="violence_history" value="yes">
+                                        <div class="radio-content"><i class="fa-solid fa-hand-fist"></i> มีประวัติ</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="question-item">
+                                <label class="question-label">2. อาการหลงผิด/หูแว่ว (สั่งให้ทำร้าย หรือระแวงผู้อื่น)
+                                    ในปัจจุบัน</label>
+                                <div class="radio-grid">
+                                    <label class="radio-card">
+                                        <input type="radio" name="symptoms" value="no" checked>
+                                        <div class="radio-content"><i class="fa-solid fa-check"></i> สงบ/ไม่มีอาการ
+                                        </div>
+                                    </label>
+                                    <label class="radio-card danger">
+                                        <input type="radio" name="symptoms" value="yes">
+                                        <div class="radio-content"><i class="fa-solid fa-triangle-exclamation"></i>
+                                            มีอาการชัดเจน</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="question-item">
+                                <label class="question-label">3. การใช้สารเสพติด/สุรา ร่วมด้วย</label>
+                                <div class="radio-grid">
+                                    <label class="radio-card">
+                                        <input type="radio" name="substance" value="no" checked>
+                                        <div class="radio-content"><i class="fa-solid fa-ban"></i> ไม่ใช้</div>
+                                    </label>
+                                    <label class="radio-card danger">
+                                        <input type="radio" name="substance" value="yes">
+                                        <div class="radio-content"><i class="fa-solid fa-wine-bottle"></i> ใช้/ดื่ม
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" disabled>ย้อนกลับ</button>
+                            <button class="btn btn-primary" onclick="nextStep(2)">ต่อไป <i
+                                    class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: AI Data Collection -->
+                    <div class="form-step" id="step-2">
+                        <div class="card">
+                            <div class="section-title">ส่วนที่ 2: ปัจจัยกระตุ้นและข้อมูลสำหรับ AI</div>
+
+                            <div class="question-item">
+                                <label class="question-label">ความสม่ำเสมอในการรับประทานยา (Adherence)</label>
+                                <div class="radio-grid">
+                                    <label class="radio-card">
+                                        <input type="radio" name="med_adherence" value="good" checked>
+                                        <div class="radio-content"><i class="fa-solid fa-pills"></i> กินยาต่อเนื่อง
+                                        </div>
+                                    </label>
+                                    <label class="radio-card danger">
+                                        <input type="radio" name="med_adherence" value="poor">
+                                        <div class="radio-content"><i
+                                                class="fa-solid fa-prescription-bottle-medical"></i> ขาดยา</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="question-item">
+                                <label class="question-label">รูปแบบการนอนหลับ (Sleep Pattern)</label>
+                                <div class="radio-grid">
+                                    <label class="radio-card">
+                                        <input type="radio" name="sleep" value="normal" checked>
+                                        <div class="radio-content"><i class="fa-solid fa-bed"></i> ปกติ (6-8 ชม.)</div>
+                                    </label>
+                                    <label class="radio-card danger">
+                                        <input type="radio" name="sleep" value="insomnia">
+                                        <div class="radio-content"><i class="fa-solid fa-eye"></i> ไม่หลับ/นอนน้อย</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 20px;">
+                                <label class="question-label">บันทึกเพิ่มเติมจากเจ้าหน้าที่ (Data for AI NLP)</label>
+                                <textarea rows="4" placeholder="ระบุอาการ พฤติกรรม หรือข้อสังเกตอื่นๆ..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" onclick="prevStep(1)"><i
+                                    class="fa-solid fa-arrow-left"></i> ย้อนกลับ</button>
+                            <button class="btn btn-primary" onclick="calculateAndShowResult()">ประมวลผล <i
+                                    class="fa-solid fa-calculator"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: Result & Summary -->
+                    <div class="form-step" id="step-3">
+                        <div class="card">
+                            <div class="section-title">ส่วนที่ 3: สรุปผลการประเมิน (Assessment Result)</div>
+
+                            <!-- Dynamic Result Box -->
+                            <div id="result-display" class="result-box medium">
+                                <i class="result-icon fa-solid fa-triangle-exclamation"></i>
+                                <div class="result-title">ความเสี่ยงปานกลาง (Moderate Risk)</div>
+                                <p id="result-desc">ผู้ป่วยมีปัจจัยเสี่ยงบางประการ ควรติดตามอาการอย่างใกล้ชิด</p>
+                                <div style="margin-top: 15px; font-weight: bold; color: #555;">AI Prediction Score:
+                                    <span id="ai-score">45%</span>
+                                </div>
+                            </div>
+
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                                <label class="question-label">แผนการจัดการ (Action Plan)</label>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <label style="display: flex; align-items: center; gap: 10px;"><input type="checkbox"
+                                            checked> ให้สุขศึกษาแก่ญาติเรื่องการคุมยา</label>
+                                    <label style="display: flex; align-items: center; gap: 10px;"><input
+                                            type="checkbox"> ส่งต่อแพทย์เพื่อปรับยา</label>
+                                    <label style="display: flex; align-items: center; gap: 10px;"><input
+                                            type="checkbox"> นัดเยี่ยมบ้านซ้ำใน 1 สัปดาห์</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" onclick="prevStep(2)"><i
+                                    class="fa-solid fa-arrow-left"></i> ย้อนกลับ</button>
+                            <button class="btn btn-success" onclick="alert('บันทึกข้อมูลเรียบร้อย!')"><i
+                                    class="fa-solid fa-save"></i> บันทึกข้อมูล</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div style="height: 50px;"></div>
+        </div>
+
+        <footer class="main-footer">
+            <div><strong>Copyright &copy; 2025 SafeMind AI.</strong> โรงพยาบาลปากช่องนานา</div>
+            <div>Version 1.0.0 | PDPA Compliant</div>
+        </footer>
+    </div>
+
+    <!-- AI Assistants & Chat -->
+    <div class="floating-assistants">
+        <div class="assistant-item" onclick="openChat('carebear')">
+            <div class="assistant-tooltip">CareBear (น้องห่วงใย)</div>
+            <div class="assistant-avatar carebear"><i class="fa-solid fa-paw"></i>
+                <div class="status-dot"></div>
+            </div>
+        </div>
+        <div class="assistant-item" onclick="openChat('safebot')">
+            <div class="assistant-tooltip">SafeBot (ผู้ช่วย AI)</div>
+            <div class="assistant-avatar safebot"><i class="fa-solid fa-robot"></i>
+                <div class="status-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Widget (Hidden by default) -->
+    <div class="chat-widget" id="chatWidget" style="display: none;">
+        <div class="chat-header" id="chatHeader">
+            <div class="chat-bot-info">
+                <div class="chat-avatar-small" id="chatAvatar"><i class="fa-solid fa-robot"></i></div>
+                <div class="chat-title">
+                    <h4 id="chatName">SafeBot</h4><span id="chatStatus">Online</span>
+                </div>
+            </div>
+            <button class="close-chat-btn" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="พิมพ์ข้อความ..." onkeypress="handleEnter(event)">
+            <button id="chatSendBtn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (window.innerWidth <= 992) {
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('active');
+            } else {
+                document.body.classList.toggle('collapsed-menu');
+            }
+        }
+        document.getElementById('sidebarOverlay').addEventListener('click',function () {
+            document.getElementById('sidebar').classList.remove('open');
+            this.classList.remove('active');
+        });
+
+        // Toggle User Menu
+        function toggleUserMenu() { document.getElementById('userMenu').classList.toggle('show'); }
+        window.addEventListener('click',function (e) {
+            if (!document.querySelector('.user-profile').contains(e.target) && !document.getElementById('userMenu').contains(e.target)) {
+                document.getElementById('userMenu').classList.remove('show');
+            }
+        });
+
+        function toggleGroup(header) { header.parentElement.classList.toggle('open'); }
+
+        // Chat Widget
+        let currentBot = 'safebot';
+        function toggleChat() {
+            const widget = document.getElementById('chatWidget');
+            widget.style.display = widget.style.display === 'flex' ? 'none' : 'flex';
+            if (widget.style.display === 'flex') openChat(currentBot);
+        }
+        function openChat(botType) {
+            currentBot = botType;
+            const header = document.getElementById('chatHeader');
+            const sendBtn = document.getElementById('chatSendBtn');
+            const name = document.getElementById('chatName');
+            const avatar = document.getElementById('chatAvatar');
+            const body = document.getElementById('chatBody');
+
+            header.className = botType === 'carebear' ? 'chat-header carebear-theme' : 'chat-header';
+            sendBtn.className = botType === 'carebear' ? 'carebear-theme' : '';
+            name.innerText = botType === 'carebear' ? 'CareBear (น้องห่วงใย)' : 'SafeBot (ผู้ช่วย AI)';
+            avatar.innerHTML = botType === 'carebear' ? '<i class="fa-solid fa-paw"></i>' : '<i class="fa-solid fa-robot"></i>';
+            document.getElementById('chatWidget').style.display = 'flex';
+            if (body.innerHTML.trim() === '') addMessage('bot',botType === 'carebear' ? 'สวัสดีค่ะ หนูแคร์แบร์ ยินดีรับฟังทุกเรื่องราวค่ะ 💖' : 'สวัสดีครับ SafeBot พร้อมให้บริการข้อมูลและประเมินความเสี่ยงครับ');
+        }
+        function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            addMessage('user',text);
+            input.value = '';
+            setTimeout(() => addMessage('bot',currentBot === 'carebear' ? 'เข้าใจเลยค่ะ เป็นกำลังใจให้นะคะ 💕' : 'รับทราบครับ กำลังประมวลผล...'),1000);
+        }
+        function addMessage(sender,text) {
+            const body = document.getElementById('chatBody');
+            const div = document.createElement('div');
+            div.className = `message ${sender} ${sender === 'user' && currentBot === 'carebear' ? 'carebear-theme' : ''}`;
+            div.innerHTML = `${text}<span class="message-time">${new Date().toLocaleTimeString([],{ hour: '2-digit',minute: '2-digit' })}</span>`;
+            body.appendChild(div);
+            body.scrollTop = body.scrollHeight;
+        }
+
+        // --- Wizard Logic ---
+        function showStep(stepNumber) {
+            // Hide all steps
+            document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+            // Show target step
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+
+            // Update Progress Bar Indicators
+            for (let i = 1; i <= 3; i++) {
+                const indicator = document.getElementById(`step-indicator-${i}`);
+                indicator.classList.remove('active','completed');
+
+                if (i < stepNumber) {
+                    indicator.classList.add('completed');
+                    indicator.querySelector('.step-circle').innerHTML = '<i class="fa-solid fa-check"></i>';
+                } else if (i === stepNumber) {
+                    indicator.classList.add('active');
+                    indicator.querySelector('.step-circle').innerHTML = i;
+                } else {
+                    indicator.querySelector('.step-circle').innerHTML = i;
+                }
+            }
+        }
+
+        function nextStep(step) { showStep(step); }
+        function prevStep(step) { showStep(step); }
+
+        // --- Mock Calculation Logic ---
+        function calculateAndShowResult() {
+            const form = document.getElementById('assessmentForm');
+            const violence = form.querySelector('input[name="violence_history"]:checked').value;
+            const symptoms = form.querySelector('input[name="symptoms"]:checked').value;
+            const meds = form.querySelector('input[name="med_adherence"]:checked').value;
+            const substance = form.querySelector('input[name="substance"]:checked').value;
+
+            let resultBox = document.getElementById('result-display');
+            let icon = resultBox.querySelector('.result-icon');
+            let title = resultBox.querySelector('.result-title');
+            let desc = document.getElementById('result-desc');
+            let score = document.getElementById('ai-score');
+
+            // Reset classes
+            resultBox.classList.remove('high','medium','low');
+
+            if (violence === 'yes' || (symptoms === 'yes' && substance === 'yes')) {
+                // High Risk
+                resultBox.classList.add('high');
+                icon.className = 'result-icon fa-solid fa-circle-exclamation';
+                title.innerText = '🔴 ความเสี่ยงสูง (High Risk)';
+                desc.innerText = 'พบประวัติความรุนแรงหรืออาการกำเริบชัดเจน ต้องเฝ้าระวังสูงสุดและพิจารณาส่งต่อโรงพยาบาล';
+                score.innerText = '92%';
+            } else if (meds === 'poor' || symptoms === 'yes' || substance === 'yes') {
+                // Medium Risk
+                resultBox.classList.add('medium');
+                icon.className = 'result-icon fa-solid fa-triangle-exclamation';
+                title.innerText = '🟡 ความเสี่ยงปานกลาง (Moderate Risk)';
+                desc.innerText = 'ผู้ป่วยเริ่มมีปัจจัยเสี่ยง (ขาดยา/อาการเริ่มกำเริบ) ควรเน้นการเยี่ยมบ้านและติดตามการกินยา';
+                score.innerText = '65%';
+            } else {
+                // Low Risk
+                resultBox.classList.add('low');
+                icon.className = 'result-icon fa-solid fa-circle-check';
+                title.innerText = '🟢 ปกติ/ความเสี่ยงต่ำ (Low Risk)';
+                desc.innerText = 'อาการสงบดี ให้การดูแลตามมาตรฐานและนัดติดตามผลตามปกติ';
+                score.innerText = '15%';
+            }
+
+            // Move to step 3
+            showStep(3);
+        }
+    </script>
+</body>
+
+</html>

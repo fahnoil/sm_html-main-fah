@@ -1,0 +1,349 @@
+/* --- CONTENT AREA: TELEHEALTH SPECIFIC --- */
+.content-area {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background-color: var(--bg-body);
+    position: relative;
+}
+
+.breadcrumb {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.breadcrumb i {
+    margin-right: 5px;
+}
+
+/* --- 1. WAITING ROOM VIEW --- */
+.waiting-room-view {
+    display: block;
+}
+
+/* Queue Stats */
+.queue-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.q-stat-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.q-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.q-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.q-icon {
+    font-size: 32px;
+    color: #e9ecef;
+}
+
+/* Patient Queue List */
+.queue-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.patient-q-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    border-top: 4px solid transparent;
+    transition: transform 0.2s;
+    overflow: hidden;
+}
+
+.patient-q-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.status-ready {
+    border-top-color: var(--success-color);
+}
+
+.status-waiting {
+    border-top-color: var(--warning-color);
+}
+
+.status-offline {
+    border-top-color: var(--secondary-color);
+}
+
+.q-card-body {
+    padding: 20px;
+}
+
+.q-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.q-avatar {
+    width: 50px;
+    height: 50px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #666;
+}
+
+.q-status-badge {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.bg-success-light {
+    background: #e8f5e9;
+    color: var(--success-color);
+}
+
+.bg-warning-light {
+    background: #fff8e1;
+    color: var(--warning-color);
+}
+
+.bg-gray-light {
+    background: #f1f3f5;
+    color: #888;
+}
+
+.q-patient-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.q-patient-info {
+    font-size: 13px;
+    color: #666;
+    margin-top: 2px;
+}
+
+.risk-tags {
+    margin: 15px 0;
+    display: flex;
+    gap: 5px;
+}
+
+.risk-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #eee;
+    color: #555;
+}
+
+.risk-tag.high {
+    background: #ffebee;
+    color: var(--danger-color);
+}
+
+.btn-call {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.2s;
+}
+
+.btn-call.active {
+    background: var(--success-color);
+    color: #fff;
+}
+
+.btn-call.active:hover {
+    background: #218838;
+}
+
+.btn-call:disabled {
+    background: #eee;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+/* --- 2. VIDEO CALL VIEW --- */
+.video-call-view {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #202124;
+    z-index: 2000;
+    flex-direction: column;
+}
+
+.video-main-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Main Video Area */
+.main-video-area {
+    flex: 1;
+    position: relative;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-feed {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Overlays */
+.video-header-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    z-index: 10;
+}
+
+.pip-window {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 180px;
+    height: 120px;
+    background: #333;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: 20;
+}
+
+/* Controls Bar */
+.video-controls {
+    height: 80px;
+    background: #202124;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 20px;
+    border-top: 1px solid #3c4043;
+}
+
+.control-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: #3c4043;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.control-btn:hover {
+    background: #4a4e53;
+}
+
+.control-btn.danger {
+    background: #ea4335;
+}
+
+.control-btn.danger:hover {
+    background: #d93025;
+}
+
+.control-btn.active {
+    background: #8ab4f8;
+    color: #202124;
+}
+
+/* Side Panel (Clinical Notes) */
+.side-panel {
+    width: 350px;
+    background: #fff;
+    border-left: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+}
+
+.side-panel.collapsed {
+    width: 0;
+    border: none;
+}
+
+.panel-header {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    background: #f8f9fa;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+}
+
+.panel-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.note-area {
+    width: 100%;
+    height: 150px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    resize: none;
+    font-family: 'Sarabun';
+}
+
+/* FOOTER & WIDGETS (Same as Master) */

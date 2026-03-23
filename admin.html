@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind AI - System Admin</title>
+
+    <!-- Google Fonts: Sarabun -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="app-logo">
+                <i class="fa-solid fa-shield-heart"></i>
+                <span class="app-text">SafeMind AI</span>
+            </a>
+        </div>
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item ">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <!-- Patient Group Open -->
+            <div class="nav-group  ">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-users-viewfinder menu-icon"></i><span>บริการผู้ป่วย</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Patient-Registry.html" class="sub-menu-item  ">
+                        <span>ทะเบียนผู้ป่วย (Registry)</span>
+                    </a>
+                    <a href="AlertCenter.html" class="sub-menu-item">
+                        <span>แจ้งเตือน & งาน</span>
+                        <span class="menu-badge">3</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-stethoscope menu-icon"></i><span>งานคลินิก</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Screening_CRF.html" class="sub-menu-item">
+                        <span>คัดกรอง & CRF</span>
+                    </a>
+                    <a href="Visit.html" class="sub-menu-item">
+                        <span>เยี่ยมบ้าน (Home Visit)</span>
+                    </a>
+                    <a href="Telehealt.html" class="sub-menu-item">
+                        <span>Telehealth</span>
+                    </a>
+                    <a href="airisk.html" class="sub-menu-item">
+                        <span>AI Risk Analysis</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-map-location-dot menu-icon"></i><span>ข้อมูลภูมิสารสนเทศ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="SpotMap.html" class="sub-menu-item">
+                        <span>Spot Map & GIS</span>
+                    </a>
+                    <!-- <a href="#" class="sub-menu-item"><span>PDW Search</span></a> -->
+                </div>
+            </div>
+            <div class="nav-group  ">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-chart-pie menu-icon"></i><span>รายงาน
+                            (Reports)</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="PDW_Search.html" class="sub-menu-item  ">
+                        <span>PDW Search</span>
+                    </a>
+                    <a href="rpt_01.html" class="sub-menu-item  ">
+                        <span>สถานการณ์และสถิติผู้ป่วย</span>
+                    </a>
+                    <a href="rpt_02.html" class="sub-menu-item">
+                        <span>ผลการดำเนินงาน </span>
+                    </a>
+                    <a href="rpt_03.html" class="sub-menu-item">
+                        <span>ข้อมูลเชิงคลินิกและปัจจัยเสี่ยง</span>
+                    </a>
+                    <a href="rpt_04.html" class="sub-menu-item">
+                        <span>ประสิทธิภาพระบบ</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group open">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-gears menu-icon"></i><span>ตั้งค่าระบบ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <!-- <a href="#" class="sub-menu-item"><span>Knowledge Hub</span></a> -->
+                    <a href="admin.html" class="sub-menu-item active">
+                        <span>ผู้ดูแลระบบ (Admin)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-footer">v1.0.0 (Release)</div>
+    </aside>
+
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        <header class="top-header">
+            <div class="header-left">
+                <button class="toggle-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+                <div class="system-title">
+                    <h2>SafeMind AI <span class="env-badge">PROD</span></h2>
+                    <span>Smart Mental Health Ecosystem for SMI-V Care</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="nav-icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot"></span></button>
+                <div class="user-dropdown-container">
+                    <div class="user-profile" onclick="toggleUserMenu()">
+                        <div class="user-info"><span class="user-name">นพ.สมชาย ใจดี</span><span
+                                class="user-role">จิตแพทย์</span></div>
+                        <div class="user-avatar">S</div>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: rgba(255, 255, 255, 0.8);"></i>
+                    </div>
+                    <div class="dropdown-menu" id="userMenu">
+                        <a href="#" class="dropdown-item"><i class="fa-regular fa-user"></i> ดูโปรไฟล์</a>
+                        <a href="#" class="dropdown-item"><i class="fa-solid fa-gear"></i> ตั้งค่าบัญชี</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item danger"><i class="fa-solid fa-right-from-bracket"></i>
+                            ออกจากระบบ</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA: ADMIN -->
+        <div class="content-area">
+            <div class="breadcrumb"><i class="fa-solid fa-house"></i> หน้าหลัก / ผู้ดูแลระบบ (System Admin)</div>
+
+            <!-- Tabs -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="switchTab('users')"><i class="fa-solid fa-users"></i>
+                    จัดการผู้ใช้งาน</button>
+                <button class="tab-btn" onclick="switchTab('rbac')"><i class="fa-solid fa-key"></i> กำหนดสิทธิ์
+                    (RBAC)</button>
+                <button class="tab-btn" onclick="switchTab('logs')"><i class="fa-solid fa-clock-rotate-left"></i> Audit
+                    Logs (PDPA)</button>
+                <button class="tab-btn" onclick="switchTab('settings')"><i class="fa-solid fa-sliders"></i>
+                    ตั้งค่าระบบ</button>
+            </div>
+
+            <!-- TAB 1: USERS -->
+            <div id="users" class="tab-content active">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">รายชื่อผู้ใช้งาน (User List)</div>
+                        <button class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> เพิ่มผู้ใช้ใหม่</button>
+                    </div>
+                    <div style="margin-bottom: 20px; display: flex; gap: 10px;">
+                        <input type="text" placeholder="ค้นหาชื่อ, Email หรือหน่วยงาน..."
+                            style="padding: 10px; border: 1px solid #ddd; border-radius: 6px; width: 300px;">
+                        <select style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
+                            <option value="">ทุกบทบาท</option>
+                            <option value="admin">System Admin</option>
+                            <option value="psych">Psychiatric Team</option>
+                            <option value="pcu">PCU/Health Center</option>
+                            <option value="vhv">VHV (อสม.)</option>
+                            <option value="gov">Local Gov</option>
+                        </select>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ชื่อ-นามสกุล</th>
+                                    <th>บทบาท (Role)</th>
+                                    <th>หน่วยงาน</th>
+                                    <th>ใช้งานล่าสุด</th>
+                                    <th>สถานะ</th>
+                                    <th>จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar">A</div>
+                                            <div>
+                                                <div style="font-weight:600;">Admin Master</div>
+                                                <div style="font-size:12px; color:#888;">admin@safemind.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="role-badge role-admin">System Admin</span></td>
+                                    <td>ศูนย์ IT รพ.ปากช่อง</td>
+                                    <td>Online</td>
+                                    <td><label class="switch"><input type="checkbox" checked disabled><span
+                                                class="slider"></span></label></td>
+                                    <td><button class="btn btn-outline" style="padding: 5px 10px;"><i
+                                                class="fa-solid fa-pen"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar" style="background:#e3f2fd; color:#1565c0;">S</div>
+                                            <div>
+                                                <div style="font-weight:600;">นพ.สมชาย ใจดี</div>
+                                                <div style="font-size:12px; color:#888;">somchai.j@hospital.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="role-badge role-psych">Psychiatrist</span></td>
+                                    <td>รพ.ปากช่องนานา</td>
+                                    <td>10 นาทีที่แล้ว</td>
+                                    <td><label class="switch"><input type="checkbox" checked><span
+                                                class="slider"></span></label></td>
+                                    <td><button class="btn btn-outline" style="padding: 5px 10px;"><i
+                                                class="fa-solid fa-pen"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar" style="background:#e8f5e9; color:#2e7d32;">W</div>
+                                            <div>
+                                                <div style="font-weight:600;">พยาบาลวิไล รักงาน</div>
+                                                <div style="font-size:12px; color:#888;">wilai.nurse@hospital.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="role-badge role-pcu">PCU Nurse</span></td>
+                                    <td>รพ.สต.หนองสาหร่าย</td>
+                                    <td>2 ชม. ที่แล้ว</td>
+                                    <td><label class="switch"><input type="checkbox" checked><span
+                                                class="slider"></span></label></td>
+                                    <td><button class="btn btn-outline" style="padding: 5px 10px;"><i
+                                                class="fa-solid fa-pen"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar" style="background:#fff3e0; color:#ef6c00;">P</div>
+                                            <div>
+                                                <div style="font-weight:600;">นายสมปอง (อสม.)</div>
+                                                <div style="font-size:12px; color:#888;">sompong.v@gmail.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="role-badge role-vhv">VHV (อสม.)</span></td>
+                                    <td>ชุมชนบ้านนา</td>
+                                    <td>เมื่อวานนี้</td>
+                                    <td><label class="switch"><input type="checkbox"><span
+                                                class="slider"></span></label></td>
+                                    <td><button class="btn btn-outline" style="padding: 5px 10px;"><i
+                                                class="fa-solid fa-pen"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: RBAC -->
+            <div id="rbac" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">กำหนดสิทธิ์การเข้าถึง (Role-Based Access Control)</div>
+                        <button class="btn btn-primary" onclick="alert('Saved!')"><i class="fa-solid fa-save"></i>
+                            บันทึกสิทธิ์</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="rbac-table">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:left; min-width:200px;">Permission / Role</th>
+                                    <th><span class="role-badge role-psych">Psych Team</span></th>
+                                    <th><span class="role-badge role-pcu">PCU/Health Ctr</span></th>
+                                    <th><span class="role-badge role-vhv">VHV (อสม.)</span></th>
+                                    <th><span class="role-badge role-gov">Local Gov</span></th>
+                                    <th><span class="role-badge role-exec">Executive</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background:#f9f9f9;">
+                                    <td colspan="6"><strong>การเข้าถึงข้อมูล (Data Access)</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>ดูรายชื่อผู้ป่วย (View List)</td>
+                                    <td><input type="checkbox" checked class="rbac-check"></td>
+                                    <td><input type="checkbox" checked class="rbac-check"></td>
+                                    <td><input type="checkbox" checked class="rbac-check"> (Own Area)</td>
+                                    <td><input type="checkbox" class="rbac-check"> (Only Dashboard)</td>
+                                    <td><input type="checkbox" class="rbac-check"> (Aggregated)</td>
+                                </tr>
+                                <tr>
+                                    <td>ดูข้อมูลเชิงลึก (Medical History)</td>
+                                    <td><input type="checkbox" checked class="rbac-check"></td>
+                                    <td><input type="checkbox" checked class="rbac-check"></td>
+                                    <td><input type="checkbox" class="rbac-check"></td>
+                                    <td><input type="checkbox" disabled class="rbac-check"></td>
+                                    <td><input type="checkbox" disabled class="rbac-check"></td>
+                                </tr>
+                                <tr>
+                                    <td>แก้ไขข้อมูลการแพทย์ (Edit Clinical)</td>
+                                    <td><input type="checkbox" checked class="rbac-check"></td>
+                                    <td><input type="checkbox" class="rbac-check"></td>
+                                    <td><input type="checkbox" disabled class="rbac-check"></td>
+                                    <td><input type="checkbox" disabled class="rbac-check"></td>
+                                    <td><input type="checkbox" disabled class="rbac-check"></td>
+                                </tr>
+                                <tr style="background:#f9f9f9;">
+                                    <td colspan="6"><strong>ความปลอดภัย (PDPA & AI)</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>View Unmasked Data (PDPA)</td>
+                                    <td><input type="checkbox" checked class="rbac-check"></td>
+                                    <td><input type="checkbox" class="rbac-check"></td>
+                                    <td><input type="checkbox" disabled class="rbac-check"></td>
+                                    <td><input type="checkbox" disabled class="rbac-check"></td>
+                                    <td><input type="checkbox" disabled class="rbac-check"></td>
+                                </tr>
+                                <tr>
+                                    <td>Export Reports</td>
+                                    <td><input type="checkbox" checked class="rbac-check"></td>
+                                    <td><input type="checkbox" class="rbac-check"></td>
+                                    <td><input type="checkbox" disabled class="rbac-check"></td>
+                                    <td><input type="checkbox" disabled class="rbac-check"></td>
+                                    <td><input type="checkbox" checked class="rbac-check"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: LOGS -->
+            <div id="logs" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">ประวัติการใช้งานระบบ (Audit Logs & PDPA Tracking)</div>
+                        <button class="btn btn-outline"><i class="fa-solid fa-download"></i> Export Log</button>
+                    </div>
+                    <div
+                        style="margin-bottom: 20px; font-size: 13px; color: #666; background: #fff8e1; padding: 10px; border-radius: 6px; border: 1px solid #ffe082;">
+                        <i class="fa-solid fa-shield-halved"></i> <strong>PDPA Compliance:</strong>
+                        ระบบบันทึกทุกกิจกรรมที่เกี่ยวข้องกับข้อมูลส่วนบุคคล (PII) ตามข้อกำหนด PDPA Middleware
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>User</th>
+                                    <th>Action Type</th>
+                                    <th>Detail / Resource</th>
+                                    <th>PDPA Status</th>
+                                    <th>IP Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>27/01/2026 10:45:12</td>
+                                    <td>นพ.สมชาย ใจดี</td>
+                                    <td><span style="color:var(--danger-color); font-weight:600;">Access PII
+                                            (Unmasked)</span></td>
+                                    <td>Patient HN: 6500123</td>
+                                    <td><span class="role-badge role-admin">Logged</span></td>
+                                    <td>192.168.1.105</td>
+                                </tr>
+                                <tr>
+                                    <td>27/01/2026 10:30:05</td>
+                                    <td>พยาบาลวิไล รักงาน</td>
+                                    <td><span style="color:var(--primary-color); font-weight:600;">Update Clinical
+                                            Record</span></td>
+                                    <td>Home Visit Form HN: 6500456</td>
+                                    <td><span class="role-badge role-pcu">Authorized</span></td>
+                                    <td>192.168.1.112</td>
+                                </tr>
+                                <tr>
+                                    <td>27/01/2026 09:15:22</td>
+                                    <td>นายสมปอง (อสม.)</td>
+                                    <td><span style="color:#666;">View Dashboard</span></td>
+                                    <td>Overview Page</td>
+                                    <td><span class="role-badge role-pcu"
+                                            style="background:#eee; color:#555;">General</span></td>
+                                    <td>Mobile / 4G</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: SETTINGS -->
+            <div id="settings" class="tab-content">
+                <div class="card">
+                    <div class="card-title"
+                        style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">ตั้งค่าทั่วไป
+                        (General)</div>
+                    <div class="form-group">
+                        <label class="form-label">ชื่อโรงพยาบาล / หน่วยงาน</label>
+                        <input type="text" class="form-input" value="โรงพยาบาลปากช่องนานา">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">ระยะเวลา Session Timeout (นาที)</label>
+                        <input type="number" class="form-input" value="30" style="width: 100px;">
+                        <div class="form-note">เพื่อความปลอดภัย ระบบจะ Logout อัตโนมัติเมื่อไม่มีการใช้งาน</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"
+                        style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">ตั้งค่า AI &
+                        PDPA (Intelligence Layer)</div>
+                    <div class="form-group">
+                        <label class="form-label">เกณฑ์ความเสี่ยงสูง (AI High Risk Threshold)</label>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <input type="range" min="0" max="100" value="80" style="flex:1;">
+                            <span style="font-weight:bold; width: 40px;">80%</span>
+                        </div>
+                        <div class="form-note">หาก AI ทำนายความเสี่ยงเกินค่านี้ จะส่ง Alert ระดับด่วนที่สุด</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" style="display:flex; align-items:center; gap:10px;">
+                            เปิดใช้งาน AI Violence Prediction Model
+                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" style="display:flex; align-items:center; gap:10px;">
+                            บังคับใช้ PDPA Middleware (Auto-Masking)
+                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                        </label>
+                        <div class="form-note">ปิดบังข้อมูลส่วนบุคคล (ชื่อ, เลขบัตร) ในทุกหน้าจอเป็นค่าเริ่มต้น</div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">บันทึกการตั้งค่า</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="main-footer">
+            <div><strong>Copyright &copy; 2025 SafeMind AI.</strong> โรงพยาบาลปากช่องนานา</div>
+            <div>Version 1.0.0 | PDPA Compliant</div>
+        </footer>
+    </div>
+
+    <!-- AI Assistants & Chat -->
+    <div class="floating-assistants">
+        <div class="assistant-item" onclick="openChat('carebear')">
+            <div class="assistant-tooltip">CareBear (น้องห่วงใย)</div>
+            <div class="assistant-avatar carebear"><i class="fa-solid fa-paw"></i>
+                <div class="status-dot"></div>
+            </div>
+        </div>
+        <div class="assistant-item" onclick="openChat('safebot')">
+            <div class="assistant-tooltip">SafeBot (ผู้ช่วย AI)</div>
+            <div class="assistant-avatar safebot"><i class="fa-solid fa-robot"></i>
+                <div class="status-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-widget" id="chatWidget" style="display: none;">
+        <div class="chat-header" id="chatHeader">
+            <div class="chat-bot-info">
+                <div class="chat-avatar-small" id="chatAvatar"><i class="fa-solid fa-robot"></i></div>
+                <div class="chat-title">
+                    <h4 id="chatName">SafeBot</h4><span id="chatStatus">Online</span>
+                </div>
+            </div>
+            <button class="close-chat-btn" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-footer"><input type="text" id="chatInput"><button id="chatSendBtn" onclick="sendMessage()"><i
+                    class="fa-solid fa-paper-plane"></i></button></div>
+    </div>
+
+    <script>
+        // Toggle Sidebar & User Menu
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (window.innerWidth <= 992) { sidebar.classList.toggle('open'); overlay.classList.toggle('active'); }
+            else { document.body.classList.toggle('collapsed-menu'); }
+        }
+        document.getElementById('sidebarOverlay').addEventListener('click',function () { document.getElementById('sidebar').classList.remove('open'); this.classList.remove('active'); });
+        function toggleUserMenu() { document.getElementById('userMenu').classList.toggle('show'); }
+        window.addEventListener('click',function (e) { if (!document.querySelector('.user-profile').contains(e.target) && !document.getElementById('userMenu').contains(e.target)) { document.getElementById('userMenu').classList.remove('show'); } });
+        function toggleGroup(header) { header.parentElement.classList.toggle('open'); }
+
+        // Chat Widget Logic
+        let currentBot = 'safebot';
+        function toggleChat() {
+            const widget = document.getElementById('chatWidget');
+            widget.style.display = widget.style.display === 'flex' ? 'none' : 'flex';
+            if (widget.style.display === 'flex') openChat(currentBot);
+        }
+        function openChat(botType) {
+            currentBot = botType;
+            const header = document.getElementById('chatHeader');
+            const sendBtn = document.getElementById('chatSendBtn');
+            const name = document.getElementById('chatName');
+            const avatar = document.getElementById('chatAvatar');
+            const body = document.getElementById('chatBody');
+
+            header.className = botType === 'carebear' ? 'chat-header carebear-theme' : 'chat-header';
+            sendBtn.className = botType === 'carebear' ? 'carebear-theme' : '';
+            name.innerText = botType === 'carebear' ? 'CareBear (น้องห่วงใย)' : 'SafeBot (ผู้ช่วย AI)';
+            avatar.innerHTML = botType === 'carebear' ? '<i class="fa-solid fa-paw"></i>' : '<i class="fa-solid fa-robot"></i>';
+            document.getElementById('chatWidget').style.display = 'flex';
+            if (body.innerHTML.trim() === '') addMessage('bot',botType === 'carebear' ? 'สวัสดีค่ะ หนูแคร์แบร์ ยินดีรับฟังทุกเรื่องราวค่ะ 💖' : 'สวัสดีครับ SafeBot พร้อมให้บริการข้อมูลและประเมินความเสี่ยงครับ');
+        }
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            addMessage('user',text);
+            input.value = '';
+            setTimeout(() => addMessage('bot',currentBot === 'carebear' ? 'เข้าใจเลยค่ะ เป็นกำลังใจให้นะคะ 💕' : 'รับทราบครับ กำลังประมวลผล...'),1000);
+        }
+        function addMessage(sender,text) {
+            const body = document.getElementById('chatBody');
+            const div = document.createElement('div');
+            div.className = `message ${sender} ${sender === 'user' && currentBot === 'carebear' ? 'carebear-theme' : ''}`;
+            div.innerHTML = `${text}<span class="message-time">${new Date().toLocaleTimeString([],{ hour: '2-digit',minute: '2-digit' })}</span>`;
+            body.appendChild(div);
+            body.scrollTop = body.scrollHeight;
+        }
+
+        // --- Admin Page Logic ---
+        function switchTab(tabId) {
+            // Remove active class from all buttons and contents
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            // Add active class to clicked button
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                if (btn.getAttribute('onclick').includes(tabId)) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Show target content
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

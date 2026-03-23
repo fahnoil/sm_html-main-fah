@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind AI - รายงานข้อมูลเชิงคลินิก</title>
+    
+    <!-- Google Fonts: Sarabun -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons: Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/rpt_03.css">
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="app-logo">
+                <i class="fa-solid fa-shield-heart"></i>
+                <span class="app-text">SafeMind AI</span>
+            </a>
+        </div>
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item ">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <!-- Patient Group Open -->
+            <div class="nav-group  ">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-users-viewfinder menu-icon"></i><span>บริการผู้ป่วย</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Patient-Registry.html" class="sub-menu-item  ">
+                        <span>ทะเบียนผู้ป่วย (Registry)</span>
+                    </a>
+                    <a href="AlertCenter.html" class="sub-menu-item">
+                        <span>แจ้งเตือน & งาน</span>
+                        <span class="menu-badge">3</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-stethoscope menu-icon"></i><span>งานคลินิก</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="Screening_CRF.html" class="sub-menu-item">
+                        <span>คัดกรอง & CRF</span>
+                    </a>
+                    <a href="Visit.html" class="sub-menu-item">
+                        <span>เยี่ยมบ้าน (Home Visit)</span>
+                    </a>
+                    <a href="Telehealt.html" class="sub-menu-item">
+                        <span>Telehealth</span>
+                    </a>
+                    <a href="airisk.html" class="sub-menu-item">
+                        <span>AI Risk Analysis</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i
+                            class="fa-solid fa-map-location-dot menu-icon"></i><span>ข้อมูลภูมิสารสนเทศ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="SpotMap.html" class="sub-menu-item">
+                        <span>Spot Map & GIS</span>
+                    </a>
+                    <!-- <a href="#" class="sub-menu-item"><span>PDW Search</span></a> -->
+                </div>
+            </div>
+            <div class="nav-group open">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-chart-pie menu-icon"></i><span>รายงาน
+                            (Reports)</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <a href="PDW_Search.html" class="sub-menu-item  ">
+                        <span>PDW Search</span>
+                    </a>
+                    <a href="rpt_01.html" class="sub-menu-item  ">
+                        <span>สถานการณ์และสถิติผู้ป่วย</span>
+                    </a>
+                    <a href="rpt_02.html" class="sub-menu-item">
+                        <span>ผลการดำเนินงาน </span>
+                    </a>
+                    <a href="rpt_03.html" class="sub-menu-item active">
+                        <span>ข้อมูลเชิงคลินิกและปัจจัยเสี่ยง</span>
+                    </a>
+                    <a href="rpt_04.html" class="sub-menu-item">
+                        <span>ประสิทธิภาพระบบ</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-group">
+                <div class="nav-header" onclick="toggleGroup(this)">
+                    <div class="header-left"><i class="fa-solid fa-gears menu-icon"></i><span>ตั้งค่าระบบ</span></div>
+                    <i class="fa-solid fa-chevron-down arrow"></i>
+                </div>
+                <div class="nav-content">
+                    <!-- <a href="#" class="sub-menu-item"><span>Knowledge Hub</span></a> -->
+                    <a href="admin.html" class="sub-menu-item">
+                        <span>ผู้ดูแลระบบ (Admin)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-footer">v1.0.0 (Release)</div>
+    </aside>
+
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        <header class="top-header">
+            <div class="header-left">
+                <button class="toggle-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+                <div class="system-title">
+                    <h2>SafeMind AI <span class="env-badge">PROD</span></h2>
+                    <span>Smart Mental Health Ecosystem for SMI-V Care</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="nav-icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot"></span></button>
+                <div class="user-dropdown-container">
+                    <div class="user-profile" onclick="toggleUserMenu()">
+                        <div class="user-info"><span class="user-name">นพ.สมชาย ใจดี</span><span class="user-role">จิตแพทย์</span></div>
+                        <div class="user-avatar">S</div>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: rgba(255, 255, 255, 0.8);"></i>
+                    </div>
+                    <div class="dropdown-menu" id="userMenu">
+                        <a href="#" class="dropdown-item"><i class="fa-regular fa-user"></i> ดูโปรไฟล์</a>
+                        <a href="#" class="dropdown-item"><i class="fa-solid fa-gear"></i> ตั้งค่าบัญชี</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item danger"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA: REPORT -->
+        <div class="content-area">
+            <div class="breadcrumb"><i class="fa-solid fa-house"></i> หน้าหลัก / รายงาน / ข้อมูลทางคลินิก (Clinical & Risk)</div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label class="filter-label">ปีงบประมาณ</label>
+                    <select class="filter-select">
+                        <option>2569 (ปัจจุบัน)</option>
+                        <option>2568</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">กลุ่มโรค (Diagnosis)</label>
+                    <select class="filter-select">
+                        <option>ทั้งหมด (All)</option>
+                        <option>จิตเภท (F20)</option>
+                        <option>ไบโพลาร์ (F31)</option>
+                        <option>ซึมเศร้า (F32)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">ปัจจัยเสี่ยง (Risk Factor)</label>
+                    <select class="filter-select">
+                        <option>ทั้งหมด</option>
+                        <option>ขาดยา (Non-adherence)</option>
+                        <option>สารเสพติด (Substance Abuse)</option>
+                    </select>
+                </div>
+                <div class="filter-group" style="flex:0;">
+                    <label class="filter-label">&nbsp;</label>
+                    <button class="btn-filter"><i class="fa-solid fa-filter"></i> กรอง</button>
+                </div>
+                <div class="filter-group" style="flex:0;">
+                    <label class="filter-label">&nbsp;</label>
+                    <button class="btn-export"><i class="fa-solid fa-file-export"></i> Export</button>
+                </div>
+            </div>
+
+            <!-- KPIs -->
+            <div class="kpi-grid">
+                <div class="kpi-card orange">
+                    <div class="kpi-header">
+                        <span class="kpi-title">อัตราขาดยา (Poor Adherence)</span>
+                        <i class="fa-solid fa-pills kpi-icon"></i>
+                    </div>
+                    <div class="kpi-value">12.5%</div>
+                    <div class="kpi-trend trend-down"><i class="fa-solid fa-arrow-down"></i> -1.5% จากเดือนก่อน</div>
+                </div>
+                <div class="kpi-card red">
+                    <div class="kpi-header">
+                        <span class="kpi-title">ใช้สารเสพติด (Substance Abuse)</span>
+                        <i class="fa-solid fa-wine-bottle kpi-icon"></i>
+                    </div>
+                    <div class="kpi-value">45</div>
+                    <div class="kpi-sub">รายที่ยัง Active อยู่</div>
+                </div>
+                <div class="kpi-card blue">
+                    <div class="kpi-header">
+                        <span class="kpi-title">กลับมารักษาซ้ำ (Re-admission)</span>
+                        <i class="fa-solid fa-hospital-user kpi-icon"></i>
+                    </div>
+                    <div class="kpi-value">8</div>
+                    <div class="kpi-sub">ในรอบ 3 เดือน</div>
+                </div>
+                <div class="kpi-card green">
+                    <div class="kpi-header">
+                        <span class="kpi-title">อาการสงบ (Remission)</span>
+                        <i class="fa-solid fa-face-smile kpi-icon"></i>
+                    </div>
+                    <div class="kpi-value">85.4%</div>
+                    <div class="kpi-trend trend-up"><i class="fa-solid fa-arrow-up"></i> แนวโน้มดีขึ้น</div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="chart-grid-2">
+                <!-- Chart 1: Medication Adherence -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">ความสม่ำเสมอในการกินยา (Medication Adherence)</div>
+                    </div>
+                    <div style="height: 250px; display: flex; justify-content: center;">
+                        <canvas id="medChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Chart 2: Substance Abuse -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">ประเภทสารเสพติดที่พบร่วม (Co-occurring Disorders)</div>
+                    </div>
+                    <div style="height: 250px;">
+                        <canvas id="substanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-card" style="margin-bottom: 25px;">
+                <div class="chart-header">
+                    <div class="chart-title">ความสัมพันธ์ระหว่างการขาดยากับการก่อความรุนแรง (Correlation Analysis)</div>
+                </div>
+                <div style="height: 300px;">
+                    <canvas id="correlationChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Table Section -->
+            <div class="table-card">
+                <div class="table-header">
+                    <div class="table-title">ตาราง Heatmap ปัจจัยเสี่ยงรายพื้นที่ (Risk Factor Heatmap)</div>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>พื้นที่ (District)</th>
+                                <th>จำนวนผู้ป่วย</th>
+                                <th>ขาดยา (%)</th>
+                                <th>สารเสพติด (%)</th>
+                                <th>ความรุนแรงซ้ำ (%)</th>
+                                <th>คะแนนความเสี่ยงเฉลี่ย (AI)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>หนองสาหร่าย</td>
+                                <td>320</td>
+                                <td class="bg-high">15.2%</td>
+                                <td class="bg-med">8.5%</td>
+                                <td class="bg-low">2.1%</td>
+                                <td><span style="font-weight:bold; color:var(--danger-color);">75/100</span></td>
+                            </tr>
+                            <tr>
+                                <td>ปากช่อง</td>
+                                <td>450</td>
+                                <td class="bg-med">10.1%</td>
+                                <td class="bg-high">12.4%</td>
+                                <td class="bg-med">4.5%</td>
+                                <td><span style="font-weight:bold; color:#e65100;">68/100</span></td>
+                            </tr>
+                            <tr>
+                                <td>หมูสี</td>
+                                <td>180</td>
+                                <td class="bg-low">5.4%</td>
+                                <td class="bg-low">3.2%</td>
+                                <td class="bg-low">1.0%</td>
+                                <td><span style="font-weight:bold; color:var(--success-color);">45/100</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="main-footer">
+            <div><strong>Copyright &copy; 2025 SafeMind AI.</strong> โรงพยาบาลปากช่องนานา</div>
+            <div>Version 1.0.0 | PDPA Compliant</div>
+        </footer>
+    </div>
+
+    <!-- AI Assistants & Chat -->
+    <div class="floating-assistants">
+        <div class="assistant-item" onclick="openChat('carebear')">
+            <div class="assistant-tooltip">CareBear (น้องห่วงใย)</div>
+            <div class="assistant-avatar carebear"><i class="fa-solid fa-paw"></i><div class="status-dot"></div></div>
+        </div>
+        <div class="assistant-item" onclick="openChat('safebot')">
+            <div class="assistant-tooltip">SafeBot (ผู้ช่วย AI)</div>
+            <div class="assistant-avatar safebot"><i class="fa-solid fa-robot"></i><div class="status-dot"></div></div>
+        </div>
+    </div>
+    
+    <div class="chat-widget" id="chatWidget" style="display: none;">
+        <div class="chat-header" id="chatHeader">
+            <div class="chat-bot-info">
+                <div class="chat-avatar-small" id="chatAvatar"><i class="fa-solid fa-robot"></i></div>
+                <div class="chat-title"><h4 id="chatName">SafeBot</h4><span id="chatStatus">Online</span></div>
+            </div>
+            <button class="close-chat-btn" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-footer"><input type="text" id="chatInput"><button id="chatSendBtn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button></div>
+    </div>
+
+    <script>
+        // Toggle Sidebar & User Menu
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (window.innerWidth <= 992) { sidebar.classList.toggle('open'); overlay.classList.toggle('active'); }
+            else { document.body.classList.toggle('collapsed-menu'); }
+        }
+        document.getElementById('sidebarOverlay').addEventListener('click', function() { document.getElementById('sidebar').classList.remove('open'); this.classList.remove('active'); });
+        function toggleUserMenu() { document.getElementById('userMenu').classList.toggle('show'); }
+        window.addEventListener('click', function(e) { if (!document.querySelector('.user-profile').contains(e.target) && !document.getElementById('userMenu').contains(e.target)) { document.getElementById('userMenu').classList.remove('show'); } });
+        function toggleGroup(header) { header.parentElement.classList.toggle('open'); }
+
+        // Chat Widget Logic
+        let currentBot = 'safebot';
+        function toggleChat() {
+            const widget = document.getElementById('chatWidget');
+            widget.style.display = widget.style.display === 'flex' ? 'none' : 'flex';
+            if(widget.style.display === 'flex') openChat(currentBot);
+        }
+        function openChat(botType) {
+            currentBot = botType;
+            const header = document.getElementById('chatHeader');
+            const sendBtn = document.getElementById('chatSendBtn');
+            const name = document.getElementById('chatName');
+            const avatar = document.getElementById('chatAvatar');
+            const body = document.getElementById('chatBody');
+            
+            header.className = botType === 'carebear' ? 'chat-header carebear-theme' : 'chat-header';
+            sendBtn.className = botType === 'carebear' ? 'carebear-theme' : '';
+            name.innerText = botType === 'carebear' ? 'CareBear (น้องห่วงใย)' : 'SafeBot (ผู้ช่วย AI)';
+            avatar.innerHTML = botType === 'carebear' ? '<i class="fa-solid fa-paw"></i>' : '<i class="fa-solid fa-robot"></i>';
+            document.getElementById('chatWidget').style.display = 'flex';
+            if(body.innerHTML.trim() === '') addMessage('bot', botType === 'carebear' ? 'สวัสดีค่ะ หนูแคร์แบร์ ยินดีรับฟังทุกเรื่องราวค่ะ 💖' : 'สวัสดีครับ SafeBot พร้อมให้บริการข้อมูลและประเมินความเสี่ยงครับ');
+        }
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if(!text) return;
+            addMessage('user', text);
+            input.value = '';
+            setTimeout(() => addMessage('bot', currentBot === 'carebear' ? 'เข้าใจเลยค่ะ เป็นกำลังใจให้นะคะ 💕' : 'รับทราบครับ กำลังประมวลผล...'), 1000);
+        }
+        function addMessage(sender, text) {
+            const body = document.getElementById('chatBody');
+            const div = document.createElement('div');
+            div.className = `message ${sender} ${sender === 'user' && currentBot === 'carebear' ? 'carebear-theme' : ''}`;
+            div.innerHTML = `${text}<span class="message-time">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>`;
+            body.appendChild(div);
+            body.scrollTop = body.scrollHeight;
+        }
+
+        // --- Charts Initialization ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Medication Adherence Chart (Doughnut)
+            new Chart(document.getElementById('medChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['กินยาสม่ำเสมอ (Good)', 'ขาดยาบางครั้ง (Fair)', 'ขาดยาบ่อย/ไม่กิน (Poor)'],
+                    datasets: [{
+                        data: [75, 15, 10],
+                        backgroundColor: ['#28a745', '#ffc107', '#dc3545'],
+                        borderWidth: 0
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+            });
+
+            // 2. Substance Abuse Chart (Bar)
+            new Chart(document.getElementById('substanceChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['แอลกอฮอล์', 'ยาบ้า', 'กัญชา', 'อื่นๆ'],
+                    datasets: [{
+                        label: 'จำนวนผู้ป่วย',
+                        data: [25, 15, 5, 2],
+                        backgroundColor: ['#ffc107', '#dc3545', '#28a745', '#6c757d']
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 3. Correlation Chart (Line/Scatter Hybrid Mockup)
+            new Chart(document.getElementById('correlationChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                    datasets: [
+                        { label: 'อัตราการขาดยา (%)', data: [5, 8, 15, 20, 25, 30], borderColor: '#ffc107', yAxisID: 'y' },
+                        { label: 'อุบัติการณ์ความรุนแรง (ครั้ง)', data: [1, 1, 3, 5, 8, 12], borderColor: '#dc3545', yAxisID: 'y1' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { type: 'linear', display: true, position: 'left', title: { display: true, text: '% ขาดยา' } },
+                        y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'จำนวนเหตุการณ์' }, grid: { drawOnChartArea: false } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
