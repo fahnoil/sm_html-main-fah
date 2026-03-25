@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SafeMind AI - Telehealth-รพ.สต</title>
+    
+
 
     <!-- Google Fonts: Sarabun -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
@@ -16,6 +18,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/telehealt_.css">
     <link rel="stylesheet" href="css/style-tele.css">
+    <link rel="stylesheet" href="css/Telehealt.css">
     
 </head>
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
@@ -67,6 +70,9 @@
                     </a>
                     <a href="Telehealt-pcu.html" class="sub-menu-item active">
                         <span>Telehealth-รพ.สต</span>
+                    </a>
+                    <a href="telehealth-doctor.html" class="sub-menu-item">
+                        <span>ระบบ Telehealth — หน้าจอแพทย์</span>
                     </a>
                     <a href="airisk.html" class="sub-menu-item">
                         <span>AI Risk Analysis</span>
@@ -179,9 +185,9 @@
         <p>รายการนัดหมาย Telehealth ทั้งหมด</p>
       </div>
     </div>
-    <button class="btn-primary">
-      <span>＋</span> ส่งคำขอ Telehealth
-    </button>
+                <button class="btn-primary" onclick="openRequestModal()">
+                <span>＋</span> ส่งคำขอ Telehealth
+            </button>
   </div>
 
   <!-- STATS -->
@@ -266,7 +272,11 @@
             <div class="date-text">📆 <span>28/03/2026</span></div>
           </td>
           <td>
-            <button class="btn-call">📞 Call</button>
+           <button class="btn-call active" onclick="window.open
+                    ('teleconsultation.html', 'TeleconsultWindow', 'width=1160,height=680,left='+(screen.width-1160)/2+',top='+(screen.height-680)/2+',resizable=yes')">
+                     <i class="fa-solid fa-video"></i> เริ่ม Video Call
+            </button>
+            </button>
           </td>
         </tr>
         <tr>
@@ -284,7 +294,10 @@
             <div class="date-text">📆 <span>28/03/2026</span></div>
           </td>
           <td>
-            <button class="btn-call">📞 Call</button>
+             <button class="btn-call active" onclick="window.open
+                    ('teleconsultation.html', 'TeleconsultWindow', 'width=1160,height=680,left='+(screen.width-1160)/2+',top='+(screen.height-680)/2+',resizable=yes')">
+                     <i class="fa-solid fa-video"></i> เริ่ม Video Call
+            </button>
           </td>
         </tr>
       </tbody>
@@ -292,11 +305,219 @@
   </div>
 
 </main>
+<!-- Modal สำหรับส่ง Telehealth -->
+    <div class="modal-backdrop" id="requestModal" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:999;">
+        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle" style="background:#fff; padding:20px; max-width:800px; width:100%; border-radius:8px;">
+            <!-- Header -->
+            <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="modal-header-left" style="display:flex; align-items:center;">
+                    <div class="modal-header-icon" style="margin-right:10px;"><i class="fa-solid fa-paper-plane"></i></div>
+                    <div>
+                        <h3 id="modalTitle">ส่งคำขอ Telehealth</h3>
+                        <p>กรอกข้อมูลผู้ป่วยเพื่อส่งคำร้องขอนัดหมาย</p>
+                    </div>
+                </div>
+                <button class="modal-close-btn" onclick="closeRequestModal()" title="ปิด" style="background:none; border:none; font-size:20px; cursor:pointer;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="modal-body" style="margin-top:15px; max-height:70vh; overflow-y:auto;">
+                <!-- ส่วนของฟอร์มตามเดิม -->
+                <!-- ข้อมูลผู้ป่วย -->
+                <div class="modal-section">
+                    <div class="modal-section-title"><i class="fa-solid fa-user-injured"></i> ข้อมูลผู้ป่วย</div>
+                    <div class="form-grid">
+                        <!-- ... (ฟิลด์ข้อมูลผู้ป่วย) ... -->
+                        <div class="form-field">
+                            <label>ชื่อ <span class="required">*</span></label>
+                            <input type="text" id="req_firstname" placeholder="ชื่อจริง" />
+                        </div>
+                        <div class="form-field">
+                            <label>นามสกุล <span class="required">*</span></label>
+                            <input type="text" id="req_lastname" placeholder="นามสกุล" />
+                        </div>
+                        <div class="form-field">
+                            <label>HN / เลขบัตรประชาชน</label>
+                            <input type="text" id="req_hn" placeholder="เช่น HN-2026-XXXXX" />
+                        </div>
+                        <div class="form-field">
+                            <label>วันเกิด</label>
+                            <input type="date" id="req_dob" />
+                        </div>
+                    </div>
+                </div>
+                <!-- ข้อมูลคลินิก -->
+                <div class="modal-section">
+                    <div class="modal-section-title"><i class="fa-solid fa-stethoscope"></i> ข้อมูลคลินิก</div>
+                    <div class="form-grid">
+                        <div class="form-field span-2">
+                            <label>การวินิจฉัย (Diagnosis) <span class="required">*</span></label>
+                            <input type="text" id="req_diagnosis" placeholder="เช่น F20.0 Schizophrenia, F31 Bipolar..." />
+                        </div>
+                        <div class="form-field span-2">
+                            <label>อาการเบื้องต้น / ประวัติปัจจุบัน <span class="required">*</span></label>
+                            <textarea id="req_symptoms" placeholder="บรรยายอาการที่พบ เช่น ผู้ป่วยมีอาการ..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- รพ.สต. ที่ส่ง -->
+                <div class="modal-section">
+                    <div class="modal-section-title"><i class="fa-solid fa-hospital"></i> รพ.สต. ที่ส่งคำขอ</div>
+                    <div class="form-grid">
+                        <div class="form-field span-2">
+                            <label>รพ.สต. / หน่วยบริการ <span class="required">*</span></label>
+                            <select id="req_pcu">
+                                <option value="">— เลือก รพ.สต. —</option>
+                                <option>รพ.สต. บ้านโนนสูง</option>
+                                <option>รพ.สต. บ้านหนองแวง</option>
+                                <option>รพ.สต. บ้านสวนหม่อน</option>
+                                <option>รพ.สต. บ้านกลาง</option>
+                                <option>รพ.สต. บ้านโคกสว่าง</option>
+                                <option>รพ.สต. บ้านหนองกี่</option>
+                                <option>รพ.สต. บ้านท่าเรือ</option>
+                                <option>อื่นๆ (ระบุในหมายเหตุ)</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label>ผู้ส่ง / ชื่อเจ้าหน้าที่</label>
+                            <input type="text" id="req_staff" placeholder="ชื่อ-นามสกุล เจ้าหน้าที่" />
+                        </div>
+                        <div class="form-field">
+                            <label>วันที่ต้องการนัด</label>
+                            <input type="date" id="req_preferred_date" />
+                        </div>
+                    </div>
+                </div>
+                <!-- ระดับความเร่งด่วน -->
+                <div class="modal-section">
+                    <div class="modal-section-title"><i class="fa-solid fa-triangle-exclamation"></i> ระดับความเร่งด่วน</div>
+                    <div class="urgency-row" id="urgencyRow" style="margin-top:10px;">
+                        <button class="urgency-btn" onclick="selectUrgency(this, 'normal')">
+                            🟢 ปกติ (Routine)
+                        </button>
+                        <button class="urgency-btn" onclick="selectUrgency(this, 'urgent')">
+                            🟡 เร่งด่วน (Urgent)
+                        </button>
+                        <button class="urgency-btn" onclick="selectUrgency(this, 'critical')">
+                            🔴 เร่งด่วนมาก (Critical)
+                        </button>
+                    </div>
+                </div>
+                <!-- เหตุผลที่ขอ Telehealth -->
+                <div class="modal-section" style="margin-top:15px;">
+                    <div class="modal-section-title"><i class="fa-solid fa-list-check"></i> เหตุผลที่ขอ Telehealth <span class="required" style="color:#ea4335;">*</span></div>
+                    <div class="reason-grid" id="reasonGrid" style="margin-top:10px; display:flex; flex-wrap:wrap;">
+                        <label class="reason-item" style="width:50%; padding:5px;" onclick="toggleReason(this)">
+                            <input type="checkbox" value="ติดตามอาการหลังจำหน่าย"> ติดตามอาการหลังจำหน่าย
+                        </label>
+                        <label class="reason-item" style="width:50%; padding:5px;" onclick="toggleReason(this)">
+                            <input type="checkbox" value="ผู้ป่วยเดินทางไม่สะดวก"> ผู้ป่วยเดินทางไม่สะดวก
+                        </label>
+                        <label class="reason-item" style="width:50%; padding:5px;" onclick="toggleReason(this)">
+                            <input type="checkbox" value="ขาดยา/ยาหมด"> ขาดยา / ยาหมด
+                        </label>
+                        <label class="reason-item" style="width:50%; padding:5px;" onclick="toggleReason(this)">
+                            <input type="checkbox" value="อาการกำเริบ/เปลี่ยนแปลง"> อาการกำเริบ / เปลี่ยนแปลง
+                        </label>
+                        <label class="reason-item" style="width:50%; padding:5px;" onclick="toggleReason(this)">
+                            <input type="checkbox" value="ปรึกษาการปรับยา"> ปรึกษาการปรับยา
+                        </label>
+                        <label class="reason-item" style="width:50%; padding:5px;" onclick="toggleReason(this)">
+                            <input type="checkbox" value="ผู้ดูแลมีคำถาม/ขอคำปรึกษา"> ผู้ดูแลมีคำถาม / ขอคำปรึกษา
+                        </label>
+                        <label class="reason-item" style="width:50%; padding:5px;" onclick="toggleReason(this)">
+                            <input type="checkbox" value="ประเมินความเสี่ยงพฤติกรรมรุนแรง"> ประเมินความเสี่ยงพฤติกรรมรุนแรง
+                        </label>
+                        <label class="reason-item" style="width:50%; padding:5px;" onclick="toggleReason(this)">
+                            <input type="checkbox" value="COVID/โรคระบาด ไม่สะดวกมา รพ."> COVID / โรคระบาด ไม่สะดวกมา รพ.
+                        </label>
+                    </div>
+                    <div class="reason-other" style="margin-top:10px;">
+                        <input type="text" id="req_reason_other" placeholder="➕ เหตุผลอื่นๆ (ระบุ)..." style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                    </div>
+                </div>
+                <!-- หมายเหตุเพิ่มเติม -->
+                <div class="modal-section" style="margin-top:15px;">
+                    <div class="modal-section-title"><i class="fa-solid fa-note-sticky"></i> หมายเหตุเพิ่มเติม</div>
+                    <div class="form-grid single" style="margin-top:10px;">
+                        <div class="form-field">
+                            <textarea id="req_note" placeholder="ข้อมูลเพิ่มเติม หรือข้อความถึงจิตแพทย์..." style="min-height:70px; width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer" style="margin-top:15px; display:flex; justify-content:flex-end; gap:10px;">
+                <button class="btn-modal-cancel" onclick="closeRequestModal()" style="padding:8px 16px; background:#ccc; border:none; border-radius:4px; cursor:pointer;">
+                    <i class="fa-solid fa-xmark"></i> ยกเลิก
+                </button>
+                <button class="btn-modal-submit" onclick="submitRequest()" style="padding:8px 16px; background:#4CAF50; color:#fff; border:none; border-radius:4px; cursor:pointer;">
+                    <i class="fa-solid fa-paper-plane"></i> ส่งคำขอ Telehealth
+                </button>
+            </div>
+        </div>
+    </div>
 
-</body>
-</html>
+    <!-- Success Toast -->
+    <div class="toast-success" id="toastSuccess" style="display:none; position: fixed; bottom:20px; right:20px; background:#4CAF50; color:#fff; padding:10px 20px; border-radius:4px; z-index:9999;">
+        <i class="fa-solid fa-circle-check" style="font-size:18px; margin-right:8px;"></i> ส่งคำขอ Telehealth สำเร็จแล้ว!
+    </div>
+</div>
 
+    <!-- AI Assistants & Chat (Standard) -->
+    <div class="floating-assistants">
+        <div class="assistant-item" onclick="openChat('carebear')">
+            <div class="assistant-tooltip">CareBear (น้องห่วงใย)</div>
+            <div class="assistant-avatar carebear"><i class="fa-solid fa-paw"></i>
+                <div class="status-dot"></div>
+            </div>
+        </div>
+        <div class="assistant-item" onclick="openChat('safebot')">
+            <div class="assistant-tooltip">SafeBot (ผู้ช่วย AI)</div>
+            <div class="assistant-avatar safebot"><i class="fa-solid fa-robot"></i>
+                <div class="status-dot"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chatWidget" style="display: none;">
+        <!-- Simplified for brevity, assume same structure as master -->
+        <div class="chat-header">
+            <div class="chat-title">
+                <h4>SafeBot</h4>
+            </div><button class="close-chat-btn" onclick="toggleChat()">x</button>
+        </div>
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-footer"><input type="text" id="chatInput"><button onclick="sendMessage()">Send</button></div>
+    </div>
+    <!-- JavaScript -->
+<script>
+    // ฟังก์ชันเปิดปิด modal
+    function openRequestModal() {
+        document.getElementById('requestModal').style.display = 'flex';
+    }
+    function closeRequestModal() {
+        document.getElementById('requestModal').style.display = 'none';
+    }
 
+    // ฟังก์ชันส่งคำขอ
+    function submitRequest() {
+        // ตัวอย่าง: แสดง toast
+        closeRequestModal();
+        const toast = document.getElementById('toastSuccess');
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display='none'; }, 3000);
+        // ตรงนี้สามารถเพิ่มการส่งข้อมูลไปเซิร์ฟเวอร์ได้
+    }
+
+    // ฟังก์ชัน toggle สำหรับเหตุผลอื่น
+    function toggleReason(element) {
+        const checkbox = element.querySelector('input[type="checkbox"]');
+        checkbox.checked = !checkbox.checked;
+        // เพิ่มเติม: ถ้าต้องการให้เช็คอัตโนมัติ
+    }
+</script>
     <script>
         // Toggle Sidebar
         function toggleSidebar() {
@@ -340,28 +561,26 @@
         function sendMessage() { /* ... */ }
 
         // --- TELEHEALTH LOGIC ---
-        let timerInterval;
-        let seconds = 0;
+     function startCall(patientName) {
+    document.getElementById('callPatientName').innerText = patientName;
 
-        function startCall(patientName) {
-            document.getElementById('callPatientName').innerText = patientName;
-            document.getElementById('waitingRoomView').style.display = 'none'; // Hide Dashboard content
+    // แก้: เช็คก่อนว่ามี element หรือไม่
+    const waitingRoom = document.getElementById('waitingRoomView');
+    if (waitingRoom) waitingRoom.style.display = 'none';
 
-            // Note: In real app, we might toggle full screen or hide sidebar/header completely
-            // Here we just overlay the video view
-            const videoView = document.getElementById('videoCallView');
-            videoView.style.display = 'flex';
+    const videoView = document.getElementById('videoCallView');
+    videoView.style.display = 'flex';
 
-            // Start Timer
-            seconds = 0;
-            document.getElementById('callTimer').innerText = "00:00";
-            timerInterval = setInterval(() => {
-                seconds++;
-                const mins = Math.floor(seconds / 60).toString().padStart(2,'0');
-                const secs = (seconds % 60).toString().padStart(2,'0');
-                document.getElementById('callTimer').innerText = `${mins}:${secs}`;
-            },1000);
-        }
+    // Start Timer
+    seconds = 0;
+    document.getElementById('callTimer').innerText = "00:00";
+    timerInterval = setInterval(() => {
+        seconds++;
+        const mins = Math.floor(seconds / 60).toString().padStart(2,'0');
+        const secs = (seconds % 60).toString().padStart(2,'0');
+        document.getElementById('callTimer').innerText = `${mins}:${secs}`;
+    }, 1000);
+}
 
         function endCall() {
             if (confirm('ต้องการวางสายและจบการสนทนาใช่หรือไม่?')) {
@@ -378,4 +597,7 @@
     </script>
 </body>
 
+
 </html>
+    
+  

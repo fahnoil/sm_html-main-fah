@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeMind AI – Teleconsultation</title>
+  <link rel="stylesheet" href="styles.css" />
+  
+</head>
+<body>
+
+<div class="app-wrapper">
+
+  <!-- ── Top Bar ── -->
+  <header class="top-bar">
+    <div class="logo">
+      <span class="logo-dot"></span>
+      SafeMind AI
+    </div>
+    <span style="color:rgba(255,255,255,0.25);font-size:13px;margin-left:6px;">Teleconsultation</span>
+    <div class="session-info">
+      <span class="timer" id="callTimer">00:00</span>
+      <div class="badge-live hidden" id="liveBadge">
+        <span class="dot"></span> LIVE
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Video Section ── -->
+  <section class="video-section">
+
+    <!-- Idle / Pre-call -->
+    <div class="idle-overlay" id="idleOverlay">
+      <div class="patient-avatar">👤</div>
+      <div class="patient-name">นาย ก. (นามสมมติ)</div>
+      <div class="patient-meta">HN 00123 &nbsp;·&nbsp; ผู้ป่วยนัดสัมภาษณ์ 09:00</div>
+      <button class="start-call-btn" id="startCallBtn" onclick="startCall()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M15 10l4.553-2.276A1 1 0 0121 8.82V15.18a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/>
+        </svg>
+        เริ่มการโทรวิดีโอ
+      </button>
+    </div>
+
+    <!-- Active Call -->
+    <div class="call-active" id="callActive">
+
+      <div class="video-feed-main">
+        <!-- Patient info overlay -->
+        <div class="patient-info-overlay">
+          <span class="risk-badge">High Risk</span>
+          <div>
+            <div class="name">นาย ก. (นามสมมติ)</div>
+            <div class="sub">เชื่อมต่อแล้ว</div>
+          </div>
+        </div>
+
+        <span class="video-placeholder-label">Video Feed (Patient)</span>
+
+        <!-- Self preview -->
+        <div class="self-video">คุณ</div>
+      </div>
+
+      <!-- Controls -->
+      <div class="call-controls">
+        <button class="ctrl-btn" id="micBtn" title="ปิด/เปิดไมค์" onclick="toggleControl(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+            <path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/>
+          </svg>
+        </button>
+
+        <button class="ctrl-btn" id="camBtn" title="ปิด/เปิดกล้อง" onclick="toggleControl(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 10l4.553-2.276A1 1 0 0121 8.82V15.18a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/>
+          </svg>
+        </button>
+
+        <button class="ctrl-btn-end" title="วางสาย" onclick="endCall()">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+          </svg>
+        </button>
+
+        <button class="ctrl-btn" title="แชร์หน้าจอ" onclick="toggleControl(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+        </button>
+
+        <button class="ctrl-btn" title="ตั้งค่า" onclick="toggleControl(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── Notes Panel ── -->
+  <aside class="notes-panel">
+
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'note')">บันทึกอาการ (Note)</button>
+      <button class="tab-btn" onclick="switchTab(this,'timeline')">Timeline</button>
+    </div>
+
+    <div class="panel-content" id="tab-note">
+
+      <!-- 1. Mental Status -->
+      <div>
+        <div class="section-label">อาการทางจิต (Mental Status)</div>
+        <div class="mental-status-group">
+          <label class="tag-check"><input type="checkbox" /> พูดช้า/เฉื่อยชา</label>
+          <label class="tag-check"><input type="checkbox" checked /> ฟุ้งซ่าน/ยุ่งเหยิง</label>
+          <label class="tag-check"><input type="checkbox" /> ความวิตกกังวล</label>
+          <label class="tag-check"><input type="checkbox" /> ความคิดทำร้ายตัวเอง</label>
+        </div>
+      </div>
+
+      <!-- 2. Teleconsultation Checklist Dropdown -->
+      <div>
+        <div class="section-label">การพิจารณา Teleconsultation</div>
+        <div class="dropdown-wrapper">
+          <button class="dropdown-trigger" id="checklistTrigger" onclick="toggleDropdown()">
+            <span>เหตุผลการส่งปรึกษา</span>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span class="dropdown-count" id="checkCount">0</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </button>
+
+          <div class="dropdown-body" id="checklistBody">
+
+            <label class="check-item">
+              <input type="checkbox" onchange="updateCount()" />
+              <label>อาการทางจิตกำเริบหรือเปลี่ยนแปลงจากเดิม</label>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" onchange="updateCount()" />
+              <label>ความเสี่ยงต่อการทำร้ายตนเอง</label>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" onchange="updateCount()" />
+              <label>ความเสี่ยงต่อการทำร้ายผู้อื่นหรือพฤติกรรมรุนแรง</label>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" onchange="updateCount()" />
+              <label>ปัญหาการใช้ยา หรืออาการไม่พึงประสงค์จากยา</label>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" onchange="updateCount()" />
+              <label>ปัญหาการประเมินที่ซับซ้อนหรือไม่ชัดเจน</label>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" onchange="updateCount()" />
+              <label>ปัญหาด้านจิตสังคมและครอบครัวที่กระทบต่อการรักษา</label>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" onchange="updateCount()" />
+              <label>ความจำเป็นต้องปรับแผนการรักษาหรือการดูแล</label>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" onchange="updateCount()" />
+              <label>กรณีเร่งด่วนที่ต้องการความเห็นจิตแพทย์เพื่อความปลอดภัย</label>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" id="otherCheck" onchange="toggleOtherInput(this); updateCount();" />
+              <label>อื่นๆ (โปรดระบุ)</label>
+            </label>
+            <input type="text" class="other-input" id="otherInput" placeholder="กรอกรายละเอียดเพิ่มเติม..." />
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Medication -->
+      <div>
+        <div class="section-label">การรับประทานยา / รายยา</div>
+        <div class="select-group">
+          <select class="select-field">
+            <option>ทานไม่สม่ำเสมอ / ขาดยา</option>
+            <option>ทานยาสม่ำเสมอ</option>
+            <option>หยุดยาเอง</option>
+            <option>ไม่ทราบ</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 4. Substance Use -->
+      <div>
+        <div class="section-label">Substance Use</div>
+        <select class="select-field">
+          <option>ปฏิเสธการใช้</option>
+          <option>แอลกอฮอล์</option>
+          <option>สารเสพติด</option>
+          <option>บุหรี่</option>
+          <option>ไม่ทราบ</option>
+        </select>
+      </div>
+
+      <!-- 5. Risk Adjustment -->
+      <div>
+        <div class="section-label">ปรับระดับความเสี่ยง (Risk Adjustment)</div>
+        <div class="risk-group">
+          <button class="risk-btn low" onclick="setRisk(this)">Low Risk</button>
+          <button class="risk-btn med" onclick="setRisk(this)">Med Risk</button>
+          <button class="risk-btn high active" onclick="setRisk(this)">High Risk</button>
+        </div>
+      </div>
+
+      <!-- 6. Save -->
+      <button class="save-btn" onclick="saveNote()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+          <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+          <polyline points="17 21 17 13 7 13 7 21"/>
+          <polyline points="7 3 7 8 15 8"/>
+        </svg>
+        บันทึก &amp; ยืนยันการสรุป
+      </button>
+
+      <a href="#" class="tasks-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 11l3 3L22 4"/>
+          <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+        </svg>
+        ส่งมอบหมายงาน (Task)
+      </a>
+
+    </div>
+
+    <!-- Timeline tab (placeholder) -->
+    <div class="panel-content" id="tab-timeline" style="display:none;">
+      <div style="text-align:center;padding:48px 16px;color:var(--color-text-muted);">
+        <svg style="width:40px;height:40px;margin-bottom:12px;opacity:.4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <div style="font-size:14px;">Timeline จะแสดงหลังจากบันทึกอาการ</div>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toastMsg">บันทึกข้อมูลเรียบร้อยแล้ว</span>
+</div>
+
+<script>
+  /* ─── Call State ─────────────────────────────── */
+  let callStartTime = null;
+  let timerInterval = null;
+
+  function startCall() {
+    document.getElementById('idleOverlay').classList.add('hidden');
+    const callEl = document.getElementById('callActive');
+    callEl.classList.add('visible');
+
+    document.getElementById('liveBadge').classList.remove('hidden');
+    document.getElementById('callTimer').classList.add('active');
+
+    callStartTime = Date.now();
+    timerInterval = setInterval(updateTimer, 1000);
+    showToast('📹 เริ่มการโทรวิดีโอแล้ว');
+  }
+
+  function endCall() {
+    clearInterval(timerInterval);
+    document.getElementById('callActive').classList.remove('visible');
+    document.getElementById('idleOverlay').classList.remove('hidden');
+    document.getElementById('liveBadge').classList.add('hidden');
+    document.getElementById('callTimer').classList.remove('active');
+    document.getElementById('callTimer').textContent = '00:00';
+    showToast('📴 สิ้นสุดการโทรวิดีโอ');
+  }
+
+  function updateTimer() {
+    const elapsed = Math.floor((Date.now() - callStartTime) / 1000);
+    const m = String(Math.floor(elapsed / 60)).padStart(2,'0');
+    const s = String(elapsed % 60).padStart(2,'0');
+    document.getElementById('callTimer').textContent = `${m}:${s}`;
+  }
+
+  /* ─── Control Buttons ────────────────────────── */
+  function toggleControl(btn) {
+    btn.classList.toggle('muted');
+  }
+
+  /* ─── Checklist Dropdown ─────────────────────── */
+  function toggleDropdown() {
+    const trigger = document.getElementById('checklistTrigger');
+    const body = document.getElementById('checklistBody');
+    const isOpen = body.classList.toggle('open');
+    trigger.classList.toggle('open', isOpen);
+  }
+
+  function updateCount() {
+    const checked = document.querySelectorAll('#checklistBody input[type="checkbox"]:checked').length;
+    document.getElementById('checkCount').textContent = checked;
+  }
+
+  function toggleOtherInput(cb) {
+    const inp = document.getElementById('otherInput');
+    inp.classList.toggle('visible', cb.checked);
+    if (cb.checked) inp.focus();
+  }
+
+  /* ─── Risk Buttons ───────────────────────────── */
+  function setRisk(btn) {
+    document.querySelectorAll('.risk-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  /* ─── Tab Switch ─────────────────────────────── */
+  function switchTab(btn, tabId) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.panel-content').forEach(p => p.style.display='none');
+    document.getElementById('tab-' + tabId).style.display = 'flex';
+  }
+
+  /* ─── Save Note ──────────────────────────────── */
+  function saveNote() {
+    showToast('✅ บันทึกข้อมูลเรียบร้อยแล้ว');
+  }
+
+  /* ─── Toast ──────────────────────────────────── */
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    const parts = msg.split(' ');
+    document.querySelector('.toast-icon').textContent = parts[0];
+    document.getElementById('toastMsg').textContent = parts.slice(1).join(' ');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+</script>
+<script>
+// อ่านค่าจาก URL แล้วแสดงผล
+document.addEventListener('DOMContentLoaded', function () {
+    var params      = new URLSearchParams(window.location.search);
+    var patientName = params.get('name') || 'ไม่ระบุชื่อ';
+    var hn          = params.get('hn')   || '';
+    var risk        = params.get('risk') || 'Low Risk';
+
+    // อัปเดตทุก element ที่แสดงชื่อผู้ป่วย
+    document.querySelectorAll('[id="patientNameDisplay"], .patient-name, #callPatientName')
+        .forEach(function(el){ el.textContent = patientName; });
+
+    // อัปเดต HN
+    document.querySelectorAll('.patient-meta, #patientHN')
+        .forEach(function(el){ el.textContent = hn + ' · ผู้ป่วยนัดสัมภาษณ์'; });
+
+    // อัปเดต Risk badge
+    var riskColor = risk === 'High Risk' ? '#ef4444'
+                  : risk === 'Med Risk'  ? '#f59e0b'
+                  : '#22c55e';
+    document.querySelectorAll('.risk-badge, .risk-chip')
+        .forEach(function(el){
+            el.textContent        = risk;
+            el.style.background   = riskColor;
+        });
+
+    // อัปเดต Risk button ให้ active ตรงกัน
+    document.querySelectorAll('.risk-btn, .rbtn').forEach(function(btn){
+        btn.classList.remove('active', 'on');
+        if (btn.textContent.trim() === risk) btn.classList.add('active', 'on');
+    });
+});
+</script>
+</body>
+</html>
