@@ -4,140 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบ Telehealth — หน้าจอแพทย์</title>
-    <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; background: #F5F6FA; color: #1a1a2e; font-size: 14px; }
-a { color: inherit; }
-
-/* Layout */
-.app { display: flex; min-height: 100vh; }
-.sidebar { width: 100%; background: #0C3D6B; min-height: 100vh; padding: 24px 0; flex-shrink: 0; }
-.sidebar-logo { padding: 0 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 16px; }
-.sidebar-logo-title { color: #fff; font-size: 16px; font-weight: 600; }
-.sidebar-logo-sub { color: rgba(255,255,255,0.5); font-size: 11px; margin-top: 2px; }
-.sidebar-menu { list-style: none; }
-.sidebar-menu li a { display: flex; align-items: center; gap: 10px; padding: 10px 20px; color: rgba(255,255,255,0.65); font-size: 13px; text-decoration: none; transition: all 0.15s; }
-.sidebar-menu li a:hover, .sidebar-menu li a.active { background: rgba(255,255,255,0.1); color: #fff; }
-.sidebar-menu li a.active { border-left: 3px solid #5FB8FF; }
-.sidebar-section-label { padding: 14px 20px 6px; font-size: 10px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.06em; }
-.sidebar-icon { width: 16px; height: 16px; opacity: 0.8; }
-
-.topbar { background: #fff; border-bottom: 1px solid #E8EAF0; padding: 12px 28px; display: flex; align-items: center; justify-content: space-between; }
-.topbar-title { font-size: 16px; font-weight: 600; color: #0C3D6B; }
-.topbar-sub { font-size: 12px; color: #888; margin-top: 1px; }
-.topbar-right { display: flex; align-items: center; gap: 12px; }
-.doctor-badge { display: flex; align-items: center; gap: 8px; background: #EEF4FB; border-radius: 20px; padding: 6px 14px; }
-.doctor-badge span { font-size: 12px; color: #185FA5; font-weight: 500; }
-.content { padding: 0; width: 100%; box-sizing: border-box; }
-/* Metrics */
-.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
-.metric { background: #fff; border-radius: 10px; padding: 16px 18px; border: 1px solid #E8EAF0; }
-.metric-label { font-size: 12px; color: #888; margin-bottom: 8px; }
-.metric-val { font-size: 28px; font-weight: 700; line-height: 1; }
-.metric-sub { font-size: 11px; color: #aaa; margin-top: 4px; }
-.c-orange { color: #D97706; }
-.c-blue { color: #185FA5; }
-.c-green { color: #16A34A; }
-.c-gray { color: #444; }
-
-/* Tabs */
-.tabs { display: flex; gap: 0; background: #fff; border-radius: 10px 10px 0 0; border: 1px solid #E8EAF0; border-bottom: none; overflow: hidden; margin-bottom: 0; }
-.tab-btn { padding: 13px 22px; font-size: 13px; cursor: pointer; color: #666; background: none; border: none; border-bottom: 3px solid transparent; transition: all 0.15s; font-weight: 500; }
-.tab-btn.active { color: #0C3D6B; border-bottom-color: #185FA5; background: #F8FAFD; }
-.tab-btn:hover:not(.active) { color: #333; background: #F5F6FA; }
-
-/* Tab panels */
-.tab-panel { display: none; background: #fff; border-radius: 0 0 10px 10px; border: 1px solid #E8EAF0; padding: 20px; }
-.tab-panel.active { display: block; }
-
-/* Filters */
-.filters { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
-.filters input, .filters select { font-size: 13px; padding: 8px 12px; border: 1px solid #D0D5E8; border-radius: 7px; background: #fff; color: #333; outline: none; }
-.filters input:focus, .filters select:focus { border-color: #185FA5; box-shadow: 0 0 0 3px rgba(24,95,165,0.1); }
-.filters input[type=text] { flex: 1; min-width: 180px; }
-.filters select { min-width: 150px; }
-.filters input[type=date] { min-width: 145px; }
-.btn { font-size: 12px; padding: 8px 16px; border-radius: 7px; cursor: pointer; border: 1px solid #D0D5E8; background: #fff; color: #555; font-weight: 500; }
-.btn:hover { background: #F5F6FA; }
-.btn-primary { background: #185FA5; color: #fff; border-color: #185FA5; }
-.btn-primary:hover { background: #0C447C; }
-.btn-danger-outline { border-color: #C0392B; color: #C0392B; }
-.btn-danger-outline:hover { background: #FEF2F2; }
-
-/* Table */
-.tbl-wrap { border: 1px solid #E8EAF0; border-radius: 8px; overflow: hidden; }
-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-thead { background: #F8FAFD; }
-th { padding: 11px 12px; text-align: left; font-weight: 600; font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap; border-bottom: 1px solid #E8EAF0; }
-td { padding: 12px 12px; border-bottom: 1px solid #F0F2F7; vertical-align: middle; }
-tr:last-child td { border-bottom: none; }
-tr:hover td { background: #F8FAFD; cursor: pointer; }
-.pname { font-weight: 600; color: #1a1a2e; font-size: 13px; }
-.phn { font-size: 11px; color: #aaa; margin-top: 2px; }
-
-/* Badges */
-.badge { display: inline-flex; align-items: center; font-size: 11px; padding: 3px 9px; border-radius: 99px; font-weight: 600; white-space: nowrap; }
-.b-pending { background: #FEF3C7; color: #92400E; }
-.b-scheduled { background: #DBEAFE; color: #1D4ED8; }
-.b-done { background: #DCFCE7; color: #15803D; }
-.b-cancelled { background: #FEE2E2; color: #B91C1C; }
-.b-urgent { background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
-.auto-tag { font-size: 10px; color: #185FA5; display: flex; align-items: center; gap: 3px; margin-top: 3px; }
-.dot { width: 5px; height: 5px; border-radius: 50%; background: #185FA5; }
-
-/* No results */
-.no-results { text-align: center; padding: 100%; color: #aaa; font-size: 14px; }
-
-/* Modal */
-.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 999; align-items: center; justify-content: center; }
-.overlay.open { display: flex; }
-.modal { background: #fff; border-radius: 12px; width: min(580px, 94vw); max-height: 90vh; overflow-y: auto; padding: 28px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
-.modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
-.modal-title { font-size: 17px; font-weight: 700; color: #0C3D6B; }
-.modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: #aaa; line-height: 1; padding: 0; }
-.modal-close:hover { color: #333; }
-.sec-label { font-size: 10px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin: 18px 0 8px; padding-bottom: 6px; border-bottom: 1px solid #F0F2F7; }
-.detail-row { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13px; }
-.dlabel { color: #888; min-width: 140px; }
-.dval { color: #1a1a2e; font-weight: 500; flex: 1; }
-.symptom-box { background: #F8FAFD; border: 1px solid #E8EAF0; border-radius: 7px; padding: 12px 14px; font-size: 13px; line-height: 1.7; color: #333; margin-top: 4px; }
-.reason-list { display: flex; flex-direction: column; gap: 8px; }
-.reason-item { display: flex; align-items: center; gap: 10px; font-size: 13px; }
-.cb { width: 15px; height: 15px; border-radius: 4px; border: 2px solid #D0D5E8; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-.cb.on { background: #185FA5; border-color: #185FA5; }
-.cb.on::after { content: ''; display: block; width: 8px; height: 5px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translate(1px, -1px); }
-.modal-actions { display: flex; gap: 8px; margin-top: 22px; flex-wrap: wrap; }
-
-/* Calendar */
-.cal-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-.cal-nav button { background: #fff; border: 1px solid #D0D5E8; border-radius: 7px; padding: 7px 14px; cursor: pointer; font-size: 13px; color: #333; }
-.cal-nav button:hover { background: #F5F6FA; }
-.cal-month { font-size: 16px; font-weight: 700; color: #0C3D6B; }
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-.cal-dh { font-size: 11px; font-weight: 700; color: #888; text-align: center; padding: 6px 0; text-transform: uppercase; }
-.cal-day { min-height: 80px; border: 1px solid #E8EAF0; border-radius: 8px; padding: 8px; font-size: 12px; background: #fff; }
-.cal-day.empty { background: #F8FAFD; opacity: 0.5; }
-.cal-day.today { border-color: #185FA5; background: #EEF4FB; }
-.cal-daynum { font-size: 12px; font-weight: 600; color: #555; margin-bottom: 4px; }
-.cal-day.today .cal-daynum { color: #185FA5; }
-.cal-ev { font-size: 10px; padding: 2px 5px; border-radius: 4px; margin-bottom: 2px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background: #DBEAFE; color: #1D4ED8; }
-.cal-ev.urg { background: #FEE2E2; color: #991B1B; }
-
-/* Daily */
-.daily-day-header { font-size: 15px; font-weight: 700; color: #0C3D6B; margin-bottom: 4px; }
-.daily-day-sub { font-size: 12px; color: #888; margin-bottom: 16px; }
-.daily-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px; border: 1px solid #E8EAF0; border-radius: 10px; margin-bottom: 12px; background: #fff; }
-.daily-item:hover { border-color: #B5D4F4; background: #F8FAFD; }
-.dtime { font-size: 14px; font-weight: 700; color: #185FA5; min-width: 54px; padding-top: 2px; }
-.dinfo { flex: 1; }
-.dname { font-size: 14px; font-weight: 700; color: #1a1a2e; }
-.dmeta { font-size: 12px; color: #888; margin-top: 3px; }
-.dtags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
-.daily-actions { display: flex; flex-direction: column; gap: 6px; }
-.daily-actions button { font-size: 11px; padding: 7px 14px; border-radius: 7px; }
-.urgent-stripe { border-left: 4px solid #DC2626; }
-</style>
+    <title>SafeMind AI - Telehealth-รพ.สต</title>
+    
 
 
     <!-- Google Fonts: Sarabun -->
@@ -148,9 +16,10 @@ tr:hover td { background: #F8FAFD; cursor: pointer; }
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/telehealth_.css">
+    <link rel="stylesheet" href="css/telehealt_.css">
     <link rel="stylesheet" href="css/style-tele.css">
     <link rel="stylesheet" href="css/Telehealt.css">
+    <link rel="stylesheet" href="telehealth_doctor.css" />
     
 </head>
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
@@ -263,293 +132,463 @@ tr:hover td { background: #F8FAFD; cursor: pointer; }
         </div>
         <div class="sidebar-footer">v1.0.0 (Release)</div>
     </aside>
-<div class="content">
-      <!-- Metrics -->
-      <div class="metrics">
-        <div class="metric">
-          <div class="metric-label">คำขอทั้งหมด (เดือนนี้)</div>
-          <div class="metric-val c-gray">24</div>
-          <div class="metric-sub">จาก 5 รพ.สต.</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">รอดำเนินการ</div>
-          <div class="metric-val c-orange">8</div>
-          <div class="metric-sub">ยังไม่ได้นัดหมาย</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">นัดหมายวันนี้</div>
-          <div class="metric-val c-blue">3</div>
-          <div class="metric-sub">25 มี.ค. 2569</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">เสร็จสิ้นแล้ว</div>
-          <div class="metric-val c-green">13</div>
-          <div class="metric-sub">เดือนนี้</div>
-        </div>
-      </div>
 
-      <!-- Tabs -->
-      <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('requests',this)">&#x1F4CB; รายการคำขอ</button>
-        <button class="tab-btn" onclick="switchTab('calendar',this)">&#x1F4C5; ปฏิทินนัดหมาย</button>
-        <button class="tab-btn" onclick="switchTab('daily',this)">&#x23F0; รายการรายวัน</button>
-      </div>
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        <header class="top-header">
+            <div class="header-left">
+                <button class="toggle-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+                <div class="system-title">
+                    <h2>SafeMind AI <span class="env-badge">PROD</span></h2>
+                    <span>Smart Mental Health Ecosystem for SMI-V Care</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="nav-icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot"></span></button>
+                <div class="user-dropdown-container">
+                    <div class="user-profile" onclick="toggleUserMenu()">
+                        <div class="user-info"><span class="user-name">นพ.สมชาย ใจดี</span><span
+                                class="user-role">จิตแพทย์</span></div>
+                        <div class="user-avatar">S</div>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: rgba(255, 255, 255, 0.8);"></i>
+                    </div>
+                    <div class="dropdown-menu" id="userMenu">
+                        <a href="#" class="dropdown-item"><i class="fa-regular fa-user"></i> ดูโปรไฟล์</a>
+                        <a href="#" class="dropdown-item"><i class="fa-solid fa-gear"></i> ตั้งค่าบัญชี</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item danger"><i class="fa-solid fa-right-from-bracket"></i>
+                            ออกจากระบบ</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>หน้าจอแพทย์ – Telehealth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="telehealth_doctor.css" />
+</head>
+<body>
 
-      <!-- Request List -->
-      <div id="tab-requests" class="tab-panel active">
-        <div class="filters">
-          <input type="text" id="search-name" placeholder="&#x1F50D; ค้นหาชื่อผู้ป่วย..." oninput="filterTable()">
-          <select id="f-hosp" onchange="filterTable()">
-            <option value="">รพ.สต. ทั้งหมด</option>
-            <option>รพ.สต. บ้านกรวด</option>
-            <option>รพ.สต. หนองไผ่</option>
-            <option>รพ.สต. โนนสมบูรณ์</option>
-            <option>รพ.สต. ละลวด</option>
-            <option>รพ.สต. จรเข้มาก</option>
+  <!-- ===== Main Page Layout ===== -->
+<main class="page-layout">
+ 
+  <!-- ===== Left: Main Content ===== -->
+  <section>
+    <h1 class="page-title">หน้าจอแพทย์</h1>
+    <!-- Search Panel -->
+    <div class="card search-panel">
+      <div class="search-row">
+        <div class="field-group flex-1">
+          <label for="searchName">ชื่อคนไข้</label>
+          <input
+            id="searchName"
+            type="text"
+            class="form-input"
+            placeholder="ค้นหาชื่อคนไข้..."
+            oninput="filterTable()"/>
+        </div>
+ 
+        <div class="field-group">
+          <label for="searchHospital">รพ.สต.</label>
+          <select id="searchHospital" class="form-select" onchange="filterTable()">
+            <option value="">ทั้งหมด</option>
+            <option value="แสนสุข">รพ.สต. แสนสุข</option>
+            <option value="บ้านใหม่">รพ.สต. บ้านใหม่</option>
+            <option value="ดินแดง">รพ.สต. ดินแดง</option>
+            <option value="ท่าโขลง">รพ.สต. ท่าโขลง</option>
           </select>
-          <select id="f-status" onchange="filterTable()">
-            <option value="">สถานะทั้งหมด</option>
-            <option>รอดำเนินการ</option>
-            <option>นัดหมายแล้ว</option>
-            <option>เสร็จสิ้น</option>
-            <option>ยกเลิก</option>
-            <option>เร่งด่วน</option>
-          </select>
-          <input type="date" id="f-date" onchange="filterTable()" title="กรองตามวันนัดหมาย">
-          <button class="btn" onclick="clearFilters()">&#x2715; ล้างตัวกรอง</button>
         </div>
-
-        <div class="tbl-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>ชื่อ-นามสกุลผู้ป่วย</th>
-                <th>การวินิจฉัยโรค</th>
-                <th>รพ.สต.</th>
-                <th>สถานะ</th>
-                <th>นัดครั้งที่ 1</th>
-                <th>นัดครั้งที่ 2</th>
-                <th>วันที่ส่งคำขอ</th>
-              </tr>
-            </thead>
-            <tbody id="tbl-body"></tbody>
-          </table>
-          <div id="no-results" class="no-results" style="display:none;">ไม่พบรายการที่ตรงกับเงื่อนไขการค้นหา</div>
-        </div>
+ 
+        <button class="btn btn-primary" onclick="filterTable()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          ค้นหา
+        </button>
       </div>
-
-      <!-- Calendar -->
-      <div id="tab-calendar" class="tab-panel">
-        <div class="cal-nav">
-          <button onclick="changeMonth(-1)">&#8592; ก่อนหน้า</button>
-          <span class="cal-month" id="cal-title"></span>
-          <button onclick="changeMonth(1)">ถัดไป &#8594;</button>
+    </div>
+    <!-- Table Panel -->
+    <div class="card table-panel">
+      <div class="table-header-row">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="table-title">รายการคำขอ</span>
+          <span class="badge-count" id="countBadge">2</span>
         </div>
-        <div class="cal-grid" style="margin-bottom:6px;">
-          <div class="cal-dh">อา.</div><div class="cal-dh">จ.</div><div class="cal-dh">อ.</div>
-          <div class="cal-dh">พ.</div><div class="cal-dh">พฤ.</div><div class="cal-dh">ศ.</div><div class="cal-dh">ส.</div>
-        </div>
-        <div class="cal-grid" id="cal-body"></div>
+        <button class="btn btn-primary" style="height:36px;font-size:13px;" onclick="openAddModal()">
+          + เพิ่มคำขอ
+        </button>
       </div>
-
-      <!-- Daily -->
-      <div id="tab-daily" class="tab-panel">
-        <div class="daily-day-header">วันพุธที่ 25 มีนาคม 2569</div>
-        <div class="daily-day-sub">มีนัดหมาย Telehealth 3 ราย วันนี้</div>
-        <div id="daily-list"></div>
+      <table class="patient-table">
+        <thead>
+          <tr>
+            <th>ที่</th>
+            <th>รายการคำขอ</th>
+            <th>รพ.สต.</th>
+            <th>สถานะ</th>
+            <th>วันที่นัด</th>
+            <th>จัดการ</th>
+          </tr>
+        </thead>
+        <tbody id="patientTableBody">
+          <!-- Rows injected by JS -->
+        </tbody>
+      </table>
+       <div class="empty-state" id="emptyState" style="display:none;">
+        <div class="empty-icon">🔍</div>
+        <p>ไม่พบข้อมูลที่ค้นหา</p>
       </div>
+    </div>
+  </section>
+       <!-- ===== Modal: Add/Edit Request ===== -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">เพิ่มคำขอใหม่</span>
+      <button class="modal-close" onclick="closeModal('addModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-group">
+        <label>ชื่อคนไข้</label>
+        <input type="text" class="form-input" id="mPatientName" placeholder="ระบุชื่อ-นามสกุล" />
+      </div>
+      <div class="field-group">
+        <label>การวินิจฉัย (DX)</label>
+        <input type="text" class="form-input" id="mDx" placeholder="เช่น Schizophrenia, Depression" />
+      </div>
+      <div class="field-group">
+        <label>รพ.สต.</label>
+        <select class="form-select" id="mHospital" style="width:100%;">
+          <option value="รพ.สต. แสนสุข">รพ.สต. แสนสุข</option>
+          <option value="รพ.สต. บ้านใหม่">รพ.สต. บ้านใหม่</option>
+          <option value="รพ.สต. ดินแดง">รพ.สต. ดินแดง</option>
+          <option value="รพ.สต. ท่าโขลง">รพ.สต. ท่าโขลง</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>สถานะ</label>
+        <select class="form-select" id="mStatus" style="width:100%;">
+          <option value="waiting">รอนัดหมาย</option>
+          <option value="confirmed">นัดหมายแล้ว</option>
+          <option value="pending">รอดำเนินการ</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>วันที่นัด</label>
+        <input type="date" class="form-input" id="mDate" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('addModal')">ยกเลิก</button>
+      <button class="btn btn-primary" onclick="savePatient()">บันทึก</button>
     </div>
   </div>
 </div>
-
-<!-- Modal -->
-<div class="overlay" id="modal-bg" onclick="onOverlayClick(event)">
-  <div class="modal" id="modal-box"></div>
-</div>
-
-<script>
-const PATIENTS = [
-  { id:1, hn:'6701-00234', name:'นางสาวพรทิพย์ สุขใจ', age:52, dx:'เบาหวานชนิดที่ 2 / ความดันโลหิตสูง', hosp:'รพ.สต. บ้านกรวด', status:'รอดำเนินการ', appt1:'', appt2:'', reqDate:'18/03/2569', symptom:'ระดับน้ำตาลในเลือดสูงต่อเนื่อง ปวดศีรษะ มึนงง ไม่มีแรง', reasons:['ปรึกษาปรับยา','ติดตามอาการ','ผู้ป่วยพิการเดินทางลำบาก'], source:'auto' },
-  { id:2, hn:'6701-00198', name:'นายสมบัติ ดีใจ', age:67, dx:'โรคหัวใจขาดเลือดเรื้อรัง', hosp:'รพ.สต. หนองไผ่', status:'เร่งด่วน', appt1:'25/03/2569 09:00', appt2:'', reqDate:'20/03/2569', symptom:'แน่นหน้าอกเป็นพักๆ เหนื่อยง่ายกว่าปกติ', reasons:['อาการแย่ลง','ปรึกษาปรับยา'], source:'manual' },
-  { id:3, hn:'6701-00312', name:'นางวิไล มีสุข', age:44, dx:'ความดันโลหิตสูง', hosp:'รพ.สต. โนนสมบูรณ์', status:'นัดหมายแล้ว', appt1:'25/03/2569 10:30', appt2:'08/04/2569 10:30', reqDate:'15/03/2569', symptom:'ปวดศีรษะท้ายทอย วัดความดันได้ 160/95 mmHg', reasons:['ติดตามอาการ','ปรึกษาปรับยา'], source:'manual' },
-  { id:4, hn:'6701-00445', name:'นายประสิทธิ์ เจริญ', age:71, dx:'เบาหวาน / ไตเรื้อรัง ระยะ 3', hosp:'รพ.สต. ละลวด', status:'นัดหมายแล้ว', appt1:'25/03/2569 13:00', appt2:'', reqDate:'19/03/2569', symptom:'บวมขา อ่อนเพลีย ค่าไตผิดปกติ creatinine 3.2', reasons:['ส่งปรึกษาแพทย์เฉพาะทาง','ปรึกษาปรับยา','ผู้ป่วยพิการเดินทางลำบาก'], source:'auto' },
-  { id:5, hn:'6701-00511', name:'นางสาวอรอุมา ทองดี', age:29, dx:'โรคซึมเศร้า', hosp:'รพ.สต. จรเข้มาก', status:'เสร็จสิ้น', appt1:'10/03/2569 14:00', appt2:'24/03/2569 14:00', reqDate:'05/03/2569', symptom:'นอนไม่หลับ เบื่ออาหาร ไม่มีแรง อยากอยู่คนเดียว ไม่มีแรงจูงใจ', reasons:['ติดตามอาการ','ปรึกษาปรับยา'], source:'manual' },
-  { id:6, hn:'6701-00678', name:'นายอนุชา รักษ์ไทย', age:58, dx:'COPD', hosp:'รพ.สต. บ้านกรวด', status:'รอดำเนินการ', appt1:'', appt2:'', reqDate:'22/03/2569', symptom:'ไอมีเสมหะมาก หอบเหนื่อย ออกแรงได้น้อยลงอย่างเห็นได้ชัด', reasons:['อาการแย่ลง','ส่งปรึกษาแพทย์เฉพาะทาง'], source:'manual' },
-  { id:7, hn:'6701-00702', name:'นางบุญมา สดชื่น', age:63, dx:'เบาหวาน ผู้ป่วยติดเตียง', hosp:'รพ.สต. หนองไผ่', status:'รอดำเนินการ', appt1:'', appt2:'', reqDate:'23/03/2569', symptom:'แผลเบาหวานที่เท้าไม่ยอมหาย มีบวมแดง อาจติดเชื้อ', reasons:['ผู้ป่วยพิการเดินทางลำบาก','อาการแย่ลง'], source:'auto' },
-  { id:8, hn:'6701-00810', name:'นายกิตติพงษ์ วงศ์ใหญ่', age:35, dx:'ความดันโลหิตสูง', hosp:'รพ.สต. โนนสมบูรณ์', status:'ยกเลิก', appt1:'01/03/2569 11:00', appt2:'', reqDate:'25/02/2569', symptom:'ปวดศีรษะ มึนงง วัดความดัน 145/90 mmHg', reasons:['ติดตามอาการ'], source:'manual' },
-  { id:9, hn:'6701-00923', name:'นางสมศรี แก้วงาม', age:55, dx:'ไขมันในเลือดสูง / น้ำหนักเกิน', hosp:'รพ.สต. ละลวด', status:'รอดำเนินการ', appt1:'', appt2:'', reqDate:'24/03/2569', symptom:'น้ำหนักขึ้นต่อเนื่อง ค่า LDL สูง 198 mg/dl', reasons:['ปรึกษาปรับยา','ติดตามอาการ'], source:'manual' },
-  { id:10, hn:'6701-01044', name:'นายวิชัย ประเสริฐ', age:49, dx:'โรคไตเรื้อรัง ระยะ 2', hosp:'รพ.สต. จรเข้มาก', status:'เสร็จสิ้น', appt1:'05/03/2569 09:00', appt2:'19/03/2569 09:00', reqDate:'28/02/2569', symptom:'บวมขาเล็กน้อย ผลเลือดผิดปกติ creatinine สูง ค่า GFR ต่ำ', reasons:['ส่งปรึกษาแพทย์เฉพาะทาง','ติดตามอาการ'], source:'auto' }
-];
-
-const ALL_REASONS = ['ปรึกษาปรับยา','ติดตามอาการ','อาการแย่ลง','ส่งปรึกษาแพทย์เฉพาะทาง','ผู้ป่วยพิการเดินทางลำบาก'];
-
-const STATUS_CLASS = {'รอดำเนินการ':'b-pending','นัดหมายแล้ว':'b-scheduled','เสร็จสิ้น':'b-done','ยกเลิก':'b-cancelled','เร่งด่วน':'b-urgent'};
-
-function badge(s) {
-  return `<span class="badge ${STATUS_CLASS[s]||'b-pending'}">${s}</span>`;
-}
-
-function renderTable(data) {
-  const tbody = document.getElementById('tbl-body');
-  const noRes = document.getElementById('no-results');
-  if (!data.length) { tbody.innerHTML=''; noRes.style.display='block'; return; }
-  noRes.style.display='none';
-  tbody.innerHTML = data.map((p,i) => `
-    <tr onclick="openModal(${p.id})">
-      <td style="color:#aaa;font-size:11px;width:30px;">${i+1}</td>
-      <td>
-        <div class="pname">${p.name}</div>
-        <div class="phn">HN: ${p.hn} &nbsp;·&nbsp; ${p.age} ปี</div>
-        ${p.source==='auto'?'<div class="auto-tag"><span class="dot"></span>เชื่อมอัตโนมัติ</div>':''}
-      </td>
-      <td style="max-width:155px;font-size:12px;">${p.dx}</td>
-      <td style="font-size:12px;white-space:nowrap;">${p.hosp}</td>
-      <td>${badge(p.status)}</td>
-      <td style="font-size:12px;color:${p.appt1?'#185FA5':'#ccc'};">${p.appt1||'—'}</td>
-      <td style="font-size:12px;color:${p.appt2?'#16A34A':'#ccc'};">${p.appt2||'—'}</td>
-      <td style="font-size:11px;color:#999;">${p.reqDate}</td>
-    </tr>`).join('');
-}
-
-function filterTable() {
-  const name = document.getElementById('search-name').value.toLowerCase();
-  const hosp = document.getElementById('f-hosp').value;
-  const status = document.getElementById('f-status').value;
-  const date = document.getElementById('f-date').value;
-  let filtered = PATIENTS.filter(p => {
-    if (name && !p.name.toLowerCase().includes(name)) return false;
-    if (hosp && p.hosp !== hosp) return false;
-    if (status && p.status !== status) return false;
-    if (date) {
-      const yr = parseInt(date.split('-')[0])+543;
-      const mm = date.split('-')[1];
-      const dd = date.split('-')[2];
-      const ds = `${dd}/${mm}/${yr}`;
-      if (!p.appt1.startsWith(ds) && !p.appt2.startsWith(ds)) return false;
-    }
-    return true;
-  });
-  renderTable(filtered);
-}
-
-function clearFilters() {
-  ['search-name','f-hosp','f-status','f-date'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = '';
-  });
-  renderTable(PATIENTS);
-}
-
-function openModal(id) {
-  const p = PATIENTS.find(x=>x.id===id);
-  if (!p) return;
-  document.getElementById('modal-box').innerHTML = `
+ 
+<!-- ===== Modal: Add Appointment ===== -->
+<div class="modal-overlay" id="appoModal">
+  <div class="modal-box">
     <div class="modal-header">
-      <div>
-        <div class="modal-title">รายละเอียดคำขอ Telehealth</div>
-        <div style="font-size:12px;color:#888;margin-top:3px;">${p.hn} &nbsp;|&nbsp; วันที่ส่งคำขอ ${p.reqDate}</div>
+      <span class="modal-title">ลงนัดหมายใหม่</span>
+      <button class="modal-close" onclick="closeModal('appoModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-group">
+        <label>ชื่อคนไข้</label>
+        <input type="text" class="form-input" id="aPatientName" placeholder="ระบุชื่อคนไข้" />
       </div>
-      <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+      <div class="field-group">
+        <label>เวลานัด</label>
+        <input type="time" class="form-input" id="aTime" value="09:00" />
+      </div>
+      <div class="field-group">
+        <label>รพ.สต.</label>
+        <select class="form-select" id="aHospital" style="width:100%;">
+          <option value="รพ.สต. แสนสุข">รพ.สต. แสนสุข</option>
+          <option value="รพ.สต. บ้านใหม่">รพ.สต. บ้านใหม่</option>
+          <option value="รพ.สต. ดินแดง">รพ.สต. ดินแดง</option>
+          <option value="รพ.สต. ท่าโขลง">รพ.สต. ท่าโขลง</option>
+        </select>
+      </div>
     </div>
-    <div class="sec-label">ข้อมูลผู้ป่วย</div>
-    <div class="detail-row"><span class="dlabel">ชื่อ-นามสกุล</span><span class="dval">${p.name}</span></div>
-    <div class="detail-row"><span class="dlabel">HN / อายุ</span><span class="dval">${p.hn} &nbsp;|&nbsp; ${p.age} ปี</span></div>
-    <div class="detail-row"><span class="dlabel">การวินิจฉัยโรค</span><span class="dval">${p.dx}</span></div>
-    <div class="detail-row"><span class="dlabel">รพ.สต. ที่ส่งคำขอ</span><span class="dval">${p.hosp}</span></div>
-    <div class="detail-row"><span class="dlabel">ที่มาของข้อมูล</span><span class="dval">${p.source==='auto'?'<span style="color:#185FA5;font-size:12px;">&#x25CF; เชื่อมจากระบบติดตามเยี่ยมบ้านอัตโนมัติ</span>':'กรอกข้อมูลโดยเจ้าหน้าที่'}</span></div>
-    <div class="sec-label">อาการเบื้องต้นของผู้ป่วย</div>
-    <div class="symptom-box">${p.symptom}</div>
-    <div class="sec-label">เหตุผลที่ขอ Telehealth</div>
-    <div class="reason-list">
-      ${ALL_REASONS.map(r=>`<div class="reason-item"><div class="cb ${p.reasons.includes(r)?'on':''}"></div><span>${r}</span></div>`).join('')}
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('appoModal')">ยกเลิก</button>
+      <button class="btn btn-primary" onclick="saveAppointment()">บันทึก</button>
     </div>
-    <div class="sec-label">ข้อมูลการนัดหมาย</div>
-    <div class="detail-row"><span class="dlabel">นัดหมายครั้งที่ 1</span><span class="dval" style="color:${p.appt1?'#185FA5':'#bbb'};">${p.appt1||'ยังไม่ได้นัดหมาย'}</span></div>
-    <div class="detail-row"><span class="dlabel">นัดหมายครั้งที่ 2</span><span class="dval" style="color:${p.appt2?'#16A34A':'#bbb'};">${p.appt2||'ยังไม่ได้นัดหมาย'}</span></div>
-    <div class="detail-row"><span class="dlabel">สถานะปัจจุบัน</span><span class="dval">${badge(p.status)}</span></div>
-    <div class="modal-actions">
-      ${['รอดำเนินการ','เร่งด่วน'].includes(p.status)?`<button class="btn btn-primary">&#x1F4C5; นัดหมาย Telehealth</button>`:''}
-      <button class="btn">&#x1F4CB; ดูประวัติผู้ป่วย</button>
-      <button class="btn">&#x1F5A8; พิมพ์ใบส่งตัว</button>
-      ${p.status==='นัดหมายแล้ว'?`<button class="btn btn-primary" style="background:#16A34A;border-color:#16A34A;">&#x1F4F9; เริ่ม Telehealth</button>`:''}
-    </div>
-  `;
-  document.getElementById('modal-bg').classList.add('open');
-}
-
-function closeModal() { document.getElementById('modal-bg').classList.remove('open'); }
-function onOverlayClick(e) { if (e.target===document.getElementById('modal-bg')) closeModal(); }
-
-// Calendar
-let cMonth=2, cYear=2026;
-const TH_MONTHS=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
-const CAL_EVENTS={
-  '2026-03-25':[{t:'09:00 น. นายสมบัติ',u:true},{t:'10:30 น. นางวิไล'},{t:'13:00 น. นายประสิทธิ์'}],
-  '2026-03-28':[{t:'09:30 น. นางสาวพรทิพย์'},{t:'14:00 น. นายอนุชา'}],
-  '2026-04-01':[{t:'10:00 น. นางบุญมา',u:true}],
-  '2026-04-08':[{t:'10:30 น. นางวิไล'}],
-};
-
-function renderCal() {
-  document.getElementById('cal-title').textContent = `${TH_MONTHS[cMonth]} ${cYear+543}`;
-  const first = new Date(cYear,cMonth,1).getDay();
-  const days = new Date(cYear,cMonth+1,0).getDate();
-  let html = '';
-  for(let i=0;i<first;i++) html+=`<div class="cal-day empty"></div>`;
-  for(let d=1;d<=days;d++) {
-    const k=`${cYear}-${String(cMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const isT=k==='2026-03-25';
-    const ev=CAL_EVENTS[k]||[];
-    html+=`<div class="cal-day ${isT?'today':''}"><div class="cal-daynum">${d}</div>${ev.map(e=>`<div class="cal-ev${e.u?' urg':''}">${e.t}</div>`).join('')}</div>`;
+  </div>
+</div>
+<!-- ===== Toast ===== -->
+<div class="toast" id="toast">✓ บันทึกสำเร็จ</div>
+ 
+<!-- ===== JavaScript ===== -->
+<script>
+  // =============================================
+  //  DATA
+  // =============================================
+  const STATUS = {
+    waiting:   { label: 'รอนัดหมาย',   cls: 'waiting'   },
+    confirmed: { label: 'นัดหมายแล้ว', cls: 'confirmed' },
+    pending:   { label: 'รอดำเนินการ', cls: 'pending'   },
+  };
+ 
+  let patients = [
+    { id: 1, name: 'นาย ก.',     dx: 'Schizophrenia', hospital: 'รพ.สต. แสนสุข', status: 'waiting',   date: '2026-03-28' },
+    { id: 2, name: 'นาง ข.',     dx: 'Depression',    hospital: 'รพ.สต. บ้านใหม่', status: 'confirmed', date: '2026-03-28' },
+    { id: 3, name: 'นาย ค.',     dx: 'Anxiety',       hospital: 'รพ.สต. ดินแดง',  status: 'pending',   date: '2026-03-29' },
+  ];
+ 
+  let appointments = [
+    { id: 1, time: '13:30', patient: 'นาย ก. (นามสมมติ)', hospital: 'รพ.สต. แสนสุข', accent: false },
+    { id: 2, time: '14:15', patient: 'นางสาว ข.',          hospital: 'รพ.สต. ดินแดง',  accent: true  },
+  ];
+ 
+  let editingId  = null;
+  let selectedDate = new Date();
+  let nextPatId  = patients.length + 1;
+  let nextAppoId = appointments.length + 1;
+ 
+  // =============================================
+  //  TABLE RENDER
+  // =============================================
+  function formatDate(dateStr) {
+    if (!dateStr) return '-';
+    const [y, m, d] = dateStr.split('-');
+    return `${d}/${m}/${y}`;
   }
-  document.getElementById('cal-body').innerHTML=html;
-}
-
-function changeMonth(d) {
-  cMonth+=d;
-  if(cMonth>11){cMonth=0;cYear++;}
-  if(cMonth<0){cMonth=11;cYear--;}
-  renderCal();
-}
-
-// Daily
-const DAILY=[
-  { time:'09:00', name:'นายสมบัติ ดีใจ', age:67, dx:'โรคหัวใจขาดเลือดเรื้อรัง', hosp:'รพ.สต. หนองไผ่', status:'เร่งด่วน', reasons:['อาการแย่ลง','ปรึกษาปรับยา'], urgent:true },
-  { time:'10:30', name:'นางวิไล มีสุข', age:44, dx:'ความดันโลหิตสูง', hosp:'รพ.สต. โนนสมบูรณ์', status:'นัดหมายแล้ว', reasons:['ติดตามอาการ','ปรึกษาปรับยา'], urgent:false },
-  { time:'13:00', name:'นายประสิทธิ์ เจริญ', age:71, dx:'เบาหวาน / ไตเรื้อรัง ระยะ 3', hosp:'รพ.สต. ละลวด', status:'นัดหมายแล้ว', reasons:['ส่งปรึกษาแพทย์เฉพาะทาง'], urgent:false },
-];
-
-function renderDaily() {
-  document.getElementById('daily-list').innerHTML = DAILY.map(s=>`
-    <div class="daily-item${s.urgent?' urgent-stripe':''}">
-      <div class="dtime">${s.time}</div>
-      <div class="dinfo">
-        <div class="dname">${s.name} <span style="font-size:11px;font-weight:400;color:#888;">(${s.age} ปี)</span></div>
-        <div class="dmeta">${s.dx} &nbsp;·&nbsp; ${s.hosp}</div>
-        <div class="dtags">
-          ${badge(s.status)}
-          ${s.reasons.map(r=>`<span class="badge" style="background:#F0F2F7;color:#555;">${r}</span>`).join('')}
-        </div>
-      </div>
-      <div class="daily-actions">
-        <button class="btn btn-primary" style="font-size:11px;">&#x1F4F9; เริ่ม Telehealth</button>
-        <button class="btn" style="font-size:11px;">&#x1F4CB; ดูรายละเอียด</button>
-      </div>
-    </div>`).join('');
-}
-
-function switchTab(id, el) {
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  if(el) el.classList.add('active');
-  document.getElementById('tab-'+id).classList.add('active');
-}
-
-// Init
-renderTable(PATIENTS);
-renderCal();
-renderDaily();
-</script>
-</body>
-</html>
+ 
+  function renderTable(data) {
+    const tbody = document.getElementById('patientTableBody');
+    const empty = document.getElementById('emptyState');
+    document.getElementById('countBadge').textContent = data.length;
+ 
+    if (data.length === 0) {
+      tbody.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+ 
+    tbody.innerHTML = data.map((p, i) => {
+      const st = STATUS[p.status] || STATUS.waiting;
+      return `
+        <tr>
+          <td>${i + 1}</td>
+          <td>
+            <div class="patient-name">${escHtml(p.name)}</div>
+            <div class="patient-dx">DX: ${escHtml(p.dx)}</div>
+          </td>
+          <td><span class="hospital-name">${escHtml(p.hospital)}</span></td>
+          <td><span class="status-badge ${st.cls}">${st.label}</span></td>
+          <td><span class="date-cell">${formatDate(p.date)}</span></td>
+          <td>
+            <div class="action-group">
+              <button class="btn-action btn-call" onclick="callPatient(${p.id})">
+                📞 รับสาย
+              </button>
+              <button class="btn-action btn-appoint" onclick="editPatient(${p.id})">
+                📅 นัดหมาย
+              </button>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+  }
+ 
+  function filterTable() {
+    const name = document.getElementById('searchName').value.toLowerCase().trim();
+    const hosp = document.getElementById('searchHospital').value;
+ 
+    const filtered = patients.filter(p => {
+      const matchName = !name || p.name.toLowerCase().includes(name) || p.dx.toLowerCase().includes(name);
+      const matchHosp = !hosp || p.hospital.includes(hosp);
+      return matchName && matchHosp;
+    });
+ 
+    renderTable(filtered);
+  }
+ 
+  // =============================================
+  //  SIDEBAR CALENDAR
+  // =============================================
+  function buildDateStrip() {
+    const strip = document.getElementById('dateStrip');
+    const dayNames = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
+    const today = new Date();
+    const days = [];
+ 
+    for (let i = -2; i <= 6; i++) {
+      const d = new Date(today);
+      d.setDate(today.getDate() + i);
+      days.push(d);
+    }
+ 
+    strip.innerHTML = days.map(d => {
+      const isActive = d.toDateString() === selectedDate.toDateString();
+      return `
+        <div class="date-chip${isActive ? ' active' : ''}" onclick="selectDate(this, '${d.toISOString()}')">
+          <span class="day-name">${dayNames[d.getDay()]}</span>
+          <span class="day-num">${d.getDate()}</span>
+        </div>`;
+    }).join('');
+  }
+ 
+  function selectDate(el, isoStr) {
+    selectedDate = new Date(isoStr);
+    document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+  }
+ 
+  function renderCalList() {
+    const list = document.getElementById('calList');
+    if (appointments.length === 0) {
+      list.innerHTML = '<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:20px 0;">ไม่มีนัดหมายในวันนี้</div>';
+      return;
+    }
+    list.innerHTML = appointments
+      .sort((a, b) => a.time.localeCompare(b.time))
+      .map(a => `
+        <div class="cal-item${a.accent ? ' accent' : ''}">
+          <div class="cal-item-time">${escHtml(a.time)}</div>
+          <div class="cal-item-info">
+            <div class="cal-item-patient">${escHtml(a.patient)}</div>
+            <div class="cal-item-hospital">${escHtml(a.hospital)}</div>
+          </div>
+        </div>`).join('');
+  }
+ 
+  // =============================================
+  //  MODAL: Add / Edit Patient
+  // =============================================
+  function openAddModal() {
+    editingId = null;
+    document.getElementById('modalTitle').textContent = 'เพิ่มคำขอใหม่';
+    document.getElementById('mPatientName').value = '';
+    document.getElementById('mDx').value = '';
+    document.getElementById('mHospital').value = 'รพ.สต. แสนสุข';
+    document.getElementById('mStatus').value = 'waiting';
+    document.getElementById('mDate').value = new Date().toISOString().split('T')[0];
+    openModal('addModal');
+  }
+ 
+  function editPatient(id) {
+    const p = patients.find(x => x.id === id);
+    if (!p) return;
+    editingId = id;
+    document.getElementById('modalTitle').textContent = 'แก้ไขนัดหมาย';
+    document.getElementById('mPatientName').value = p.name;
+    document.getElementById('mDx').value = p.dx;
+    document.getElementById('mHospital').value = p.hospital;
+    document.getElementById('mStatus').value = p.status;
+    document.getElementById('mDate').value = p.date;
+    openModal('addModal');
+  }
+ 
+  function savePatient() {
+    const name = document.getElementById('mPatientName').value.trim();
+    const dx   = document.getElementById('mDx').value.trim();
+    const hosp = document.getElementById('mHospital').value;
+    const stat = document.getElementById('mStatus').value;
+    const date = document.getElementById('mDate').value;
+ 
+    if (!name) { alert('กรุณาระบุชื่อคนไข้'); return; }
+ 
+    if (editingId) {
+      const p = patients.find(x => x.id === editingId);
+      Object.assign(p, { name, dx, hospital: hosp, status: stat, date });
+      showToast('✓ แก้ไขข้อมูลสำเร็จ', 'success');
+    } else {
+      patients.push({ id: nextPatId++, name, dx, hospital: hosp, status: stat, date });
+      showToast('✓ เพิ่มคำขอสำเร็จ', 'success');
+    }
+ 
+    closeModal('addModal');
+    filterTable();
+  }
+ 
+  // =============================================
+  //  MODAL: Add Appointment
+  // =============================================
+  function openAddAppoModal() {
+    document.getElementById('aPatientName').value = '';
+    document.getElementById('aTime').value = '09:00';
+    document.getElementById('aHospital').value = 'รพ.สต. แสนสุข';
+    openModal('appoModal');
+  }
+ 
+  function saveAppointment() {
+    const patient  = document.getElementById('aPatientName').value.trim();
+    const time     = document.getElementById('aTime').value;
+    const hospital = document.getElementById('aHospital').value;
+ 
+    if (!patient) { alert('กรุณาระบุชื่อคนไข้'); return; }
+ 
+    appointments.push({ id: nextAppoId++, time, patient, hospital, accent: nextAppoId % 2 === 0 });
+    closeModal('appoModal');
+    renderCalList();
+    showToast('✓ ลงนัดหมายสำเร็จ', 'success');
+  }
+ 
+  // =============================================
+  //  CALL PATIENT
+  // =============================================
+  function callPatient(id) {
+    const p = patients.find(x => x.id === id);
+    if (!p) return;
+    showToast(`📞 กำลังโทรหา ${p.name}...`, 'warning');
+  }
+ 
+  // =============================================
+  //  UTILS
+  // =============================================
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+  }
+ 
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+ 
+  // Close modal when clicking overlay
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) overlay.classList.remove('open');
+    });
+  });
+ 
+  function setNav(el) {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+  }
+ 
+  let toastTimer;
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `toast ${type} show`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+  }
+ 
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+ 
+  // =============================================
+  //  INIT
+  // =============================================
+  function init() {
+    // Set default date input to today
+    document.getElementById('mDate').value = new Date().toISOString().split('T')[0];
+    renderTable(patients);
+    buildDateStrip();
+    renderCalList();
+  }
+ 
+  init();
+</script>            
